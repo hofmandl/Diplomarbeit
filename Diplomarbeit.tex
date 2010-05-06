@@ -1,11 +1,14 @@
 \documentclass[pdftex,a4paper]{scrartcl}
 
-\usepackage{ngerman}
+% \usepackage{ngerman}
 \usepackage[latin1]{inputenc}
 \usepackage[T1]{fontenc}
 
-\title{Portfolio irgendwas}
-\author{Martin BÃ¶schen}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{mathtools}
+
+\title{Portfoliooptimierung}
+\author{Martin Böschen}
 
 \begin{document}
 
@@ -15,13 +18,61 @@
 
 \section{Einleitung}
 
-Dies ist das erste Beispieldokument.
+Sei $X$ der Vermögensprozess zur Handelsstrategie $\pi$ im Black-Scholes Modell. Sei $U$ eine Nutzenfunktion. Dann nennen wir
+\begin{equation}
+  \text{max}_{\pi} E(U(X^{\pi}(T)))
+\end{equation}
+das \emph{klassische Portfoliooptimierungsproblem}. Sei $\tau$ eine Stoppzeit, zu der der Markt crasht. Dann nennen wir 
+\begin{equation}
+  \text{max}_{\pi} \text{min}_{\tau} E(U(X^{\pi\tau}(T)))
+\end{equation}
+das \emph{Worst-Case Portfoliooptimierungsproblem}. In dieser Arbeit möchte ich das klassische Problem und dessen 
+Lösung mittels stochastischer Kontrolltehorie diskutieren. Danach betrachte ich die Erweiterung von Korn auf das 
+Worst-Case-Problem, dass zunächst mit ganz anderen Methoden als den HJB-Gleichungen gelöst wurde. Schliesslich
+betrachten wir dann die Lösung mittels HJB-Gleichungen. Dabei möchte ich die Ergebnisse der verschiedenen
+Ansätze vergleichen, welche Vorteile die jeweiligen Herangehensweisen bieten und insbesondere auch die Unterschiede in den
+Beweisen vergleichen.
+
+Als laufendes Beispiel soll zu jeder der drei Aussagen die logaritmische Nutzenfunktion diskutiert werden.
+
+Schliesslich möchte ich durch einige Zufallssimulationen die Ergebnisse nochmal veranschaulichen.
+
+Weitere Aspekte die diskutiert werden könnten:
+
+\begin{itemize}
+ \item Further aspects in Korn, 2007, seite 16
+ \item Further possible refinements, Korn/willmott, seite 183
+ \item Durchgehen des Verifikationssatzes mit logaritmischen nutzen, Korn, 2007, seite 9
+ \item Best constant portfolio process, Korn/Menkens, seite 133
+ \item Formulierung des Worst-Case-Problem als optimal-stopping-problem
+\end{itemize}
+
+
+
 \section{Portfoliooptimierung in kontinuirlicher Zeit mit stochastischer Steuerung und HJB-Gleichungen}
+\subsection{Stochastische Steuerung}
+\subsection{Anwendung auf das Portfolioproblem}
+\subsection{Explizite Lösung für logaritmischen Nutzen}
 
-\section{Ein spieltheoretischer MaxMin-Ansatz zur Lsung des Portfolioproblems}
+\section{Ein spieltheoretischer MaxMin-Ansatz zur Lösung des Portfolioproblems}
+\subsection{Lösung des Problems}
+\subsection{Explizite Lösung für logaritmischen Nutzen}
 
-\section{bertragung des MaxMin-Ansatzes in das HJB-Setting}
+\section{Übertragung des MaxMin-Ansatzes in das HJB-Setting}
+\subsection{Lösung des Problems}
+\subsection{Explizite Lösung für logaritmischen Nutzen}
 
 \section{Simulationen}
+
+\begin{thebibliography}{999}
+	\bibitem{Korn1} Korn: "Optimal Portfolios", 1997
+	\bibitem{Korn2} Korn/Willmott: "Optimal Portfolios under the Threat of Crash", 2002
+	\bibitem{Korn3} Korn/Menkens: "Worst-Case Scebario Portfolio Optimization", 2005
+	\bibitem{Korn4} Korn/Menkens: "Worst-Case Scebario Portfolio Optimization and HJB-Systems", 2007
+	\bibitem{Korn5} Korn/Korn: "Optionsbewertung und Portfoliooptimierung", 2001
+	\bibitem{Günther} Günther/Jüngel: "Finanzderivate mit Matlab", 2003
+	\bibitem{Oksendal} Oksendal: "Stochastic Differential Equations"
+	\bibitem{Fleming} Fleming: Controlled Markov Processes and Viscosity Solutions, 1993 
+\end{thebibliography}
 
 \end{document}
