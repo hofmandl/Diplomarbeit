@@ -1,41 +1,235 @@
-\documentclass[pdftex,a4paper]{scrartcl}
+\documentclass[pdftex,a4paper]{report}
 
 % \usepackage{ngerman}
 \usepackage[latin1]{inputenc}
 \usepackage[T1]{fontenc}
 
 \usepackage{amsmath, amsthm, amssymb}
-\usepackage{mathtools}
+\usepackage{cancel}
 
-\title{Portfoliooptimierung}
+\newtheorem{sa}{Satz}
+
+
+
+\title{Lösungsansätze für das Worst-Case-Portfoliooptimierungsproblem}
 \author{Martin Böschen}
 
 \begin{document}
+
+\newcommand{\einhalb}{\frac{1}{2}}
+\newcommand{\pistern}{\frac{\pi-\mu}{\sigma^2}}
+\newcommand{\pidach}{\hat{\pi}}
 
 \maketitle
 
 \tableofcontents
 
-\section{Einleitung}
+\chapter{Einleitung}
 
-Sei $X$ der Vermögensprozess zur Handelsstrategie $\pi$ im Black-Scholes Modell. Sei $U$ eine Nutzenfunktion. Dann nennen wir
-\begin{equation}
-  \text{max}_{\pi} E(U(X^{\pi}(T)))
+Sei $ (\Omega,F,P) $ ein Wahrscheinlichkeitsraum. Sei $W$ eine auf diesen Raum definierte Brownsche
+Bewegung. Wir betrachten das Black-Scholes-Marktmodell mit einer Aktie und konstanten Koeffizienten, die
+Preisprozesse seien also durch die folgenden Gleichungen gegeben:
+\begin{align*}
+ dB(t) &= r B(t) dt \\
+  B(0) &= 1         \\
+ dS(t) &= S(t)(\alpha dt + \sigma dW(t)) \\
+  S(0) &= s_0
+\end{align*}
+
+Sei $X$ der Vermögensprozess zur Handelsstrategie $\pi$. Er ist durch folgende Differentialgleichung gegeben:
+\begin{align*}
+ dX(t) &= X(t)(r dt + \pi(t)(\alpha -r) dt + \sigma dW(t)) \\
+  X(0) &= x_0
+\end{align*}
+Sei $U$ eine Nutzenfunktion. Dann nennen wir
+\begin{equation*}
+  \underset{\pi}{\text{max}} E(U(X^{\pi}(T)))
+\end{equation*}
+das \emph{klassische Portfoliooptimierungsproblem}. Wir diskutieren seine Lösung mittels stochastischer
+Steuerung, welche auf Merton zurüchgeht.
+
+Das Black-Scholes-Modell wurde vielfach dafür kritisiert, dass seine Preisprozesse stetig sind. In Realität
+beobachtet man aber Crashes von Aktienmärkten. Um dies zu modellieren machen wir nun einen anderen Ansatz als
+den vielfach diskutierten Vorschlag den Aktienprozess $S$ durch einen unstetigen Prozess zu modellieren: Wir
+betrachten eine Stoppzeit $\tau$, zu der die Aktie um den Faktor $k$ fällt. Das Endvermögen hat in
+diesem Modell dann die folgende Form:
+\begin{equation*}
+  X^{\pi \tau}(T)=(1-\pi(\tau)k)X(T)
+\end{equation*}
+
+Nun betrachten wir den Markt als Gegenspieler des Investors und versuchen das folgende Maximierungsproblem
+\begin{equation*}
+  \underset{\pi}{\text{max}} \underset{\tau}{\text{min}} E(U(X^{\pi\tau}(T)))
+\end{equation*}
+zu lösen, das wir als \emph{Worst-Case Portfoliooptimierungsproblem} bezeichnen. Wir diskutieren
+zwei von Ralf Korn vorgeschlagene Lösungen für dieses Problem. Die erste Lösung bestimmt die
+Handelstrategie durch Gleichgewichtsüberlegungen. Die zweite Lösung macht einen ganz anderen
+Ansatz, durch Aufstellung eines Systems von HJB-Gleichungen kann eine Wertfunktion ermittelt
+werden, aus der dann auf die optimale Handelstrategie geschlossen werden kann. Dabei werden wir
+insbesondere untersuchen, inwiefern sich diese beiden Ansätze in ihren Ergebnissen,in ihrer
+Beweismethodik und ihren weiteren Anwendungsmöglichkeiten unterscheiden.
+
+Um konkret rechen zu können, werden wir sowohl das \emph{klassische Portfoliooptimierungsproblem} als auch
+die beiden Ansätze beim \emph{Worst-Case Portfoliooptimierungsproblem} nach Wahl der logarithmischen
+Nutzenfunktion diskutieren. 
+
+Schliesslich soll noch untersucht werden, inwieweit wir das Problem als ein optimales Stoppproblem, welches
+der Markt als Gegenspieler des Investors zu lösen hat, formuliert werden kann.
+
+
+\chapter{Prelimnarien}
+
+Sehr oft werden wir die Funktion 
+\begin{equation} \label{eq:fvonpi}
+ f(\pi) =  \pi (\mu-r)-\einhalb \pi^2* \sigma^2
 \end{equation}
-das \emph{klassische Portfoliooptimierungsproblem}. Sei $\tau$ eine Stoppzeit, zu der der Markt crasht. Dann nennen wir 
-\begin{equation}
-  \text{max}_{\pi} \text{min}_{\tau} E(U(X^{\pi\tau}(T)))
+betrachten. Sie besitzt Nullstellen bei $0$ und $2 \frac{\pi-\mu}{\sigma^2}$, nimmt ihr Maximum bei 
+\begin{equation} \label{eq:pimax}
+ \pi_{max} =  \pistern
 \end{equation}
-das \emph{Worst-Case Portfoliooptimierungsproblem}. In dieser Arbeit möchte ich das klassische Problem und dessen 
-Lösung mittels stochastischer Kontrolltehorie diskutieren. Danach betrachte ich die Erweiterung von Korn auf das 
-Worst-Case-Problem, dass zunächst mit ganz anderen Methoden als den HJB-Gleichungen gelöst wurde. Schliesslich
-betrachten wir dann die Lösung mittels HJB-Gleichungen. Dabei möchte ich die Ergebnisse der verschiedenen
-Ansätze vergleichen, welche Vorteile die jeweiligen Herangehensweisen bieten und insbesondere auch die Unterschiede in den
-Beweisen vergleichen.
+an und hat dort den Wert $\einhalb \frac{(\pi-\mu)^2}{\sigma^2}$.
 
-Als laufendes Beispiel soll zu jeder der drei Aussagen die logaritmische Nutzenfunktion diskutiert werden.
+\section{Stochastische}
+\begin{sa} \label{StochDgl}
+Die stochastische Differentialgleichung
+\begin{align*}
+ dX(t) &= X(t)(A(t) dt + S(t)dW(t)) \\
+  X(t_0) &= x_0
+\end{align*}
+besitzt die eindeutige Lösung
 
-Schliesslich möchte ich durch einige Zufallssimulationen die Ergebnisse nochmal veranschaulichen.
+\begin{equation}
+ X(t) = \exp(\int_{t_0}^{t} (A(u)-\frac{1}{2}S(u)^2)du + \int_{t_0}^{t}S(u)dW(u)) 
+\end{equation}
+
+\end{sa}
+
+
+\section{Finanzmarktmodell}
+Wir betrachten das Black-Scholes-Marktmodell mit einer Aktie und konstanten Koeffizienten, die
+Preisprozesse seien also durch die folgenden Gleichungen gegeben:
+\begin{align*}
+ dB(t) &= r B(t) dt \\
+  B(0) &= 1         \\
+ dS(t) &= S(t)(\alpha dt + \sigma dW(t)) \\
+  S(0) &= s_0
+\end{align*}
+
+Sei $X$ der Vermögensprozess zur Handelsstrategie $\pi$. Er ist durch folgende Differentialgleichung gegeben:
+\begin{align} \label{eq:Vermögensgleichung}
+ dX(t) &= X(t)(r dt + \pi(t)(\alpha -r) dt + \sigma dW(t)) \\
+  X(0) &= x_0
+\end{align}
+
+Die eindeutige Lösung von \ref{eq:Vermögensgleichung} ist nach \ref{StochDgl} duch 
+\begin{equation} \label{eq:LösVermögensgleichung}
+X(t) = x exp(\int_{0}^{t} (r + \pi(u)(\alpha -r)-\frac{1}{2}\pi(u)^2\sigma^2)du +
+\int_{t_0}^{t}\pi(u)\sigma dW(u)) 
+\end{equation}
+gegeben. Für einen konstanten Vermögensprozess $\pi$ vereinfacht diese Gleichung sich zu:
+\begin{equation}
+X(t) = x exp( ((r + \pi (\alpha -r)-\frac{1}{2} \pi^2\sigma^2))^2 + \pi \sigma W(t)) 
+\end{equation}
+
+Dessen erwartungswert berechnet sich zu 
+\begin{align} 
+ E(X(t)) &= x exp( r + \pi (\alpha -r)) exp(\pi \sigma W(t) -\frac{1}{2} \pi^2\sigma^2) \\
+       &= x exp( r + \pi (\alpha -r))
+\end{align}
+
+Logaritmiert man \ref{eq:LösVermögensgleichung} und nimmt den Erwartungswert so erhält man
+\begin{equation} \label{eq:ExpLogUtility}
+E(log(X(t))) = log(x)  + \int_{0}^{t} (r + \pi(u)(\alpha -r)-\frac{1}{2}\pi(u)^2\sigma^2)du 
+\end{equation}
+und bezeicnet dies als erwarteten logaritmischen Nutzen des Endvermögens. Unter der Annahme einer konstanten
+Handelsstrategie vereinfacht sich \ref{eq:ExpLogUtility} zu
+
+\begin{equation} \label{eq:ExpLogUtilityKonst}
+E(log(X(t))) = log(x)  + (r + \pi(\alpha -r)-\frac{1}{2}\pi^2 \sigma^2) t. 
+\end{equation}
+
+\chapter{Portfoliooptimierung in kontinuirlicher Zeit mit stochastischer Steuerung und HJB-Gleichungen}
+\section{Stochastische Steuerung}
+
+\section{Anwendung auf das Portfolioproblem}
+\section{Explizite Lösung für logaritmischen Nutzen}
+Wir zeigen, dass die Wertfunktion durch
+\begin{equation} \label{eq:LogWertfunktion}
+ V(t,x)= ln(x)+(r+\frac{1}{2} (\frac{\mu-r}{\sigma})^2 (T-t)
+\end{equation}
+ist. Dazu berechen wir die Ableitungen
+\begin{equation}
+ V_t(t,x)= -(r+\frac{1}{2} (\frac{\mu-r}{\sigma})^2,
+\end{equation}
+\begin{equation}
+ V_x(t,x)= \frac{1}{x}
+\end{equation}
+und
+\begin{equation}
+ V_x(t,x)= -\frac{1}{x^2}.
+\end{equation}
+Einsetzen in Korn/Korn, Seite 276 ergibt:
+\begin{align*}
+ B &= \einhalb \pi^2 \sigma^2 x^2 V_{xx}(t,x) + (r+\pi(b-r)) x V_x(t,x) + V_t(t,x) \\
+   &= \einhalb \pi^2 \sigma^2 x^2 \frac{1}{ \cancel{x^2}} + (r+\pi(b-r)) x \frac{1}{x} + -r+\frac{1}{2}
+         (\frac{\mu-r}{\sigma})^2\\
+  &= -\pi^2\einhalb \sigma^2+\pi(b-r)-\einhalb (\frac{\mu-r}{\sigma})^2 \\
+  &= f(\pi) -\einhalb (\frac{\mu-r}{\sigma})^2
+\end{align*}
+Dabei haben wir in der letzten Gleichung \ref{eq:fvonpi} eingesetzt. Das Maximum von $f$ ist $\einhalb
+(\frac{\mu-r}{\sigma})^2$, Maximieren der vorhergehenden Gleichung ergibt also tatsächlich $0$. Ausserdem
+erfüllt \ref{eq:LogWertfunktion} auch die Endbedingung: 
+\begin{equation}
+ V(T,x)= (r+\frac{1}{2} (\frac{\mu-r}{\sigma})^2 (T-T)= ln(x)+0 = ln(x)
+\end{equation}
+
+Maximiert wird die Gleichung durch
+\begin{equation}
+ \pi=\pistern,
+\end{equation}
+das ist dann der optimale Portfolioprozess.
+
+
+Zur Probe berechen wir auch noch den besten konstanten Portfoliprozess, dabei erwarten wir natürlich das
+gleiche Ergenis. Wir müssen dazu nur das $\pi$ finden, welches \ref{eq:ExpLogUtilityKonst} maximiert. Dazu
+setzen wir \ref{eq:fvonpi} in \ref{eq:ExpLogUtilityKonst} ein 
+
+\begin{equation}
+ \pi=\pistern,
+\end{equation}
+
+\begin{align}
+E(log(X(t))) & = log(x)  + (r + \pi(\alpha -r)-\frac{1}{2}\pi^2 \sigma^2) t \\
+              &= log(x)  +  (r+f(\pi))t 
+\end{align}
+und man erkennt das wir das Maximum von $f$ suchen. Das haben wir schon in \ref{eq:pimax} als
+\begin{equation}
+ \pi=\pistern
+\end{equation}
+und wir sind in unserer Probe bestätigt worden.
+
+
+\chapter{Ein spieltheoretischer MaxMin-Ansatz zur Lösung des Portfolioproblems}
+\section{Lösung des Problems}
+
+\begin{sa}
+
+Ist $\pidach$ eine Lösung der Differentialgleichung
+\begin{equation}
+\dot{\pi(t)}=\frac{1}{k}
+\end{equation}
+
+\end{sa}
+
+\section{Explizite Lösung für logaritmischen Nutzen}
+
+\chapter{Übertragung des MaxMin-Ansatzes in das HJB-Setting}
+\section{Lösung des Problems}
+\section{Explizite Lösung für logaritmischen Nutzen}
+
+\chapter{Simulationen}
+
+\chapter{Weitere Aspekte}
 
 Weitere Aspekte die diskutiert werden könnten:
 
@@ -47,28 +241,11 @@ Weitere Aspekte die diskutiert werden könnten:
  \item Formulierung des Worst-Case-Problem als optimal-stopping-problem
 \end{itemize}
 
-
-
-\section{Portfoliooptimierung in kontinuirlicher Zeit mit stochastischer Steuerung und HJB-Gleichungen}
-\subsection{Stochastische Steuerung}
-\subsection{Anwendung auf das Portfolioproblem}
-\subsection{Explizite Lösung für logaritmischen Nutzen}
-
-\section{Ein spieltheoretischer MaxMin-Ansatz zur Lösung des Portfolioproblems}
-\subsection{Lösung des Problems}
-\subsection{Explizite Lösung für logaritmischen Nutzen}
-
-\section{Übertragung des MaxMin-Ansatzes in das HJB-Setting}
-\subsection{Lösung des Problems}
-\subsection{Explizite Lösung für logaritmischen Nutzen}
-
-\section{Simulationen}
-
 \begin{thebibliography}{999}
 	\bibitem{Korn1} Korn: "Optimal Portfolios", 1997
 	\bibitem{Korn2} Korn/Willmott: "Optimal Portfolios under the Threat of Crash", 2002
 	\bibitem{Korn3} Korn/Menkens: "Worst-Case Scebario Portfolio Optimization", 2005
-	\bibitem{Korn4} Korn/Menkens: "Worst-Case Scebario Portfolio Optimization and HJB-Systems", 2007
+	\bibitem{Korn4} Korn/Steffenson: "Worst-Case Scebario Portfolio Optimization and HJB-Systems", 2007
 	\bibitem{Korn5} Korn/Korn: "Optionsbewertung und Portfoliooptimierung", 2001
 	\bibitem{Günther} Günther/Jüngel: "Finanzderivate mit Matlab", 2003
 	\bibitem{Oksendal} Oksendal: "Stochastic Differential Equations"
