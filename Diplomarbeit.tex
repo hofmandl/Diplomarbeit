@@ -7,7 +7,8 @@
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{cancel}
 
-\newtheorem{sa}{Satz}
+\newtheorem{mySatz}{Satz}[section]
+\newtheorem{myDefinition}[mySatz]{Definition}
 
 
 
@@ -18,7 +19,15 @@
 
 \newcommand{\einhalb}{\frac{1}{2}}
 \newcommand{\pistern}{\frac{\pi-\mu}{\sigma^2}}
+\newcommand{\bruch}{ 
+ \left( 
+ \frac{\mu-r}{\sigma}
+ \right)
+ }
 \newcommand{\pidach}{\hat{\pi}}
+\newcommand{\vdach}{\hat{v}}
+\newcommand{\pistar}{\pi^{\ast}}
+\newcommand{\kstar}{k^{\ast}}
 
 \maketitle
 
@@ -90,7 +99,7 @@ betrachten. Sie besitzt Nullstellen bei $0$ und $2 \frac{\pi-\mu}{\sigma^2}$, ni
 an und hat dort den Wert $\einhalb \frac{(\pi-\mu)^2}{\sigma^2}$.
 
 \section{Stochastische}
-\begin{sa} \label{StochDgl}
+\begin{mySatz} \label{StochDgl}
 Die stochastische Differentialgleichung
 \begin{align*}
  dX(t) &= X(t)(A(t) dt + S(t)dW(t)) \\
@@ -99,10 +108,10 @@ Die stochastische Differentialgleichung
 besitzt die eindeutige Lösung
 
 \begin{equation}
- X(t) = \exp(\int_{t_0}^{t} (A(u)-\frac{1}{2}S(u)^2)du + \int_{t_0}^{t}S(u)dW(u)) 
+ X^{\pi}_{t_0,x_o}(t) = \exp(\int_{t_0}^{t} (A(u)-\frac{1}{2}S(u)^2)du + \int_{t_0}^{t}S(u)dW(u)) 
 \end{equation}
 
-\end{sa}
+\end{mySatz}
 
 
 \section{Finanzmarktmodell}
@@ -151,7 +160,31 @@ E(log(X(t))) = log(x)  + (r + \pi(\alpha -r)-\frac{1}{2}\pi^2 \sigma^2) t.
 \chapter{Portfoliooptimierung in kontinuirlicher Zeit mit stochastischer Steuerung und HJB-Gleichungen}
 \section{Stochastische Steuerung}
 
+
 \section{Anwendung auf das Portfolioproblem}
+Definition Nutzenfunktion
+
+definition Portfolioptimierungsproblem und Wertfunktion.
+
+\begin{mySatz}
+Ist $V$ eine Lösung von 
+\begin{equation} \label{eq:HJBPortfolio} 
+ \underset{\pi \in (a,b)}{\text{max}} ( \einhalb \pi^2 \sigma^2 x^2 V_{xx}(t,x) + (r+\pi (b-r) x)
+V_{x}(t,x) + V_t(t,x)=0  )
+\end{equation}
+mit
+\begin{equation}
+ V(T,x)=U(x)
+\end{equation}
+
+Dann ist $V$ die zu $U$ gehörige Wertfunktion.
+
+Ist $\pi$ argmin, so ist $\pi$ die zugehörige Handelsstrategie.
+
+
+\end{mySatz}
+
+
 \section{Explizite Lösung für logaritmischen Nutzen}
 Wir zeigen, dass die Wertfunktion durch
 \begin{equation} \label{eq:LogWertfunktion}
@@ -202,7 +235,7 @@ setzen wir \ref{eq:fvonpi} in \ref{eq:ExpLogUtilityKonst} ein
 E(log(X(t))) & = log(x)  + (r + \pi(\alpha -r)-\frac{1}{2}\pi^2 \sigma^2) t \\
               &= log(x)  +  (r+f(\pi))t 
 \end{align}
-und man erkennt das wir das Maximum von $f$ suchen. Das haben wir schon in \ref{eq:pimax} als
+Und man erkennt das wir das Maximum von $f$ suchen. Das haben wir schon in \ref{eq:pimax} als
 \begin{equation}
  \pi=\pistern
 \end{equation}
@@ -210,18 +243,293 @@ und wir sind in unserer Probe bestätigt worden.
 
 
 \chapter{Ein spieltheoretischer MaxMin-Ansatz zur Lösung des Portfolioproblems}
-\section{Lösung des Problems}
+Wir übernehmen wieder die Vorrausetzen unseres Finanzmarktes. Dieses Modell hat den Nachteil, dass es
+den Aktienekurs als stetige Funktion der Zeit modelliert. In der Realität beobachtet man aber Kurssprünge,
+insbesondere nach unten, die man als Crash bezeichnet.
 
-\begin{sa}
+Das modellieren wir nun dadurch, dass wir annehmen dass innerhalb des Zeithorizonts es zu einem
+Fall des Aktienkuses um das k-fachen seines Wertes kommen kann. Dabei gelte 
+$k\in (0,\kstar) $ und $0<\kstar<1$. Bezeichnet $t$ den Crashzeitpunkt, so lässt sich dieser Sachverhalt
+mittels der folgenden Formel  ausgedrücken
+\begin{equation*}
+  k=\frac{X_{t-}-X_t}{X_{t-}} \Leftrightarrow X_t=(1-k)X_{t-}.
+\end{equation*}
+Auf welchen Faktor schrumpft das Vermögen bei einem Crash? Anders ausgedrückt, welches $a$ löst die Gleichung
+\begin{equation*}
+  a X_{t-}=X_t?
+\end{equation*}
+Dazu führen wir folgende Rechnung durch
+\begin{align}
+ a X_{t-} &= \underbrace{(1-\pi(t)) X_{t-}}_{\text{Bondvermögen}}  + \underbrace {\pi(t) (1-k)
+X_{t-}}_{\text{gecrashtes Aktienvermögen}} \\
+          &= (1-\pi(t)k) X_{t-}, 
+\end{align}
+also $a=1-\pi(t)k$. Wie sieht nun das zu einem Vermögensprozess gehörige Endvermögen aus, wenn man in unserem
+Chrashscenario handelt.Sei $f(x,t_1,t_2)$ das Endvermögen das Endvemögen, wenn man beginnend mit dem Vermögen
+$x$ in $t_1$ bis zum Zeitpunkt $t_2$ gemäß dem Vermögensprozess $\pi$ handelt. Den Wert von $f$ haben wir in
+\ref{eq:LösVermögensgleichung} auch explizit angegeben. Für das endvermögen ist dann folgender Ansatz sinnvoll
+\begin{equation*}
+  X(T)= f((1-\pi(t)k) f(x,0,t),t,T),
+\end{equation*}
+denn bis zum Crashzeitpunkt $t$ sammelt man das Vermögen $f(x,0,t)$ an, der Crash verringert es auf
+$(1-\pi(t)k) f(x,0,t)$ und dann hat man noch bis $T$ Zeit es weiter zu vermehren. Mit
+\ref{eq:LösVermögensgleichung} berechnen wir nun:
+\begin{align}
+  X(T) &= (1-\pi(t)k) f(x,0,t) \exp(\int_t^T \dots ) \\
+       &= (1-\pi(t)k) x \exp(\int_0^t \dots )  \exp(\int_t^T \dots ) \\
+       &= (1-\pi(t)k) x \exp(\int_0^T \dots ) \\
+       &= (1-\pi(t)k) f(x,0,T)
+\end{align}
+Der Crash beinflusst das Endvermögen also nur um einen (zeitabhängigen) Faktor. Das hängt mit der
+Exponentialgestalt des Vermögensprozesses zusammen, der relative Vermögenszuwachs hängt nämlich nicht von der
+Höhe der Vermögens ab.
+
+Diese mehr oder weniger heuristische Überlegungen motivieren nun das folgende Modell für das Endvermögen:
+\begin{myDefinition}
+  Hier steht eine Definition
+\end{myDefinition}
+
+
+\begin{align} 
+ dX'(t) &= X'(t)(r dt + \pi(t)(\alpha -r) dt + \sigma dW(t)) \\
+  X'(0) &= x_0 \\
+  X(T)  &= (1-\pi(t)k) X'(T)
+\end{align}
+
+In \cite{Korn2002} wird nun vorgeschlagen eine Strategie $\pi_{opt}$ mit
+
+\begin{equation*}
+  \underset{\pi}{\text{max}} \underset{\tau}{\text{min}} E(U(X^{\pi\tau}(T)))
+         = \underset{\tau}{\text{min}} E(U(X^{\pi_{opt}\tau}(T)))
+\end{equation*}
+zu suchen. Dieser Ansatz stammt aus der Spieltheorie, man versucht also den minimalen Nutzen zu maximieren.
+Diesen Ansatz kritisiere ich aus folgendem Grund: Wir wollen auch Startegieren modellieren, die auf den Crash
+reagieren können. Das wird hier aber nicht mitmodelliert. 
+
+Dieses Manko beheben wir nun indem wir das folgende Problem betrachten:
+\begin{equation*}
+  \underset{\pi}{\text{max}} \underset{\tau}{\text{min}} E(v(t,X'(t)(1-\pi(t)k))
+\end{equation*}
+
+
+Verschieden Strategien können wir nun mittels einer Worst-Case-Schranke vergleichen:
+\begin{myDefinition}
+$ WC(\pi) = \underset{\tau}{\text{min}} E(v(t,X'(t)(1-\pi(t)k))$ 
+\end{myDefinition}
+
+\begin{myDefinition}
+Wir nennen $\pi$ eine optimale Worst-Case Strategie wenn für jede andere Strategie $\pi'$
+\begin{equation}
+  WC(\pi) \geq WC(\pi')
+\end{equation}
+gilt.
+\end{myDefinition}
+
+Wir müssen uns nun noch um die Klasse der Handelsstrategien Gedanken machen. Um eine Pleite zu verhindern
+müssen wir die Wert der Handelstrategie auf $<\frac{1}{\kstar}$ einschränken.
+
+Wir können weiter argumentieren, dass stest $WC(\pi^{+}) \geq WC(\pi)$ gilt, wir können uns also bei der
+Suche auf positive Handelstaregien beschränken.
+\begin{mySatz}
+Eine optimale Worst-Case Strategie $\pi_{\text{opt}}$ erfüllt
+\begin{equation}
+\pi_{\text{opt}}(T)=0
+\end{equation}
+\end{mySatz}
+
+\begin{myDefinition}
+Wir bezeichen mit $A(x,t)$ alle Handelsstrategien mit Werten in $(0,\kstar).$
+\end{myDefinition}
+
+Die gerade gewonnen Erkenntnisse fassen wir im folgenden Satz zusammen:
+\begin{mySatz}
+Eine optimale Worst-Case Strategie $\pi_{\text{opt}}$ erfüllt
+\begin{equation}
+ WC(\pi) = \underset{\tau}{\text{min}} E(v(t,X'(t)(1-\pi(t)k))
+\end{equation}
+\end{mySatz}
+
+
+
+
+
+\begin{mySatz}
 
 Ist $\pidach$ eine Lösung der Differentialgleichung
+\begin{equation} \label{eq:dgl}
+\dot{\pi(t)}=\frac{1}{k}(1-\pi(t)\kstar) 
+\left( 
+\pi(t)(\mu-r) - \einhalb 
+  \left(
+    \pi(t)^2 \sigma^2 + \bruch^2
+  \right)
+\right)
+\end{equation}
+mit 
 \begin{equation}
-\dot{\pi(t)}=\frac{1}{k}
+\pi(T)=0
+\end{equation}
+und 
+\begin{equation}
+0 \leq \pi < \frac{1}{k*}, 
+\end{equation}
+dann gilt
+\begin{equation} \label{eq:Gleichgewichtsbedingung}
+v_0(t,(1-\pi(t)\kstar))= E(ln(X'^{\pi}))
+\end{equation}
+\end{mySatz}
+
+\begin{proof}
+Wir formen \ref{eq:dgl} zunächst um:
+\begin{equation}
+\frac{\dot{\pi(t)} \kstar}{(1-\pi(t)\kstar)} =
+\left( 
+\pi(t)(\mu-r) - \einhalb 
+  \left(
+    \pi(t)^2 \sigma^2 + \bruch^2
+  \right)
+\right)
 \end{equation}
 
-\end{sa}
+Integrieren von $t$ nach $T$ ergibt:
+\begin{equation}
+\left[
+- ln(1-\pi(s)\kstar)  
+\right]^T_t
+=
+\int_t^T
+\pi(u)(\mu-r) - \einhalb 
+  \left(
+    \pi(u)^2 \sigma^2 + \bruch^2
+  \right)
+du
+\end{equation}
+Berechnung der linken Seite unter Beachtung von $\pi(T)=0$ und herausziehen des bezüglich $u$ konstanten Teil
+des Integrals auf der rechten Seite ergibt
+\begin{equation}
+ln(1-\pi(t)\kstar)
+=
+\int_t^T
+\pi(u)(\mu-r) - \einhalb 
+  \left(
+    \pi(u)^2 \sigma^2 
+  \right)
+du
+- \einhalb \bruch^2 (T-t)
+\end{equation}
+verinfachen.
 
-\section{Explizite Lösung für logaritmischen Nutzen}
+
+
+Addieren wir  $\einhalb \bruch^2 (T-t)$ zu dieser Gleichung, so erhalten wir
+\begin{equation} \label{eq:umgeformteDGL}
+ln(1-\pi(t)\kstar) +  \einhalb \bruch^2 (T-t)
+=
+\int_t^T
+\pi(u)(\mu-r) - \einhalb 
+  \left(
+    \pi(u)^2 \sigma^2
+  \right)
+du
+\end{equation}
+
+Damit erhalten wir 
+\begin{align}
+v_0(t,(1-\pi(t)\kstar)) 
+ &= ln(1-\pi(t)\kstar) +  \einhalb \bruch^2 (T-t) \qquad  \text{\ref{eq:LogWertfunktion}} \\
+ &= \int_t^T
+\pi(u)(\mu-r) - \einhalb 
+  \left(
+    \pi(u)^2 \sigma^2
+  \right)
+du
+\qquad  \text{\ref{eq:umgeformteDGL}} \\
+&= E(ln(X'^{\pi})) \qquad  \text{to be refenrencde}
+\end{align}
+\end{proof}
+
+\begin{mySatz}
+Die Lösung der Differentalgleichung \label{eq:dgl} ist eine Lösung des Worst-Case-Problems.
+\end{mySatz}
+
+\begin{proof}
+Die Struktur dieses Beweises ist wie folgt. Wie betrachten in Fallunterscheidungen verschiedene
+Handelstatregien die sich bezüglich $\pidach$ wie folgt unterscheiden.
+\begin{itemize}
+ \item Handelstaregien mit einer höheren Enderwartung im Fall eines Nichtcrashes
+  \begin{itemize}
+   \item Handelstaregien mit einer höheren Aktienanteil am Anfang
+   \item Handelstaregien mit einer niedrigerem Aktienanteil am Anfang
+   \end{itemize}
+ \item Handelstaregien mit einer niedriegeren Enderwartung im Fall eines Nichtcrashes
+\end{itemize}
+Für jeden Fall zeigen wir dann das $\pidach$ jeweils bessere Worstcaseschranke besitzt. Damit muss $\pidach$
+dann die optimale Stategie sein.
+
+Sei also $\pi$ eine Handesstrategie  mit einer höheren Worst-Case-Schranke. Dann gilt
+\begin{equation}
+ E(\pi(t)) \geq \pidach(t)
+\end{equation}
+Wir bezeichen mit $\vdach$ den erwarteten logaritmischen Nutzen durch Verfolgung der Handelsstrategie
+$\pidach$. Wir geben sie hier nochmal explizit an und brechnen einige partiellen Ableitungen:
+\begin{align}
+\vdach(t,x) &= log(x)  +  r(T-t) + E( \int_{0}^{t}  \pi(u)(\alpha -r)-\frac{1}{2}\pi(u)^2\sigma^2)du) \\
+\vdach_x(t,x) &= \frac{1}{x} \\
+\vdach_{xx}(t,x) &= - \frac{1}{x^2} \\
+\vdach_t(t,x) &= E(-\pi(t)(\alpha -r)+\frac{1}{2}\pi(t)^2\sigma^2) -r
+\end{align}
+Wir wiedeholen hier auch nochmal die $X$ treibende Dynamik um im folgenden die Anwendung der Ito-Formel
+nachvollziehen zu können:
+\begin{align}
+ dX(t) &= X(t)(r + \pi(t)(\alpha -r)) dt +  X(t) \sigma dW(t) \\
+  X(0) &= x_0
+\end{align}
+Nun machen wir folgende Rechnung
+\begin{align}
+v_0(t,(1-\pi(t)\kstar)) & = E(ln(X'^{\pi})) \\
+ &= \vdach(t,X(t)) \\
+ &= \vdach(0,x) \\
+ &+ \int_0^t \vdach_x(s,X) \pidach(s) \sigma dW(s) \\
+ &+ \int_0^t \vdach_t(s,X) +  \vdach_x(s,X)(r+\pidach(s)(\mu-r)) + \einhalb \vdach_{xx}(s,X)\pidach(s)^2
+\sigma^2 ds
+\end{align}
+Nehmen wir nun davon den Erwartungswert, so fällt das Integral bezüglich der Brownschen Bewegung dank
+unserser Vorrausetzungen an eine zulässige Handelsstartegie weg, für das andere Integral berechnen wir:
+\begin{align}
+&= E( \int_0^t E(-\pi(t)(\alpha -r)+\frac{1}{2}\pi(t)^2\sigma^2) -r + (r+\pidach(s)(\mu-r)) +
+\einhalb \pidach(s)^2 \sigma^2 ds) \\
+ & =  \int_0^t E(-\pi(t)(\alpha -r)+\frac{1}{2}\pi(t)^2\sigma^2) -r + (r+\pidach(s)(\mu-r)) +
+\einhalb \pidach(s)^2 \sigma^2 ds \\
+ &= 0
+\end{align}
+Dabei haben wir die ABleitunegn eingesetzt, Integral und Erwartunhswert vertauscht.
+
+Wir erhhalten also
+\begin{align}
+E(v_0(t,(1-\pi(t)\kstar))) & = E (\vdach(t,X(t))) \\
+ &= \vdach(0,x) \\
+ &= \vdach(T,X(T))
+\end{align}
+
+
+\end{proof}
+
+
+Wir haben noch nicht gezeigt, dass $\pidach$ wirklich eine bessere Worst-Case Schranke besitzt als die
+Bondstartegie. Dass tun wir nun, indem wir eine Stategie angeben, die eine höhere Worstcaseschranke als die
+pure Bondstrategie hat. Da $\pidach$ optimal ist, muss es auch eine bessere Worstcaseschranke besitzen. Für
+eine numerische Berechnung verweisen wir auf das letzte Kapitel.
+
+\begin{mySatz}
+ Es gibt eine Strategie, mit einer besseren Worstcaseschranke.
+\end{mySatz}
+
+Wir wollen nun noch den besten konstanten Portfoliprozess ausrechen:
+\begin{mySatz}
+ Der beste konstante Portfolioprozess ist:
+\end{mySatz}
+
+
 
 \chapter{Übertragung des MaxMin-Ansatzes in das HJB-Setting}
 \section{Lösung des Problems}
@@ -241,15 +549,18 @@ Weitere Aspekte die diskutiert werden könnten:
  \item Formulierung des Worst-Case-Problem als optimal-stopping-problem
 \end{itemize}
 
-\begin{thebibliography}{999}
-	\bibitem{Korn1} Korn: "Optimal Portfolios", 1997
-	\bibitem{Korn2} Korn/Willmott: "Optimal Portfolios under the Threat of Crash", 2002
-	\bibitem{Korn3} Korn/Menkens: "Worst-Case Scebario Portfolio Optimization", 2005
-	\bibitem{Korn4} Korn/Steffenson: "Worst-Case Scebario Portfolio Optimization and HJB-Systems", 2007
-	\bibitem{Korn5} Korn/Korn: "Optionsbewertung und Portfoliooptimierung", 2001
-	\bibitem{Günther} Günther/Jüngel: "Finanzderivate mit Matlab", 2003
-	\bibitem{Oksendal} Oksendal: "Stochastic Differential Equations"
-	\bibitem{Fleming} Fleming: Controlled Markov Processes and Viscosity Solutions, 1993 
-\end{thebibliography}
+%\begin{thebibliography}{999}
+%	\bibitem{Korn1} Korn: "Optimal Portfolios", 1997
+%	\bibitem{Korn2} Korn/Willmott: "Optimal Portfolios under the Threat of Crash", 2002
+%	\bibitem{Korn3} Korn/Menkens: "Worst-Case Scebario Portfolio Optimization", 2005
+%	\bibitem{Korn4} Korn/Steffenson: "Worst-Case Scebario Portfolio Optimization and HJB-Systems", 2007
+%	\bibitem{Korn5} Korn/Korn: "Optionsbewertung und Portfoliooptimierung", 2001
+%	\bibitem{Günther} Günther/Jüngel: "Finanzderivate mit Matlab", 2003
+%	\bibitem{Oksendal} Oksendal: "Stochastic Differential Equations"
+%	\bibitem{Fleming} Fleming: Controlled Markov Processes and Viscosity Solutions, 1993 
+%\end{thebibliography}
+
+\bibliographystyle{plain}
+\bibliography{Literatur}
 
 \end{document}
