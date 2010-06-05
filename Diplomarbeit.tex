@@ -26,8 +26,10 @@
  }
 \newcommand{\pidach}{\hat{\pi}}
 \newcommand{\vdach}{\hat{v}}
+\newcommand{\xdach}{\hat{X}}
 \newcommand{\pistar}{\pi^{\ast}}
 \newcommand{\kstar}{k^{\ast}}
+\newcommand{\letzterTermv}{(r+\einhalb \bruch^2)(T-t)}
 
 \maketitle
 
@@ -41,13 +43,13 @@ Preisprozesse seien also durch die folgenden Gleichungen gegeben:
 \begin{align*}
  dB(t) &= r B(t) dt \\
   B(0) &= 1         \\
- dS(t) &= S(t)(\alpha dt + \sigma dW(t)) \\
+ dS(t) &= S(t)(\mu dt + \sigma dW(t)) \\
   S(0) &= s_0
 \end{align*}
 
 Sei $X$ der Vermögensprozess zur Handelsstrategie $\pi$. Er ist durch folgende Differentialgleichung gegeben:
 \begin{align*}
- dX(t) &= X(t)(r dt + \pi(t)(\alpha -r) dt + \sigma dW(t)) \\
+ dX(t) &= X(t)(r dt + \pi(t)(\mu -r) dt + \sigma dW(t)) \\
   X(0) &= x_0
 \end{align*}
 Sei $U$ eine Nutzenfunktion. Dann nennen wir
@@ -88,15 +90,7 @@ der Markt als Gegenspieler des Investors zu lösen hat, formuliert werden kann.
 
 \chapter{Prelimnarien}
 
-Sehr oft werden wir die Funktion 
-\begin{equation} \label{eq:fvonpi}
- f(\pi) =  \pi (\mu-r)-\einhalb \pi^2* \sigma^2
-\end{equation}
-betrachten. Sie besitzt Nullstellen bei $0$ und $2 \frac{\pi-\mu}{\sigma^2}$, nimmt ihr Maximum bei 
-\begin{equation} \label{eq:pimax}
- \pi_{max} =  \pistern
-\end{equation}
-an und hat dort den Wert $\einhalb \frac{(\pi-\mu)^2}{\sigma^2}$.
+
 
 \section{Stochastische}
 \begin{mySatz} \label{StochDgl}
@@ -115,46 +109,95 @@ besitzt die eindeutige Lösung
 
 
 \section{Finanzmarktmodell}
-Wir betrachten das Black-Scholes-Marktmodell mit einer Aktie und konstanten Koeffizienten, die
-Preisprozesse seien also durch die folgenden Gleichungen gegeben:
-\begin{align*}
+\begin{myDefinition} \label{Standardfinanzmarktmodell}
+Sei $(\Omega,F,P) $ ein Wahrscheinlichkeitsraum. Sei $W$ eine auf diesen Raum definierte Brownsche
+Bewegung. Seien $r$, $\mu$, $\sigma$ reelle Zahlen und sei $r < \mu$ und $\sigma>0$. Der Bond $B$ und die
+Aktie $S$ seien die eindeutigen Lösungen der stochastischen Differentialgleichungen
+\begin{align}
  dB(t) &= r B(t) dt \\
   B(0) &= 1         \\
- dS(t) &= S(t)(\alpha dt + \sigma dW(t)) \\
+ dS(t) &= S(t)(\mu dt + \sigma dW(t)) \\
   S(0) &= s_0
-\end{align*}
-
-Sei $X$ der Vermögensprozess zur Handelsstrategie $\pi$. Er ist durch folgende Differentialgleichung gegeben:
-\begin{align} \label{eq:Vermögensgleichung}
- dX(t) &= X(t)(r dt + \pi(t)(\alpha -r) dt + \sigma dW(t)) \\
-  X(0) &= x_0
 \end{align}
+Gelten alle diese Vorrausetzungen, so sagen wir dass die Vorrausetzungen unseres Standardfinanzmarktmodells
+gelten.
+\end{myDefinition}
+
+\begin{myDefinition} \label{Handelsstrategie}
+Eine Handelsstrategie $\pi$ ist ein stochastischer Prozess auf dem Wahrscheinlichkeitsraum des
+Standardfinanzmarktmodells.
+\end{myDefinition}
+
+\begin{myDefinition} \label{Vermögensgleichung}
+Es gelten die Vorrausetzungen unseres Standardfinanzmarktmodells. Die Lösung von
+\begin{align} \label{eq:Vermögensgleichung}
+ dX(t) &= X(t)(r dt + \pi(t)(\mu -r) dt + \sigma dW(t)) \\
+  X(t_0) &= x_0
+\end{align}
+bezeichen wir mit $X^{\pi,t_0,x}$. Ist $t_0=0$, so schreiben wir auch $X^{\pi,x}$. 
+\end{myDefinition}
+
+\begin{myDefinition} \label{def:f}
+Es gelten die Vorrausetzungen unseres Standardfinanzmarktmodells. Sei $f$ durch 
+\begin{equation} \label{eq:fvonpi}
+ f(\pi) =  \pi (\mu-r)-\einhalb \pi^2 \sigma^2
+\end{equation}
+\end{myDefinition}
+
+% Satz und definition
+\begin{mySatz} \label{Eigenschaften_f}
+$f$ besitzt die beiden Nullstellen
+\begin{align}
+ x_0 &= 0 \\
+ x_1 &= 2 \frac{\pi-\mu}{\sigma^2},
+\end{align}
+nimmt ihr Maximum bei
+\begin{equation} \label{eq:pimax}
+ \pi_{max} =  \pistern
+\end{equation}
+an hat dort den Wert $\einhalb \frac{(\pi-\mu)^2}{\sigma^2}$.
+\end{mySatz}
+
+
 
 Die eindeutige Lösung von \ref{eq:Vermögensgleichung} ist nach \ref{StochDgl} duch 
-\begin{equation} \label{eq:LösVermögensgleichung}
-X(t) = x exp(\int_{0}^{t} (r + \pi(u)(\alpha -r)-\frac{1}{2}\pi(u)^2\sigma^2)du +
-\int_{t_0}^{t}\pi(u)\sigma dW(u)) 
-\end{equation}
+\begin{align} \label{eq:LösVermögensgleichung}
+ X^{\pi,t_0,x}(t) &= x \exp \left(
+                                   \int_{t_0}^{t} r + \pi(u)(\mu -r) - \frac{1}{2} \pi(u)^2 \sigma^2 du 
+                                  +\int_{t_0}^{t}\pi(u)\sigma dW(u)) 
+                            \right) \\
+                  &= x \exp \left(
+                                   \int_{t_0}^{t} f(\pi(t)) du 
+                                  +\int_{t_0}^{t}\pi(u)\sigma dW(u)) 
+                            \right) 
+\end{align}
 gegeben. Für einen konstanten Vermögensprozess $\pi$ vereinfacht diese Gleichung sich zu:
-\begin{equation}
-X(t) = x exp( ((r + \pi (\alpha -r)-\frac{1}{2} \pi^2\sigma^2))^2 + \pi \sigma W(t)) 
-\end{equation}
+\begin{align} \label{eq:aaa}
+ X^{\pi,t_0,x}(t) &= x \exp \left(
+                                   (t-t_0) ( r + \pi(u)(\mu -r) - \frac{1}{2} \pi(u)^2 \sigma^2 )
+                                  +(t-t_0)\pi(u)\sigma W(u)) 
+                            \right) \\
+                  &= x \exp \left(
+                                   (t-t_0) (f(\pi(t)))
+                                  +(t-t_0)\pi(u)\sigma W(u))
+                            \right) 
+\end{align}
 
 Dessen erwartungswert berechnet sich zu 
 \begin{align} 
- E(X(t)) &= x exp( r + \pi (\alpha -r)) exp(\pi \sigma W(t) -\frac{1}{2} \pi^2\sigma^2) \\
-       &= x exp( r + \pi (\alpha -r))
+ E(X(t)) &= x exp( r + \pi (\mu -r)) exp(\pi \sigma W(t) -\frac{1}{2} \pi^2\sigma^2) \\
+       &= x exp( r + \pi (\mu -r))
 \end{align}
 
 Logaritmiert man \ref{eq:LösVermögensgleichung} und nimmt den Erwartungswert so erhält man
 \begin{equation} \label{eq:ExpLogUtility}
-E(log(X(t))) = log(x)  + \int_{0}^{t} (r + \pi(u)(\alpha -r)-\frac{1}{2}\pi(u)^2\sigma^2)du 
+E(log(X(t))) = log(x)  + \int_{0}^{t} (r + \pi(u)(\mu -r)-\frac{1}{2}\pi(u)^2\sigma^2)du 
 \end{equation}
 und bezeicnet dies als erwarteten logaritmischen Nutzen des Endvermögens. Unter der Annahme einer konstanten
 Handelsstrategie vereinfacht sich \ref{eq:ExpLogUtility} zu
 
 \begin{equation} \label{eq:ExpLogUtilityKonst}
-E(log(X(t))) = log(x)  + (r + \pi(\alpha -r)-\frac{1}{2}\pi^2 \sigma^2) t. 
+E(log(X(t))) = log(x)  + (r + \pi(\mu -r)-\frac{1}{2}\pi^2 \sigma^2) t. 
 \end{equation}
 
 \chapter{Portfoliooptimierung in kontinuirlicher Zeit mit stochastischer Steuerung und HJB-Gleichungen}
@@ -188,7 +231,7 @@ Ist $\pi$ argmin, so ist $\pi$ die zugehörige Handelsstrategie.
 \section{Explizite Lösung für logaritmischen Nutzen}
 Wir zeigen, dass die Wertfunktion durch
 \begin{equation} \label{eq:LogWertfunktion}
- V(t,x)= ln(x)+(r+\frac{1}{2} (\frac{\mu-r}{\sigma})^2 (T-t)
+ V(t,x)= \log(x)+(r+\frac{1}{2} (\frac{\mu-r}{\sigma})^2 (T-t)
 \end{equation}
 ist. Dazu berechen wir die Ableitungen
 \begin{equation}
@@ -213,7 +256,7 @@ Dabei haben wir in der letzten Gleichung \ref{eq:fvonpi} eingesetzt. Das Maximum
 (\frac{\mu-r}{\sigma})^2$, Maximieren der vorhergehenden Gleichung ergibt also tatsächlich $0$. Ausserdem
 erfüllt \ref{eq:LogWertfunktion} auch die Endbedingung: 
 \begin{equation}
- V(T,x)= (r+\frac{1}{2} (\frac{\mu-r}{\sigma})^2 (T-T)= ln(x)+0 = ln(x)
+ V(T,x)= (r+\frac{1}{2} (\frac{\mu-r}{\sigma})^2 (T-T)= \log(x)+0 = \log(x)
 \end{equation}
 
 Maximiert wird die Gleichung durch
@@ -232,7 +275,7 @@ setzen wir \ref{eq:fvonpi} in \ref{eq:ExpLogUtilityKonst} ein
 \end{equation}
 
 \begin{align}
-E(log(X(t))) & = log(x)  + (r + \pi(\alpha -r)-\frac{1}{2}\pi^2 \sigma^2) t \\
+E(log(X(t))) & = log(x)  + (r + \pi(\mu -r)-\frac{1}{2}\pi^2 \sigma^2) t \\
               &= log(x)  +  (r+f(\pi))t 
 \end{align}
 Und man erkennt das wir das Maximum von $f$ suchen. Das haben wir schon in \ref{eq:pimax} als
@@ -284,70 +327,147 @@ Der Crash beinflusst das Endvermögen also nur um einen (zeitabhängigen) Faktor. 
 Exponentialgestalt des Vermögensprozesses zusammen, der relative Vermögenszuwachs hängt nämlich nicht von der
 Höhe der Vermögens ab.
 
-Diese mehr oder weniger heuristische Überlegungen motivieren nun das folgende Modell für das Endvermögen:
-\begin{myDefinition}
-  Hier steht eine Definition
-\end{myDefinition}
+Diese mehr oder weniger heuristische Überlegungen motivieren nun das folgende Modell für das Endvermögen.
+Startet man zur Zeit $s$ mit dem Anfangsvermügen $x$ und erlebt man zur Zeit $s$ einen Crash der Höhe $k$,
+dann hat man in $T$ das Vermögen:
+\begin{equation} 
+ \xdach^{\pi,t,k}(T) = (1-\pi(t)k) X^{\pi}(T).
+\end{equation}
 
-
-\begin{align} 
- dX'(t) &= X'(t)(r dt + \pi(t)(\alpha -r) dt + \sigma dW(t)) \\
-  X'(0) &= x_0 \\
-  X(T)  &= (1-\pi(t)k) X'(T)
-\end{align}
 
 In \cite{Korn2002} wird nun vorgeschlagen eine Strategie $\pi_{opt}$ mit
 
-\begin{equation*}
-  \underset{\pi}{\text{max}} \underset{\tau}{\text{min}} E(U(X^{\pi\tau}(T)))
+\begin{equation}\label{eq:kornmaxmin}
+  \underset{\pi}{\text{max}} \underset{t,k}{\text{min}} E(U(X^{\pi\tau}(T)))
          = \underset{\tau}{\text{min}} E(U(X^{\pi_{opt}\tau}(T)))
-\end{equation*}
-zu suchen. Dieser Ansatz stammt aus der Spieltheorie, man versucht also den minimalen Nutzen zu maximieren.
-Diesen Ansatz kritisiere ich aus folgendem Grund: Wir wollen auch Startegieren modellieren, die auf den Crash
-reagieren können. Das wird hier aber nicht mitmodelliert. 
-
-Dieses Manko beheben wir nun indem wir das folgende Problem betrachten:
-\begin{equation*}
-  \underset{\pi}{\text{max}} \underset{\tau}{\text{min}} E(v(t,X'(t)(1-\pi(t)k))
-\end{equation*}
-
-
-Verschieden Strategien können wir nun mittels einer Worst-Case-Schranke vergleichen:
-\begin{myDefinition}
-$ WC(\pi) = \underset{\tau}{\text{min}} E(v(t,X'(t)(1-\pi(t)k))$ 
-\end{myDefinition}
-
-\begin{myDefinition}
-Wir nennen $\pi$ eine optimale Worst-Case Strategie wenn für jede andere Strategie $\pi'$
-\begin{equation}
-  WC(\pi) \geq WC(\pi')
 \end{equation}
-gilt.
+zu suchen. Dieser Ansatz stammt aus der Spieltheorie, man versucht also den minimalen Nutzen zu maximieren.
+Diesen MaxMin-Ansatz möchte ich gundsätzlich übernehmen, kritisiere die Formulierung \ref{eq:kornmaxmin}
+aber aus zweierlei Gründen. Zum einen wollen wir auch Strategien modellieren, die auf den Crash
+reagieren können. Nach dem Crash wecheln wir in die optimale Stategie des crashfreien settings. Das wird hier
+aber nicht mitmodelliert. wir können das ausdrücken, indem wir versuchen
+\begin{equation} \label{eq:WCCrashScenario}
+   \underset{t,k}{\text{min}} E(v(t,\xdach^{\pi,t,k}(T))
+\end{equation}
+zu maximieren. Zum anderen soll der Markt auch die Möglichkeit haben, gar nicht zu crashen. In der gegebenen
+Formulierung könnte man argumentieren, dass sei durch einen Crash der Höhe $k=0$ mitmodelliert. Wir wollen
+das aber explizit machen, indem wir versuchen das Minimum aus \ref{eq:WCCrashScenario} und dem dem erwarteten
+Nutzen im Crashfreien setting zu maximieren. Das ist in der Modellierung sauberer und wird auch später die
+Beweise durchsichtiger machen. Dann ist es auch nicht mehr nötig, über verschieden Crashhöhen zu minimieren.
+Ist unsere Aktienposition positiv, so schadet uns ein Crash der maximalen Größe am meisten, ist sie negativ
+(wenn wir also Aktien leerverkauft haben), so schadet uns das Ausbleiben eines Crashes am meisten. 
+Alle diese Gedanken berücksichtigend, gelangen wir so zur folgenden Definition:
+
+\begin{myDefinition} \label{def:WCPortfolioproblem}
+ Jeder Handelsstrategie ordnen wir die Worst-Case-Schranke
+\begin{equation*}
+ WC(\pi) =  min (\underset{t}{\text{inf}} \quad E(v(t,X(t)(1-\pi(t)\kstar))),E(U(X(T))))
+\end{equation*}
+zu. Die Aufgabe
+\begin{equation*}
+ max \qquad WC(\pi)
+\end{equation*}
+bezeichnen wir als Worst-Case-Portfoliooptimierungsproblem. Eine Strategie, für die das Maximimum angenommen
+wird bezeichen wir als optimale Strategie.
 \end{myDefinition}
+
+Wir berechen die Worst-Case-Schranke im Log-utility-modell der reinen Bondstrategie. Intuitiv ist klar, das
+der Worst-Case das Ausbleiben eines Crashes ist. Denn ein Crash verursacht uns keinen Schaden, aber gibt uns
+die Möglichkeit in die optimale Stategie des crashfreien Settings zu wechseln. Das machen wir nochmal
+explizit. Sei also $\pi_0=0$.
+\begin{align*}
+ WC(\pi_0) &=  \min (\underset{t}{\text{inf}} \quad E(v_0(t,X(t)(1-\pi_0(t)\kstar))),E(\log(X(T)))) \\
+           &=  \min (\underset{t}{\text{inf}} \quad v_0(t,x\exp(rt)),\log(x\exp(rt)) \\
+           &=  \min (\underset{t}{\text{inf}} \quad \log(x) + rt +\left[ r + \einhalb \bruch^2
+\right](T-t),\log(x\exp(rt)) \\
+           &=  \min (\underset{t}{\text{inf}} \quad \log(x) +\left[\einhalb \bruch^2
+\right](T-t) +rT,\log(x\exp(rt)) \\
+          &= \log(x) +rT,
+\end{align*}
+denn in der letzen Zeile ist klar, dass das $inf$ im ersten Argunement von $\min$ bei $t=T$ anegnommen wird.
+Wir halten also
+\begin{equation} \label{eq:worstcasereinbond}
+ WC(\pi_0) = \log(x) +rT,
+\end{equation}
+fest.
+
+Als nächstes berechen wir die Worst-Case-Schranke, wenn man der optimalen Startegie $\pistar=\pistern$ des
+crashfreien Scenarios verfolgt:
+\begin{equation} \label{eq:worstcasereinbond}
+ WC(\pistar) = \log(x) +rT + \einhalb \bruch^2 T + \log(1-\pistar\kstar),
+\end{equation}
+
+Der Unterschied zwischen diesen beiden Schranken liegt also im Term $\einhalb \bruch^2 T +
+\log(1-\pistar\kstar)$. Nur wenn der Zeithorizont groß genug ist ist, wird dieser Term positiv.Dann überwiegt
+die höhere Rendite der Aktie den Schaden der uns einmal durch den Crash zugefügt wurde. Eine optimale
+Stategie sollte diese Effekte ausbalancieren und je näher man ssich crashfrei dem Ende des zeithorizonts
+genähert hat, desto vorsichtiger sollte man in AKtien investieren.
 
 Wir müssen uns nun noch um die Klasse der Handelsstrategien Gedanken machen. Um eine Pleite zu verhindern
 müssen wir die Wert der Handelstrategie auf $<\frac{1}{\kstar}$ einschränken.
 
-Wir können weiter argumentieren, dass stest $WC(\pi^{+}) \geq WC(\pi)$ gilt, wir können uns also bei der
-Suche auf positive Handelstaregien beschränken.
+
 \begin{mySatz}
-Eine optimale Worst-Case Strategie $\pi_{\text{opt}}$ erfüllt
-\begin{equation}
-\pi_{\text{opt}}(T)=0
-\end{equation}
+Es gilt: $WC(\pi^{+}) \geq WC(\pi)$
 \end{mySatz}
 
-\begin{myDefinition}
-Wir bezeichen mit $A(x,t)$ alle Handelsstrategien mit Werten in $(0,\kstar).$
-\end{myDefinition}
-
-Die gerade gewonnen Erkenntnisse fassen wir im folgenden Satz zusammen:
-\begin{mySatz}
-Eine optimale Worst-Case Strategie $\pi_{\text{opt}}$ erfüllt
+\begin{proof}
+ Der Beweis ist so organisiert, dass wir erst seine Struktur zeigen, und dann die Details ausarbeiten. Sei
+\begin{align*}
+ A &:= \underset{t}{\text{inf}} \quad E(v(t,\xdach^{\pi,t,\kstar}(T))) \\
+ B &:= E(U(X^{\pi}(T))) \\
+ A^+ &:= \underset{t}{\text{inf}} \quad E(v(t,\xdach^{\pi^+,t,\kstar}(T))) \\
+ B^+ &:= E(U(X^{\pi^+}(T))) \\
+\end{align*}
+Wir haben also
 \begin{equation}
- WC(\pi) = \underset{\tau}{\text{min}} E(v(t,X'(t)(1-\pi(t)k))
+ min(A,B) \leq min(A^+,B^+)
 \end{equation}
-\end{mySatz}
+zu zeigen.
+Wir zeigen zunächst, dass im crashfreien Scenario $\pi^+$ einen höheren erwarteten Nutzen bringt, also
+\begin{equation}
+ B\leq B^+
+\end{equation}
+Wenn $A\leq A^+$ sind wir wegen $min(A,B)\leq B \leq B^+$ und $min(A,B)\leq A \leq A^+$, also auch $min(A,B)
+\leq min(A^+,B^+)$ fertig.
+Sei also $A>A^+$. Dann gilt
+\begin{equation}
+ \text{für alle t} \qquad \pi(t) < 0
+\end{equation}
+und
+\begin{equation}
+ A^+=B^+.
+\end{equation}
+In dem Fall ist das Worst-Case-Scenario aber das Ausbleiben eines Crashes, also
+\begin{equation}
+ A \geq B,
+\end{equation}
+und dann ist die risikofreie Bondstrategie die beste, also
+\begin{equation}
+ B \leq B^+,
+\end{equation}
+Insgesamt folgt also
+\begin{equation}
+ min(A,B)=B \leq B^+ = A^+ = min(A^+,B^+)
+\end{equation}
+
+
+%  Da $f(x)\leq f(x^+)$, folgt
+% \begin{equation} 
+% log(x)  + \int_{0}^{T} f(\pi)du \leq  log(x)  + \int_{0}^{T} f(\pi^+)du 
+% \end{equation}
+% und das zeigt wegen \ref{eq:ExpLogUtility} die Behauptung.
+
+\end{proof}
+
+
+% \begin{mySatz}
+% Eine optimale Worst-Case Strategie $\pi_{\text{opt}}$ erfüllt
+% \begin{equation}
+% \pi_{\text{opt}}(T)=0
+% \end{equation}
+% \end{mySatz}
+
 
 
 
@@ -375,7 +495,7 @@ und
 \end{equation}
 dann gilt
 \begin{equation} \label{eq:Gleichgewichtsbedingung}
-v_0(t,(1-\pi(t)\kstar))= E(ln(X'^{\pi}))
+v_0(t,x (1-\pi(t)\kstar))= E(\log(X^{\pidach,t,x}(T)))
 \end{equation}
 \end{mySatz}
 
@@ -394,7 +514,7 @@ Wir formen \ref{eq:dgl} zunächst um:
 Integrieren von $t$ nach $T$ ergibt:
 \begin{equation}
 \left[
-- ln(1-\pi(s)\kstar)  
+- \log(1-\pi(s)\kstar)  
 \right]^T_t
 =
 \int_t^T
@@ -407,7 +527,7 @@ du
 Berechnung der linken Seite unter Beachtung von $\pi(T)=0$ und herausziehen des bezüglich $u$ konstanten Teil
 des Integrals auf der rechten Seite ergibt
 \begin{equation}
-ln(1-\pi(t)\kstar)
+\log(1-\pi(t)\kstar)
 =
 \int_t^T
 \pi(u)(\mu-r) - \einhalb 
@@ -423,7 +543,7 @@ verinfachen.
 
 Addieren wir  $\einhalb \bruch^2 (T-t)$ zu dieser Gleichung, so erhalten wir
 \begin{equation} \label{eq:umgeformteDGL}
-ln(1-\pi(t)\kstar) +  \einhalb \bruch^2 (T-t)
+\log(1-\pi(t)\kstar) +  \einhalb \bruch^2 (T-t)
 =
 \int_t^T
 \pi(u)(\mu-r) - \einhalb 
@@ -436,7 +556,7 @@ du
 Damit erhalten wir 
 \begin{align}
 v_0(t,(1-\pi(t)\kstar)) 
- &= ln(1-\pi(t)\kstar) +  \einhalb \bruch^2 (T-t) \qquad  \text{\ref{eq:LogWertfunktion}} \\
+ &= \log(1-\pi(t)\kstar) +  \einhalb \bruch^2 (T-t) \qquad  \text{\ref{eq:LogWertfunktion}} \\
  &= \int_t^T
 \pi(u)(\mu-r) - \einhalb 
   \left(
@@ -444,9 +564,13 @@ v_0(t,(1-\pi(t)\kstar))
   \right)
 du
 \qquad  \text{\ref{eq:umgeformteDGL}} \\
-&= E(ln(X'^{\pi})) \qquad  \text{to be refenrencde}
+&= E(\log(X'^{\pi})) \qquad  \text{to be refenrencde}
 \end{align}
 \end{proof}
+
+\begin{mySatz}
+$\pidach < \pistar$
+\end{mySatz}
 
 \begin{mySatz}
 Die Lösung der Differentalgleichung \label{eq:dgl} ist eine Lösung des Worst-Case-Problems.
@@ -454,39 +578,57 @@ Die Lösung der Differentalgleichung \label{eq:dgl} ist eine Lösung des Worst-Cas
 
 \begin{proof}
 Die Struktur dieses Beweises ist wie folgt. Wie betrachten in Fallunterscheidungen verschiedene
-Handelstatregien die sich bezüglich $\pidach$ wie folgt unterscheiden.
+Handelsstrategien die sich bezüglich $\pidach$ wie folgt unterscheiden.
 \begin{itemize}
- \item Handelstaregien mit einer höheren Enderwartung im Fall eines Nichtcrashes
+ \item Handelstrategien mit einer höherem erwarteten Nutzen im crashfreien Scenario ...
   \begin{itemize}
-   \item Handelstaregien mit einer höheren Aktienanteil am Anfang
-   \item Handelstaregien mit einer niedrigerem Aktienanteil am Anfang
+   \item ...und einem höheren Aktienanteil zu Beginn.
+   \item ... und einem niedrigerem Aktienanteil zu Beginn.
    \end{itemize}
- \item Handelstaregien mit einer niedriegeren Enderwartung im Fall eines Nichtcrashes
+ \item Handelsstrategien mit einem niedrigeren erwarteten Nutzen im im crashfreien Scenario.
 \end{itemize}
-Für jeden Fall zeigen wir dann das $\pidach$ jeweils bessere Worstcaseschranke besitzt. Damit muss $\pidach$
-dann die optimale Stategie sein.
+Für jeden Fall zeigen wir dann das $\pidach$ jeweils eine bessere Worstcaseschranke besitzt. Damit muss
+$\pidach$ dann die optimale Stategie sein.
 
-Sei also $\pi$ eine Handesstrategie  mit einer höheren Worst-Case-Schranke. Dann gilt
+Sei also $\pi$ eine Handesstrategie  mit einer höheren höherem erwarteten Nutzen im crashfreien Scenario. Aus
+\ref{eq:ExpLogUtility} folgt dann
 \begin{equation}
- E(\pi(t)) \geq \pidach(t)
+ E(\int_{0}^{T} f(\pi(t)) dt) \geq \int_{0}^{T}f(\pidach(t))dt.
 \end{equation}
-Wir bezeichen mit $\vdach$ den erwarteten logaritmischen Nutzen durch Verfolgung der Handelsstrategie
-$\pidach$. Wir geben sie hier nochmal explizit an und brechnen einige partiellen Ableitungen:
+Weiter gilt
 \begin{align}
-\vdach(t,x) &= log(x)  +  r(T-t) + E( \int_{0}^{t}  \pi(u)(\alpha -r)-\frac{1}{2}\pi(u)^2\sigma^2)du) \\
+      \int_{0}^{T} f(E(\pi(t))) dt)
+ \geq \int_{0}^T E(\pi(t)) (\mu -r) - \einhalb E(\pi(t))^2 \sigma^2 dt \\
+ \geq \int_{0}^T E(\pi(t)) (\mu -r) - \einhalb E(\pi(t)^2) \sigma^2 dt \\
+ \geq E(\int_{0}^{T} f(\pi(t)) dt)
+\end{align}
+Dann muss es aber ein $t$ geben mit
+\begin{equation}
+ f(E(\pi(t))) > f(\pidach(t))
+\end{equation}
+Da $\pidach \leq \pistar$ und $f$ bis $\pistar$ streng monoton wachsend ist folgt
+\begin{equation} \label{forsomet}
+ E(\pi(t)) \geq \pidach(t).
+\end{equation}
+
+Wir bezeichen mit $\vdach$ den erwarteten logaritmischen Nutzen durch Verfolgung der Handelsstrategie
+$\pidach$. Wir geben sie hier nochmal explizit an und berechnen dir zur Anwendung der Ito-Formel
+benötigten partiellen Ableitungen:
+\begin{align}
+\vdach(t,x) &= \log(x)  +  r(T-t) + \int_{t}^{T}  \pidach(u)(\mu -r)-\frac{1}{2}\pidach(u)^2\sigma^2du \\
 \vdach_x(t,x) &= \frac{1}{x} \\
 \vdach_{xx}(t,x) &= - \frac{1}{x^2} \\
-\vdach_t(t,x) &= E(-\pi(t)(\alpha -r)+\frac{1}{2}\pi(t)^2\sigma^2) -r
+\vdach_t(t,x) &= -\pidach(t)(\mu -r)+\frac{1}{2}\pidach(t)^2\sigma^2 -r
 \end{align}
 Wir wiedeholen hier auch nochmal die $X$ treibende Dynamik um im folgenden die Anwendung der Ito-Formel
 nachvollziehen zu können:
 \begin{align}
- dX(t) &= X(t)(r + \pi(t)(\alpha -r)) dt +  X(t) \sigma dW(t) \\
+ dX(t) &= X(t)(r + \pi(t)(\mu -r)) dt +  X(t) \sigma dW(t) \\
   X(0) &= x_0
 \end{align}
 Nun machen wir folgende Rechnung
 \begin{align}
-v_0(t,(1-\pi(t)\kstar)) & = E(ln(X'^{\pi})) \\
+v_0(t,(1-\pi(t)\kstar)) & = E(\log(X'^{\pi})) \\
  &= \vdach(t,X(t)) \\
  &= \vdach(0,x) \\
  &+ \int_0^t \vdach_x(s,X) \pidach(s) \sigma dW(s) \\
@@ -496,27 +638,76 @@ v_0(t,(1-\pi(t)\kstar)) & = E(ln(X'^{\pi})) \\
 Nehmen wir nun davon den Erwartungswert, so fällt das Integral bezüglich der Brownschen Bewegung dank
 unserser Vorrausetzungen an eine zulässige Handelsstartegie weg, für das andere Integral berechnen wir:
 \begin{align}
-&= E( \int_0^t E(-\pi(t)(\alpha -r)+\frac{1}{2}\pi(t)^2\sigma^2) -r + (r+\pidach(s)(\mu-r)) +
-\einhalb \pidach(s)^2 \sigma^2 ds) \\
- & =  \int_0^t E(-\pi(t)(\alpha -r)+\frac{1}{2}\pi(t)^2\sigma^2) -r + (r+\pidach(s)(\mu-r)) +
+&=  \int_0^t -\pidach(t)(\mu -r)+\frac{1}{2}\pidach(t)^2\sigma^2 -r + (r+\pidach(s)(\mu-r)) +
+\einhalb \pidach(s)^2 \sigma^2 ds \\
+ & =  \int_0^t E(-\pi(t)(\mu -r)+\frac{1}{2}\pi(t)^2\sigma^2) -r + (r+\pidach(s)(\mu-r)) +
 \einhalb \pidach(s)^2 \sigma^2 ds \\
  &= 0
 \end{align}
-Dabei haben wir die ABleitunegn eingesetzt, Integral und Erwartunhswert vertauscht.
-
-Wir erhhalten also
+Dabei haben wir die Ableitungen eingesetzt, Integral und Erwartungswert vertauscht.
+Wir erhalten also
 \begin{align}
-E(v_0(t,(1-\pi(t)\kstar))) & = E (\vdach(t,X(t))) \\
+E(v_0(t,\xdach (t) (1-\pi(t)\kstar))) & = E (\vdach(t,X(t))) \\
  &= \vdach(0,x) \\
  &= \vdach(T,X(T))
 \end{align}
+Also gilt:
+\begin{align} \label{worstcaseboundpidach}
+ WC(\pidach) &=  \min(\underset{t}{ \text{inf}} \quad E(v_0(t,\xdach (t) (1-\pi(t)\kstar))) , \vdach(0,x)) \\ 
+             &= \min(\underset{t}{ \text{inf}} \quad \vdach(0,x) , \vdach(0,x)) \\
+             &= \vdach(0,x)
+\end{align}
+Fall $\pi(0) \geq \pidach(0)$:  Dann gilt:
+\begin{align}
+ WC(\pi) &\leq  E(v_0(0,X (1-\pi(0)\kstar))) \\
+          &=  v_0(0,x (1-\pi(0)\kstar) \\
+          &\leq  v_0(0,x (1-\pidach(0)\kstar) \\
+          &= \vdach(0,x) \\
+          &= WC(\pidach)
+\end{align}
+Fall $\pi(0) \leq \pidach(0)$:
+Wir betrachten dann
+\begin{equation}
+ \tau = \inf(t;E(\pi(t))>\pidach(t)).
+\end{equation}
+Wegen \ref{forsomet} liegt dieses $\tau$ zwischen 0 und $T$.
+
+%habe ich noch nicht verstanden
+Offensichtlich gilt dann auch:
+\begin{equation} \label{damdam}
+ E( \log (X^{\pi}(\tau)))  \leq E(\log(\xdach(\tau)))
+\end{equation}
+
+\begin{align} \label{dumdum}
+ E(\log(1-\pi(t)\kstar)) &\leq \log(1-\kstar E(\pi(t)) \qquad \text{Jensens Ungleichung} \\
+                       &< \log(1-\kstar \pidach(t)) \qquad \text{wegen $\ref{forsomet}$} 
+\end{align}
+ 
+Nun folgern wir
+\begin{align}
+ WC(\pi) &\leq  E(v_0(t,X (1-\pi(t)\kstar))) \\
+          &= E(\log(X^{\pi}(t))) + E(1-\pi(t)\kstar) + ... \\ % explizite Form von v0
+          &< E(\log(X^{\pi}(t))) + \log(1-\kstar \pidach(t)) + .. \qquad \text{wegen $\ref{dumdum}$} \\ 
+          &< E(\log(\xdach(\tau))) + \log(1-\kstar \pidach(t)) + .. \qquad \text{wegen $\ref{damdam}$} \\
+          &= E(v_0(t,\xdach(\tau)(1-\pi(t)\kstar))) \\
+          &= WC(\pidach) 
+\end{align}
+
+Es bleibt noch der Fall, wo $\pi$ einen kleineren erwarteten Nutzen im crashfreien Scenario besitzt. Dann
+gilt:
+\begin{align}
+ WC(\pi) &\leq  E(\log(X^{\pi}(T)))  \qquad \text{Definition von WC} \\
+          &= E(\log(\xdach(T)))  \qquad \text{nach Vorrausetzung in diesem Fall} \\ % 
+          &\leq WC(\pidach) \qquad \text{ wegen \ref{worstcaseboundpidach}} \\ 
+\end{align}
+
 
 
 \end{proof}
 
 
 Wir haben noch nicht gezeigt, dass $\pidach$ wirklich eine bessere Worst-Case Schranke besitzt als die
-Bondstartegie. Dass tun wir nun, indem wir eine Stategie angeben, die eine höhere Worstcaseschranke als die
+Bondstrategie. Dass tun wir nun, indem wir eine Stategie angeben, die eine höhere Worstcaseschranke als die
 pure Bondstrategie hat. Da $\pidach$ optimal ist, muss es auch eine bessere Worstcaseschranke besitzen. Für
 eine numerische Berechnung verweisen wir auf das letzte Kapitel.
 
@@ -524,10 +715,101 @@ eine numerische Berechnung verweisen wir auf das letzte Kapitel.
  Es gibt eine Strategie, mit einer besseren Worstcaseschranke.
 \end{mySatz}
 
+\begin{proof}
+\newcommand{\besser}{\frac{1}{\kstar}(1-\exp(-\einhalb \frac{\pi-\mu}{\sigma}^2(T-t)))}
+ Wir betrachten die Strategie
+\begin{equation}
+ \pi(t)=\einhalb \min(\besser,\pistern)
+\end{equation}
+Also gilt:
+\begin{equation}
+ 0 < \pi(t) \leq \pistern
+\end{equation}
+Also folgt $f(\pi(t))>0$ und auch
+\begin{equation} \label{besserohnecrash}
+ 0 < E \left[ 
+	      \int_t^T f(\pi(s)) ds
+       \right]
+\end{equation}
+Weiter gilt:
+
+\begin{align*}
+ v_0(t,x(1-\pi(t))\kstar)
+ &= \log(x) + \log((1-\pi(t))\kstar) + \letzterTermv \\
+ &> \log(x) + \log(1-(1-\exp(-\einhalb \frac{\pi-\mu}{\sigma}^2(T-t)))) + \letzterTermv \\
+ &= \log(x) + -\einhalb \frac{\pi-\mu}{\sigma}^2(T-t) + \letzterTermv \\
+ &= \log(x) + r(T-t) \\
+ &= \log(x \exp(r(T-t))) 
+\end{align*}
+Dabei ergibt sich die Ungleichung, da $\log(1-x\kstar)$ streng fallend in $x$ ist und
+\begin{equation*}
+ \pi(t) < 2 \pi(t) \leq \besser
+\end{equation*}
+Also gilt:
+\begin{equation} \label{besserbeicrash}
+ v_0(t,x(1-\pi(t))\kstar)
+ = \log(x \exp(r(T-t))) 
+\end{equation}
+Also folgt aus \ref{besserbeicrash} und \ref{besserohnecrash} das $\pi$ eine bessere Strategie als die reine
+Bonddstrategie ist.
+\end{proof}
+
+
 Wir wollen nun noch den besten konstanten Portfoliprozess ausrechen:
 \begin{mySatz}
  Der beste konstante Portfolioprozess ist:
+\begin{equation}
+ \pi= 
+ \left(
+  \einhalb  \left( \pistern + \frac{1}{\kstar} \right) - \sqrt{ 
+   \frac{1}{4}  \left( \pistern - \frac{1}{\kstar} \right)^2 + \frac{1}{\sigma^2T}
+   } 
+\right)^+
+\end{equation}
+Weiter gilt: $\pi -> \min(\pistar,\frac{1}{\kstar})$ für $T->\infty$.
 \end{mySatz}
+
+\begin{proof}
+ Zunächst zeigen wir die Grenzwertaussage. Geht T gegen $\infty$ so nimmt $\pi$ folgende Gestalt an:
+\begin{equation}
+ \pi= 
+ \left(
+  \einhalb  \left( \pistern + \frac{1}{\kstar} \right) - 
+   \einhalb  | \pistern - \frac{1}{\kstar} |
+\right)^+
+\end{equation}
+Daraus wird die Aussage offensichtlich.
+
+Nun zur eigentlichen Aussage: Wir geben zunächst die Worst-Case-Schranke für einen konstanten
+Portfolioprozess an:
+\begin{equation}
+ WC() = \log(x) + rT + \left( \pi(\mu-r)-\einhalb \pi^2 \sigma^2 \right) T + \log(1-\pi \kstar)
+\end{equation}
+Nun suchen wir dasjenige $\pi$ das diesen Ausdruck maximiert. Ableiten nach $\pi$ ergibt:
+\begin{equation*}
+  \left( (\mu-r)- \pi \sigma^2 \right) T + \frac{-\kstar}{1-\pi \kstar}
+\end{equation*}
+Gleichsetzen mit 0 und Multiplikation mit $1-\pi \kstar$ ergibt
+\begin{equation*}
+   (\mu-r)T - (\mu-r) T \pi \kstar - \pi \sigma^2 T + \pi^2 \sigma^2 T \kstar - \kstar = 0
+\end{equation*}
+
+Nun sortieren wir anch den Koeffizienten von $\pi$.
+\begin{equation*}
+  \pi \sigma^2 T -\pi T (( \mu-r) \kstar + \sigma^2) + (\mu-r)T-\kstar = 0
+\end{equation*}
+
+Und normieren noch:
+\begin{equation*}
+  \pi^2  -\pi T (\pistar + \frac{1}{\kstar}) + \frac{(\mu-r)}{\sigma^2 \kstar} - \frac{1}{\sigma^2T} = 0
+\end{equation*}
+
+
+
+
+
+\end{proof}
+
 
 
 
