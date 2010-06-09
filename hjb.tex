@@ -66,23 +66,28 @@ Sei
                  \}
 \end{equation}
 Es gelte nun
-\begin{align}
-  0 &\leq \sup_{\pi \in \mathcal{A}''} \left[ \mathcal{L}^{\pi} v^0(t,x) \right] \\
- 0 &\leq \sup_{\pi \in \mathcal{A}''} \left[ v^0(t,x(1-k\pi))-v^1(t,x) \right] \\
- 0 &= \sup_{\pi \in \mathcal{A}''} \left[ \mathcal{L}^{\pi} v^0(t,x) \right]  
+\begin{equation} \label{hjbinequality}
+  0 \leq \sup_{\pi \in \mathcal{A}''} \left[ \mathcal{L}^{\pi} v^0(t,x) \right]
+\end{equation}
+\begin{equation} \label{crashrelation}
+ 0 \leq \sup_{\pi \in \mathcal{A}''} \left[ v^0(t,x(1-k\pi))-v^1(t,x) \right] 
+\end{equation}
+\begin{equation} \label{complementarity}
+ 0 = \sup_{\pi \in \mathcal{A}''} \left[ \mathcal{L}^{\pi} v^0(t,x) \right]  
      \sup_{\pi \in \mathcal{A}''} \left[ v^0(t,x(1-k\pi))-v^1(t,x) \right]
-\end{align}
+\end{equation}
+
 
 und
 \begin{equation}
  v^1(T,x) = U(x)
 \end{equation}
 und
-\begin{equation}
+\begin{equation} {eq:optimale_Strategie}
  p(t) = arg \sup_{\pi \in \mathcal{A''}} \left[ \mathcal{L}^{\pi} v^1(t,x) \right]
 \end{equation}
 und
-\begin{equation}
+\begin{equation} {eq: optimaler_Crash}
  \theta = \inf_s \left[ v^0(s,x(1-k \pi)) \leq v^1(t,x) \right]
 \end{equation}
 Dann ist alles optimal.
@@ -108,8 +113,92 @@ und
  dv^1(\tau,X(\tau))= v^1(\tau,X(\tau))(1-\pi(\tau)k) - v^1(\tau-,X(\tau-))
 \end{equation}
 also
-\begin{equation}
-v^1(\tau-,X(\tau-) - v^1(t,x) = \int_t^{\tau} \mathcal{L}^{\pi(s)}v(0,X(s))ds
-                            +   \int_t^{\tau}  
+\begin{equation} \label{itov}
+v^1(\tau-,X(\tau-)) - v^1(t,x) = \int_t^{\tau} \mathcal{L}^{\pi(s)}v(s,X(s))ds
+                            +   \int_t^{\tau} v_x^1(s,X(s)) \sigma X(s) dW(s) 
+\end{equation}
+Wir fixieren nun die optimale Strategie $p$. Dann folgt aus der Definition für $t \leq s \leq \tau$  hjb
+inequality (\ref{hjbinequality}) 
+\begin{equation} \label{rauch}
+ 0 \leq \sup_{\pi \in \mathcal{A}''} \left[ \mathcal{L}^{p} v^0(t,x) \right]
 \end{equation}
 
+und da $p \in \mathcal(A)''$
+\begin{equation} \label{schall}
+  v^1(s,X(s)) \leq v^0(s,X(1-k\pi(t))
+\end{equation}
+
+Wenn wir nun $p$ in \ref{itov} einsetzen und die Gleichung nach $v^1(t,x)$ umstellen, erhalten wir:
+\begin{equation}
+ v^1(t,x) = v^1(\tau-,X(\tau-)) - \int_t^{\tau} \mathcal{L}^{\pi(s)}v(s,X(s))ds
+                                  -   \int_t^{\tau} v_x^1(s,X(s)) \sigma X(s) dW(s) 
+\end{equation}
+Mit \ref{schall} können wir den ersten Summanden auf der rechten Seite nach oben abschätzen, den zweiten
+Summanden können wir wegen \ref{rauch} durch Weglassen nach oben abschätzen und erhalten:
+\begin{equation}
+ v^1(t,x) \leq v^0(s,X(1-k\pi(t)) -  \int_t^{\tau} v_x^1(s,X(s)) \sigma X(s) dW(s) 
+\end{equation}
+Bilden des Erwartungswertes führt dann zu:
+\begin{equation} \label{ungleichung}
+ v^1(t,x) \leq E_{t,x} \left[ v^0(s,X(1-k\pi(t))  \right] 
+\end{equation}
+Ausgehend von \ref{ungleichung} vergrößern wir die rechte Seite durch Bilden des Surprememums über alle
+Handelsstrategien:
+\begin{equation} 
+ v^1(t,x) \leq \sup_{\pi} E_{t,x} \left[ v^0(s,X(1-k\pi(t))  \right] 
+\end{equation}
+Da da das $\tau$ beliebig gewählt war erhaält nun auch das bilden des infimums auf er rechten Seite die
+Ungleichung:
+\begin{equation} 
+ v^1(t,x) \leq \inf_{\tau} \sup_{\pi} E_{t,x} \left[ v^0(s,X(1-k\pi(t))  \right] 
+\end{equation}
+Wieder ausgehend von \ref{ungleichung} können wir die beiden letzten Schritte auch in umgekehretr Reihenfolge
+durchführen. Da $\tau$ beliebig gewählt war erhält das Bilden des Infimums auf der rechten Seite von
+\ref{ungleichung} die Ungleichung und wir erhalten
+\begin{equation} 
+ v^1(t,x) \leq \inf_{\tau} E_{t,x} \left[ v^0(s,X(1-k\pi(t))  \right] 
+\end{equation}
+und bilden des Surprememus über alle Handelstrategien macht die rechte Seite davon nur größer
+
+\begin{equation} 
+ v^1(t,x) \leq \sup_{\pi} \inf_{\tau} E_{t,x} \left[ v^0(s,X(1-k\pi(t))  \right] 
+\end{equation}
+
+Wir fixieren nun $\theta$. Nach definition von $\theta$ gilt für $t\leq s < \theta$
+\begin{equation} \label{super}
+ v^0(s,X(s)(1-k \pi(s))) > v^1(s,X(s))
+\end{equation}
+und
+\begin{equation}
+ v^0(\theta,X(\theta)(1-k \pi(\theta))) \leq v^1(\theta,X(\theta))
+\end{equation}
+Nun muss entweder
+\begin{equation} \label{hanni}
+ \mathcal{L}^{\pi} v_1(s,X(s)) < 0 
+\end{equation}
+oder 
+\begin{equation} \label{nanni}
+ 0 \leq \mathcal{L}^{\pi} v_1(s,X(s))
+\end{equation}
+gelten.
+Gilt letzteres, so ist $\pi \in \mathcal{A}_1' $ und aus folgt
+
+\begin{equation} 
+ \sup_{\pi \in \mathcal{A}''} \left[ v^0(t,x(1-k\pi))-v^1(t,x) \right] > 0 
+\end{equation}
+
+Wegen \ref{complementarity} folgt dann 
+\begin{equation}
+ 0 = \sup_{\pi \in \mathcal{A}''} \left[ \mathcal{L}^{\pi} v^0(t,x) \right] 
+\end{equation}
+
+Aber wegen \ref{super} ist $\pi \in \mathcal{A}''$ und es folgt
+
+\begin{equation}
+ \mathcal{L}^{\pi} v_1(s,X(s)) \leq 0 
+\end{equation}
+
+Also unabhängig ob \ref{hanni} oder \ref{nanni} gilt, es folgt
+\begin{equation}
+ \mathcal{L}^{\pi} v_1(s,X(s)) \leq 0 
+\end{equation}

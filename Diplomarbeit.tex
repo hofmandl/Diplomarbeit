@@ -177,14 +177,14 @@ Die eindeutige Lösung von \ref{eq:Vermögensgleichung} ist nach \ref{StochDgl} du
 \end{align}
 gegeben. Für einen konstanten Vermögensprozess $\pi$ vereinfacht diese Gleichung sich zu:
 \begin{align} \label{eq:aaa}
- X_{\pi,t_0,x}(t) &= x \exp \left(
-                                   (t-t_0) ( r + \pi (\mu -r) - \frac{1}{2} \pi^2 \sigma^2 )
-                                  + \pi \sigma (W(t) - W(t_0)) 
-                            \right) \\
-                  &= x \exp \left(
-                                   (t-t_0)f(\pi)
-                                  + \pi \sigma (W(t) - W(t_0))
-                            \right) 
+%  X_{\pi,t_0,x}(t) &= x \exp \left(
+%                                    (t-t_0) ( r + \pi (\mu -r) - \frac{1}{2} \pi^2 \sigma^2 )
+%                                   + \pi \sigma (W(t) - W(t_0)) 
+%                             \right) \\
+%                   &= x \exp \left(
+%                                    (t-t_0)f(\pi)
+%                                   + \pi \sigma (W(t) - W(t_0))
+%                             \right) 
 \end{align}
 
 % Dessen erwartungswert berechnet sich zu 
@@ -425,7 +425,7 @@ fest.
 
 Als nächstes berechen wir die Worst-Case-Schranke, wenn man der optimalen Startegie $\pistar=\pistern$ des
 crashfreien Scenarios verfolgt:
-\begin{equation} \label{eq:worstcasereinbond}
+\begin{equation} 
  WC(\pistar) = \log(x) +rT + \einhalb \bruch^2 T + \log(1-\pistar\kstar),
 \end{equation}
 
@@ -605,7 +605,7 @@ $\pidach < \pistar$
 \end{mySatz}
 
 \begin{mySatz}
-Die Lösung der Differentalgleichung \label{eq:dgl} ist eine Lösung des Worst-Case-Problems.
+Die Lösung der Differentalgleichung \ref{eq:dgl} ist eine Lösung des Worst-Case-Problems.
 \end{mySatz}
 
 \begin{proof}
