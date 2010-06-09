@@ -30,6 +30,7 @@
 \newcommand{\pistar}{\pi^{\ast}}
 \newcommand{\kstar}{k^{\ast}}
 \newcommand{\letzterTermv}{(r+\einhalb \bruch^2)(T-t)}
+\newcommand{\standardsatz}{Es gelten die Vorraussetzungen unseres Standardfinanzmarktmodells. }
 
 \maketitle
 
@@ -102,7 +103,9 @@ Die stochastische Differentialgleichung
 besitzt die eindeutige Lösung
 
 \begin{equation}
- X^{\pi}_{t_0,x_o}(t) = \exp(\int_{t_0}^{t} (A(u)-\frac{1}{2}S(u)^2)du + \int_{t_0}^{t}S(u)dW(u)) 
+ X_{t_0,x_0}(t) = \exp \left( 
+                             \int_{t_0}^{t} (A(u)-\frac{1}{2}S(u)^2)du + \int_{t_0}^{t}S(u)dW(u)
+                       \right) 
 \end{equation}
 
 \end{mySatz}
@@ -134,7 +137,7 @@ Es gelten die Vorrausetzungen unseres Standardfinanzmarktmodells. Die Lösung von
  dX(t) &= X(t)(r dt + \pi(t)(\mu -r) dt + \sigma dW(t)) \\
   X(t_0) &= x_0
 \end{align}
-bezeichen wir mit $X^{\pi,t_0,x}$. Ist $t_0=0$, so schreiben wir auch $X^{\pi,x}$. 
+bezeichen wir mit $X_{\pi,t_0,x}$. Ist $t_0=0$, so schreiben wir auch $X_{\pi,x}$. 
 \end{myDefinition}
 
 \begin{myDefinition} \label{def:f}
@@ -142,6 +145,7 @@ Es gelten die Vorrausetzungen unseres Standardfinanzmarktmodells. Sei $f$ durch
 \begin{equation} \label{eq:fvonpi}
  f(\pi) =  \pi (\mu-r)-\einhalb \pi^2 \sigma^2
 \end{equation}
+definiert.
 \end{myDefinition}
 
 % Satz und definition
@@ -162,42 +166,42 @@ an hat dort den Wert $\einhalb \frac{(\pi-\mu)^2}{\sigma^2}$.
 
 Die eindeutige Lösung von \ref{eq:Vermögensgleichung} ist nach \ref{StochDgl} duch 
 \begin{align} \label{eq:LösVermögensgleichung}
- X^{\pi,t_0,x}(t) &= x \exp \left(
+ X_{\pi,t_0,x}(t) &= x \exp \left(
                                    \int_{t_0}^{t} r + \pi(u)(\mu -r) - \frac{1}{2} \pi(u)^2 \sigma^2 du 
                                   +\int_{t_0}^{t}\pi(u)\sigma dW(u)) 
                             \right) \\
                   &= x \exp \left(
-                                   \int_{t_0}^{t} f(\pi(t)) du 
+                                   \int_{t_0}^{t} f(\pi(u)) du 
                                   +\int_{t_0}^{t}\pi(u)\sigma dW(u)) 
                             \right) 
 \end{align}
 gegeben. Für einen konstanten Vermögensprozess $\pi$ vereinfacht diese Gleichung sich zu:
 \begin{align} \label{eq:aaa}
- X^{\pi,t_0,x}(t) &= x \exp \left(
-                                   (t-t_0) ( r + \pi(u)(\mu -r) - \frac{1}{2} \pi(u)^2 \sigma^2 )
-                                  +(t-t_0)\pi(u)\sigma W(u)) 
+ X_{\pi,t_0,x}(t) &= x \exp \left(
+                                   (t-t_0) ( r + \pi (\mu -r) - \frac{1}{2} \pi^2 \sigma^2 )
+                                  + \pi \sigma (W(t) - W(t_0)) 
                             \right) \\
                   &= x \exp \left(
-                                   (t-t_0) (f(\pi(t)))
-                                  +(t-t_0)\pi(u)\sigma W(u))
+                                   (t-t_0)f(\pi)
+                                  + \pi \sigma (W(t) - W(t_0))
                             \right) 
 \end{align}
 
-Dessen erwartungswert berechnet sich zu 
-\begin{align} 
- E(X(t)) &= x exp( r + \pi (\mu -r)) exp(\pi \sigma W(t) -\frac{1}{2} \pi^2\sigma^2) \\
-       &= x exp( r + \pi (\mu -r))
-\end{align}
+% Dessen erwartungswert berechnet sich zu 
+% \begin{align} 
+%  E(X(t)) &= x exp( r + \pi (\mu -r)) exp(\pi \sigma W(t) -\frac{1}{2} \pi^2\sigma^2) \\
+%        &= x exp( r + \pi (\mu -r))
+% \end{align}
 
 Logaritmiert man \ref{eq:LösVermögensgleichung} und nimmt den Erwartungswert so erhält man
 \begin{equation} \label{eq:ExpLogUtility}
-E(log(X(t))) = log(x)  + \int_{0}^{t} (r + \pi(u)(\mu -r)-\frac{1}{2}\pi(u)^2\sigma^2)du 
+E(log(X_{\pi,x}(T))) = log(x)  + \int_{0}^{T} (r + \pi(u)(\mu -r)-\frac{1}{2}\pi(u)^2\sigma^2)du 
 \end{equation}
-und bezeicnet dies als erwarteten logaritmischen Nutzen des Endvermögens. Unter der Annahme einer konstanten
+und bezeichnet dies als erwarteten logaritmischen Nutzen des Endvermögens. Unter der Annahme einer konstanten
 Handelsstrategie vereinfacht sich \ref{eq:ExpLogUtility} zu
 
 \begin{equation} \label{eq:ExpLogUtilityKonst}
-E(log(X(t))) = log(x)  + (r + \pi(\mu -r)-\frac{1}{2}\pi^2 \sigma^2) t. 
+E(log(X_{\pi,x}(T))) = log(x)  + (r + \pi(\mu -r)-\frac{1}{2}\pi^2 \sigma^2) T. 
 \end{equation}
 
 \chapter{Portfoliooptimierung in kontinuirlicher Zeit mit stochastischer Steuerung und HJB-Gleichungen}
@@ -205,9 +209,30 @@ E(log(X(t))) = log(x)  + (r + \pi(\mu -r)-\frac{1}{2}\pi^2 \sigma^2) t.
 
 
 \section{Anwendung auf das Portfolioproblem}
-Definition Nutzenfunktion
+\begin{myDefinition}
+ Sei $U:(0,\infty) \rightarrow R$ strikt konkav, stetig differenzierbar und es gelte
+\begin{equation}
+ \lim U'(x)=\infty, \qquad \lim U'(x)=0.
+\end{equation}
+Dann nennen wir $U$ eine Nutzenfunktion.
+\end{myDefinition}
 
-definition Portfolioptimierungsproblem und Wertfunktion.
+
+
+\begin{myDefinition}
+\standardsatz
+Wir bezeichen mit
+\begin{equation}
+ J(x,t,\pi,U) = E(U(X_{\pi,x,t}(T))
+\end{equation}
+den erwarteten Endnutzen durch Verfolgung einer Handestrategie $\pi$ bezüglich $U$.
+Die Funktion
+\begin{equation}
+ v_0^U(t,x) = \sup J(x,t,\pi,U)
+\end{equation}
+heißt Wertfunktion.
+\end{myDefinition}
+Die $0$ im subscript der Wertefunktion wird erst in späteren Kapiteln klar werden. 
 
 \begin{mySatz}
 Ist $V$ eine Lösung von 
@@ -219,8 +244,15 @@ mit
 \begin{equation}
  V(T,x)=U(x)
 \end{equation}
-
-Dann ist $V$ die zu $U$ gehörige Wertfunktion.
+Dann gilt 
+\begin{equation}
+ V(t,x)=v_0^U(t,x)
+\end{equation}
+und
+\begin{equation}
+ p(t) 
+\end{equation}
+ist der optimale portfolioprozess.
 
 Ist $\pi$ argmin, so ist $\pi$ die zugehörige Handelsstrategie.
 
@@ -231,7 +263,7 @@ Ist $\pi$ argmin, so ist $\pi$ die zugehörige Handelsstrategie.
 \section{Explizite Lösung für logaritmischen Nutzen}
 Wir zeigen, dass die Wertfunktion durch
 \begin{equation} \label{eq:LogWertfunktion}
- V(t,x)= \log(x)+(r+\frac{1}{2} (\frac{\mu-r}{\sigma})^2 (T-t)
+ v_0(t,x)= \log(x)+\left(r + \einhalb \bruch^2 \right) (T-t)
 \end{equation}
 ist. Dazu berechen wir die Ableitungen
 \begin{equation}
@@ -286,9 +318,9 @@ und wir sind in unserer Probe bestätigt worden.
 
 
 \chapter{Ein spieltheoretischer MaxMin-Ansatz zur Lösung des Portfolioproblems}
-Wir übernehmen wieder die Vorrausetzen unseres Finanzmarktes. Dieses Modell hat den Nachteil, dass es
-den Aktienekurs als stetige Funktion der Zeit modelliert. In der Realität beobachtet man aber Kurssprünge,
-insbesondere nach unten, die man als Crash bezeichnet.
+Das Modell unseres Standardfinanzmarktes hat den Nachteil, dass es den Aktienekurs als stetige Funktion der
+Zeit modelliert. In der Realität beobachtet man aber Kurssprünge, insbesondere nach unten, die man als Crash
+bezeichnet.
 
 Das modellieren wir nun dadurch, dass wir annehmen dass innerhalb des Zeithorizonts es zu einem
 Fall des Aktienkuses um das k-fachen seines Wertes kommen kann. Dabei gelte 
@@ -813,9 +845,8 @@ Und normieren noch:
 
 
 
-\chapter{Übertragung des MaxMin-Ansatzes in das HJB-Setting}
-\section{Lösung des Problems}
-\section{Explizite Lösung für logaritmischen Nutzen}
+\include{hjb}
+
 
 \chapter{Simulationen}
 

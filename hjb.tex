@@ -1,0 +1,115 @@
+
+\chapter{Übertragung des MaxMin-Ansatzes in das HJB-Setting}
+Wir erweitern unser standardfinazmarktmodell aus \ref{Standardfinanzmarktmodell} wie folgt.
+Sei $(\Omega,F,P)$ ein Wahrscheinlichkeitsraum und die Parameter $r$, $\mu$, $\sigma$ wie gehabt. Auf dem
+W-Raum sei wieder eine Brownsche Bewegung $W$ definiert und ein Sprungprozess $N$, der auf dem Intervall
+$(0,T)$ höchstens einen Sprung von 0 auf 1 machen kann.
+Ähnlich wie beim vorher betrachteten Lösungsanstz führen wir wieder einen Parameter $k$ ein, der die Höhe
+des Crashes angibt.
+Die Preise sind dann gegeben durch:
+\begin{align}
+ dB(t) &= r B(t) dt \\
+  B(0) &= 1         \\
+ dS(t) &= S(t-)(\mu dt + \sigma dW(t) - k dN(t)) \\
+  S(0) &= s_0
+\end{align}
+
+Ist nun eine Handelsstrategie $\pi$ gegeben, so folgt der Vermögensprozess der folgenden Dynamik
+\begin{align}
+ dX(t) &= X(t)(r dt + \pi(t)(\mu -r) dt + \sigma dW(t) -k dN(t)) \\
+  X(t_0) &= x_0
+\end{align}
+
+Wir stellen uns also das folgende Optimierungsproblem:
+\begin{equation}
+\sup_{\pi \in \mathcal{A}} \inf_{N \in \mathcal{B}} E \left[ U(X(T)) \right]
+\end{equation}
+
+Wir führen nun den folgenden Operator ein:
+\begin{equation}
+ \mathcal{L}^{\pi} v(t,x) = v_t(t,x) + v_x(t,x)(r+\pi(\mu-r)) x + \einhalb v_{xx}(t,x) \pi^2 \sigma^2 x^2
+\end{equation}
+
+Wir führen nun eine Wertfunktion ein
+\begin{equation}
+ J^n(t,x,\pi,N) = E \left[ U(X(T)) | X(t) = x, N(t)=1-n \right]
+\end{equation}
+
+Die optimale Wertfunktion ist dann:
+\begin{equation}
+ V^n(t,x)= \sup_{\pi \in \mathcal{A}} \inf_{N \in \mathcal{B}} J^n(t,x,\pi,N)
+\end{equation}
+
+Verification Thereom
+Sei $v^0$ eine Lösung von
+\begin{align}
+ 0 &= \sup_{\pi \in \mathcal{A}} \left[ \mathcal{L}^{\pi} v^0(t,x) \right] \\
+ v^0(T,x) &= U(x)
+\end{align}
+und
+\begin{equation}
+ p(t) = arg \sup_{\pi \in \mathcal{A}} \left[ \mathcal{L}^{\pi} v^0(t,x) \right] 
+\end{equation}
+
+Dann gilt $V^0(t,x) = v^0(t,x)$ und $p$ ist die optimale Strategie.
+
+Sei 
+\begin{equation}
+ \mathcal{A}' = \{ 
+                \pi : \pi \in \mathcal{A}, \forall x : 0 \leq \mathcal{L}^{\pi(t)} v^n(t,x) 
+                \}
+\end{equation}
+
+\begin{equation}
+ \mathcal{A}'' = \{ 
+                  \pi : \pi \in \mathcal{A}, \forall x : v^1(t,x) \leq v^0(t,x(1-k\pi(t))) 
+                 \}
+\end{equation}
+Es gelte nun
+\begin{align}
+  0 &\leq \sup_{\pi \in \mathcal{A}''} \left[ \mathcal{L}^{\pi} v^0(t,x) \right] \\
+ 0 &\leq \sup_{\pi \in \mathcal{A}''} \left[ v^0(t,x(1-k\pi))-v^1(t,x) \right] \\
+ 0 &= \sup_{\pi \in \mathcal{A}''} \left[ \mathcal{L}^{\pi} v^0(t,x) \right]  
+     \sup_{\pi \in \mathcal{A}''} \left[ v^0(t,x(1-k\pi))-v^1(t,x) \right]
+\end{align}
+
+und
+\begin{equation}
+ v^1(T,x) = U(x)
+\end{equation}
+und
+\begin{equation}
+ p(t) = arg \sup_{\pi \in \mathcal{A''}} \left[ \mathcal{L}^{\pi} v^1(t,x) \right]
+\end{equation}
+und
+\begin{equation}
+ \theta = \inf_s \left[ v^0(s,x(1-k \pi)) \leq v^1(t,x) \right]
+\end{equation}
+Dann ist alles optimal.
+
+
+Lemma:
+Die Wertfunktion kann auf die folgenden Weisen ausgedrückt werden:
+\begin{align}
+ V^1(t,x) &=  \sup_{\pi \in \mathcal{A}} \inf_{N \in \mathcal{B}}    E \left[ U(X(T)) \right] \\
+          &=  \inf_{N \in \mathcal{B}}   \sup_{\pi \in \mathcal{A}}  E \left[ U(X(T)) \right] \\
+          &=  \sup_{\pi \in \mathcal{A}} \inf_{\tau}    V^0(\tau,X(\tau-)(1-k \pi(\tau))) \\
+          &=  \inf_{\tau}   \sup_{\pi \in \mathcal{A}}    V^0(\tau,X(\tau-)(1-k \pi(\tau))) \\
+\end{align}
+
+Beweis des Verifikationssatzes:
+Wir gehen davon aus, das im Punkte $(t,x)$ $X(t)=x$ gilt und noch ein Crash möglich ist.
+Anwendung der Ito-formel ergibt dann:
+\begin{equation}
+ dv^1(s,X(s))=\mathcal{L}^{\pi(s)}v(0,X(s))ds + v_x^1(s,X(s)) \sigma X(s) dW(s)
+\end{equation}
+und
+\begin{equation}
+ dv^1(\tau,X(\tau))= v^1(\tau,X(\tau))(1-\pi(\tau)k) - v^1(\tau-,X(\tau-))
+\end{equation}
+also
+\begin{equation}
+v^1(\tau-,X(\tau-) - v^1(t,x) = \int_t^{\tau} \mathcal{L}^{\pi(s)}v(0,X(s))ds
+                            +   \int_t^{\tau}  
+\end{equation}
+
