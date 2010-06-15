@@ -112,6 +112,103 @@ Die Wertfunktion kann auf die folgenden Weisen ausgedrückt werden:
           &=  \inf_{\tau}   \sup_{\pi \in \mathcal{A}}    V^0(\tau,X(\tau-)(1-k \pi(\tau))) \\
 \end{align}
 
+Beweis des Lemmas:
+Wie wenden 4 mal die $\epsilon$-Charactersierung des Surprememus an:
+\begin{equation}
+\begin{split}
+       & \sup_{\pi}  E_{t,x,n} \left[   V^0(\tau,X^{\pi N}(\tau-)(1-k \pi(\tau)))  \right] \\
+ \leq  & E_{t,x,n} \left[   V^0(\tau,X^{\pi' N}(\tau-)(1-k \pi'(\tau)))  \right] + \frac{\epsilon}{4}
+\end{split}
+\end{equation}
+
+\begin{equation}
+       \sup_{\pi} \inf_{N} E_{\tau,x,n} \left[ U(X^{\pi N}(T)) \right] 
+  \inf_{N} E_{\tau,x,n} \left[ U(X^{\pi'' N}(T)) \right]  + \frac{\epsilon}{4} 
+\end{equation}
+
+\begin{equation}
+\begin{split}
+     & \inf_{\tau}    E_{t,x,n} \left[ V^0(\tau,X^{\pi \tau}(\tau-)(1-k \pi(\tau))) \right] \\
+\geq &  E_{t,x,n} \left[  V^0(\tau,X^{\pi \tau'}(\tau-)(1-k \pi(\tau)))  \right] - \frac{\epsilon}{4}
+\end{split}
+\end{equation}
+
+
+\begin{equation}
+ \inf_{N}    E \left[ U(X^{\pi,N}(T)) \right] 
+\geq  E \left[ V^0(\tau,X(\tau-)(1-k \pi(\tau))) \right] - \frac{\epsilon}{4}
+\end{equation}
+
+Jetzt haben wir folgende Ungleichungskette:
+\begin{equation}
+\begin{split}
+      &   \sup_{\pi} \inf_{N}    E_{t,x,1} \left[ U(X^{\pi N}(T)) \right] \\
+\geq  &              \inf_{N}    E_{t,x,1} \left[ U(X^{\pi'' N}(T)) \right] \\
+\geq  &              \inf_{N}    E_{t,x,1} \left[ E_{\tau,X^{\pi'' N}(\tau),0} \left[  U(X^{\pi'' N}(T))
+\right] \right] \\
+\geq  &              \inf_{N}    E_{t,x,1} \left[ \sup_{\pi} E_{\tau,X^{\pi'' N}(\tau),0} \left[  U(X^{\pi''
+N}(T)) \right] \right]  - \frac{\epsilon}{4} \\
+\geq  &              \inf_{N}    E_{t,x,1} \left[ V^0(\tau,X^{\pi'' N}(\tau)) \right]  - \frac{\epsilon}{4} \\
+\geq  &                          E_{t,x,1} \left[ V^0(\tau,X^{\pi'' N}(\tau)) \right]  - \frac{\epsilon}{2} \\
+\end{split}
+\end{equation}
+
+Surpremum nehmen links und rechts führt zu:
+\begin{equation}
+\begin{split}
+      &   \sup_{\pi} \inf_{N}    E_{t,x,1} \left[ U(X^{\pi N}(T)) \right] \\
+\geq  &   \sup_{\pi}  E_{t,x,1} \left[ V^0(\tau,X^{\pi'' N}(\tau)) \right]  - \frac{\epsilon}{2} \\
+\end{split}
+\end{equation}
+Und nochmal Infimum nehmen auf der rechten Seite führt zu:
+\begin{equation} \label{eq:Ungleichung1}
+\begin{split}
+      &   \sup_{\pi} \inf_{N}    E_{t,x,1} \left[ U(X^{\pi N}(T)) \right] \\
+\geq  &   \inf_{N}   \sup_{\pi}  E_{t,x,1} \left[ V^0(\tau,X^{\pi'' N}(\tau)) \right]  - \frac{\epsilon}{2} \\
+\end{split}
+\end{equation}
+
+
+Nun eröffnen wir die folgende Ungleichungskette:
+\begin{equation}
+\begin{split}
+      & \inf_{N}  \sup_{\pi}     E_{t,x,1} \left[ U(X^{\pi N}(T)) \right] \\
+\leq  &           \sup_{\pi}     E_{t,x,1} \left[ U(X^{\pi N'}(T)) \right]  \\
+\leq  &           \sup_{\pi}     E_{t,x,1} \left[ E_{\tau,X^{\pi'' N}(\tau),0} \left[  U(X^{\pi'' N}(T))
+\right] \right] \\
+\leq  &           \sup_{\pi}     E_{t,x,1} \left[ \inf{N} E_{\tau,X^{\pi'' N}(\tau),0} \left[  U(X^{\pi'' N}(T))
+\right] \right] + \frac{\epsilon}{4} \\
+ \leq  &           \sup_{\pi}     E_{t,x,1} \left[ \sup_{\pi} \inf{N} E_{\tau,X^{\pi'' N}(\tau),0} \left[  U(X^{\pi'' N}(T))
+ \right] \right] + \frac{\epsilon}{4} \\
+ \leq  &           \sup_{\pi}     E_{t,x,1} \left[ V^0(\tau,X^{\pi'' N}(\tau))  \right] + \frac{\epsilon}{4} \\
+\end{split}
+\end{equation}
+
+Infimum nehmen auf beiden Seiten führt dann zu:
+
+\begin{equation} \label{eq:Ungleichung2}
+\begin{split}
+      & \inf_{N}  \sup_{\pi}     E_{t,x,1} \left[ U(X^{\pi N}(T)) \right] \\
+ \leq  &   \inf_{N}        \sup_{\pi}     E_{t,x,1} \left[ V^0(\tau,X^{\pi'' N}(\tau))  \right] + \frac{\epsilon}{4} \\
+\end{split}
+\end{equation}
+
+Jetz haben wir folgende Ungleichungskette:
+\begin{equation}
+\begin{split}
+      &   \sup_{\pi} \inf_{N}    E_{t,x,1} \left[ U(X^{\pi N}(T)) \right] \\
+\geq  &   \inf_{N}   \sup_{\pi}  E_{t,x,1} \left[ V^0(\tau,X^{\pi'' N}(\tau)) \right]  - \frac{\epsilon}{2} \\
+\geq  &    \inf_{N}  \sup_{\pi}     E_{t,x,1} \left[ U(X^{\pi N}(T)) \right] \\
+\geq  &    \sup_{\pi}  \inf_{N}    E_{t,x,1} \left[ U(X^{\pi N}(T)) \right]
+\end{split}
+\end{equation}
+Dabei folgt die erste Ungleichung aus \ref{eq:Ungleichung1}, die zweite Ungleichung folgt aus \ref{eq:Ungleichung2} und die dritte Ungleichung aus der $ \sup \inf \leq \inf \sup$
+Beziehung.
+
+Da das $\epsilon$ beliebig gewählt war, bleibt hier jede Ungleichung auch ohne $\epsilon$ erhalten, da dann links und rechts von der Ungleichungskette das gleiche steht erhalten
+wir also lauter Gleichheiten.
+
+
 Beweis des Verifikationssatzes:
 Wir gehen davon aus, das im Punkte $(t,x)$ $X(t)=x$ gilt und noch ein Crash möglich ist.
 Anwendung der Ito-formel ergibt dann:
