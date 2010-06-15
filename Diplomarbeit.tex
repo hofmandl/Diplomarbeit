@@ -1,6 +1,6 @@
 \documentclass[pdftex,a4paper]{report}
 
-% \usepackage{ngerman}
+\usepackage[ngerman]{babel}
 \usepackage[latin1]{inputenc}
 \usepackage[T1]{fontenc}
 
@@ -862,18 +862,9 @@ Weitere Aspekte die diskutiert werden könnten:
  \item Formulierung des Worst-Case-Problem als optimal-stopping-problem
 \end{itemize}
 
-%\begin{thebibliography}{999}
-%	\bibitem{Korn1} Korn: "Optimal Portfolios", 1997
-%	\bibitem{Korn2} Korn/Willmott: "Optimal Portfolios under the Threat of Crash", 2002
-%	\bibitem{Korn3} Korn/Menkens: "Worst-Case Scebario Portfolio Optimization", 2005
-%	\bibitem{Korn4} Korn/Steffenson: "Worst-Case Scebario Portfolio Optimization and HJB-Systems", 2007
-%	\bibitem{Korn5} Korn/Korn: "Optionsbewertung und Portfoliooptimierung", 2001
-%	\bibitem{Günther} Günther/Jüngel: "Finanzderivate mit Matlab", 2003
-%	\bibitem{Oksendal} Oksendal: "Stochastic Differential Equations"
-%	\bibitem{Fleming} Fleming: Controlled Markov Processes and Viscosity Solutions, 1993 
-%\end{thebibliography}
 
 \bibliographystyle{plain}
+\nocite{*} % auch alle nicht im Text zitierten Einträge werden mit aufgenommen
 \bibliography{Literatur}
 
 \end{document}

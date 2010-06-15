@@ -1,63 +1,200 @@
 
 \chapter{Übertragung des MaxMin-Ansatzes in das HJB-Setting}
-Wir erweitern unser standardfinazmarktmodell aus \ref{Standardfinanzmarktmodell} wie folgt.
-Sei $(\Omega,F,P)$ ein Wahrscheinlichkeitsraum und die Parameter $r$, $\mu$, $\sigma$ wie gehabt. Auf dem
-W-Raum sei wieder eine Brownsche Bewegung $W$ definiert und ein Sprungprozess $N$, der auf dem Intervall
-$(0,T)$ höchstens einen Sprung von 0 auf 1 machen kann.
-Ähnlich wie beim vorher betrachteten Lösungsanstz führen wir wieder einen Parameter $k$ ein, der die Höhe
-des Crashes angibt.
-Die Preise sind dann gegeben durch:
+Wir gehen wieder von unserem Standardfinanzmarktmodell aus \ref{Standardfinanzmarktmodell} aus. Wir betrachten dann zusätzlich noch einen Sprungprozess $N$, der auf dem Intervall
+$\left[0,T  \right]$ genau einen Sprung von 0 auf 1 macht. Damit modellieren wir die Möglichkeit des Aktienkurses zu crashen. Ähnlich wie beim vorher betrachteten Lösungsanstz
+führen wir wieder einen Parameter $k$ ein, der die Höhe des Crashes angibt.
+Der Preis des Aktienkurs ist dann gegeben durch: 
 \begin{align}
- dB(t) &= r B(t) dt \\
-  B(0) &= 1         \\
  dS(t) &= S(t-)(\mu dt + \sigma dW(t) - k dN(t)) \\
   S(0) &= s_0
 \end{align}
-Ist nun eine Handelsstrategie $\pi$ gegeben, so folgt der Vermögensprozess der folgenden Dynamik
+Denn Nutzen aus dem Endvermögen T wollen wir nun mittels einer MaxMin-Strategie maximieren. Mit den folgenden Definitionen nachen wir unsere Absicht präzis.
+
+
+\begin{myDefinition} \label{def:Handelstrategien}
+Handelstrategien bezeichen wir mit $\mathcal{A}(t,x)$. Crashprozesse sind alle auf $\Omega$ definierten Prozesse, die an die Filtrierung der Brownschen Bewegung adaptiert
+sind und genau einmal von 0 auf 1 springen zwischen t und T. Wir bezeichnen sie mit $\mathcal{B}(t)$.
+\end{myDefinition}
+
+Crashprozesse sind also an die Brownsche Filtrierung adaptierte Prozesse definiert. Damit sind insbesondere alle konstanten Crashzeiten abgedeckt, aber auch solche, die auf eine
+(an die Brownsche Filtreirung) adaptierte Handelstrategie reagieren. Bei unserem MinMax-Ansatz, suchen wir eine Strategie, bei der der minimale erwartete Nutzen unter allen
+möglichkeiten Crashzeiten maximiert wird. Unter diesem Gesichtspunkt ist unsere Menge von Crashzeiten also schon relativ groß und wir verzichten auf die Berücksichtigung
+von Crashzeiten, die ganz anderen Zufallsprinzipien folgen.
+
+Jeder Crashprozess $N$ definiert eine Stoppzeit $\tau = \inf \{ t; N(t)=1 \}$ und jede Stoppzeit $\tau$ definiert einen Crashprozess $\mathbf{1}_{\left[\tau,T \right]}$ Wir werden
+daher $\tau$ und $N$ im folgenden austauschbar benutzen.
+
+\begin{myDefinition} \label{def:Handelstrategien}
+Wir bezeichen mit $X_{\tau,\pi,t_0,x_0}$ die Lösung der von $\tau$ und $\pi$ kontrollierten Vermögensgleichung.
 \begin{align}
  dX(t) &= X(t)(r dt + \pi(t)(\mu -r) dt + \sigma dW(t) -k dN(t)) \\
   X(t_0) &= x_0
 \end{align}
-Ohne $N$ ist $X$ on  Ito-Diffusion. Den Generator $(t,X(t))$ bezeichen wir mit
+\end{myDefinition}
+
+
+Ohne $N$ ist $X$ on  Ito-Diffusion. Den Generator von $(t,X(t))$ geben wir in der folgenden Definition einen Namen:
+\begin{myDefinition} 
 \begin{equation} \label{eq:Generator}
  \mathcal{L}^{\pi} v(t,x) = v_t(t,x) + v_x(t,x)(r+\pi(t,x)(\mu-r)) x + \einhalb v_{xx}(t,x) (\pi(t,x))^2
 \sigma^2 x^2
 \end{equation}
+\end{myDefinition}
 
-Wir stellen uns also das folgende Optimierungsproblem:
+
+
+
+\begin{myDefinition}
+Wir bezeichnen
 \begin{equation}
-\sup_{\pi \in \mathcal{A}} \inf_{N \in \mathcal{B}} E \left[ U(X(T)) \right]
+ J^n(t,x,\pi,N) := E_{t,x,n} \left[ U(X(T)) \right] := E \left[ U(X(T)) | X(t) = x, N(t)=1-n \right] 
 \end{equation}
-
-
-
-Wir führen nun eine Wertfunktion ein
-\begin{equation}
- J^n(t,x,\pi,N) = E \left[ U(X(T)) | X(t) = x, N(t)=1-n \right] = E_{t,x,n} \left[ U(X(T)) \right]
-\end{equation}
-
-Die optimale Wertfunktion ist dann:
+als Wertfunktion,
 \begin{equation}
  V^n(t,x)= \sup_{\pi \in \mathcal{A}} \inf_{N \in \mathcal{B}} J^n(t,x,\pi,N)
 \end{equation}
-
-Sei
+als optimale Wertfunktion und eine Handelsstrategie $\pi'$ für die
 \begin{equation}
- G=\left[0,T \right] \times \mathbb{R}^+
+\sup_{\pi \in \mathcal{A}} \inf_{N \in \mathcal{B}} E \left[ U(X(T)) \right] 
+=  \inf_{N \in \mathcal{B}} E \left[ U(X_{\pi'}(T)) \right] 
 \end{equation}
+gilt, als optimale Strategie.
+\end{myDefinition}
+% In der Notation von Fleming und Soner ist das also ein Statisches Spiel
 
+% Erster Teil des Verifikationsatzes
+% Sei
+% \begin{equation}
+%  G=\left[0,T \right] \times \mathbb{R}^+
+% \end{equation}
+% 
+% 
+% Wir formulieren nun einen Verifikationsatz. Sei $v^0$ eine Lösung von
+% \begin{align}
+%  0 &= \sup_{\pi \in R } \left[ \mathcal{L}^{\pi} v^0(t,x) \right] \\
+%  v^0(T,x) &= U(x)
+% \end{align}
+% und sei $p$ eine zulässige Handeslstrategie mit
+% \begin{equation}
+%  \mathcal{L}^{p(t,x)} v^0(t,x) = 0
+% \end{equation}
+% 
+% Dann gilt $V^0(t,x) = v^0(t,x)$ und $p$ ist die optimale Strategie.
 
-Wir formulieren nun einen Verifikationsatz. Sei $v^0$ eine Lösung von
-\begin{align}
- 0 &= \sup_{\pi \in R } \left[ \mathcal{L}^{\pi} v^0(t,x) \right] \\
- v^0(T,x) &= U(x)
+Zunächst beweisen wir ein Lemma, wie $V^1$ charaktriesert werden kann.
+
+\begin{mySatz}
+ \begin{align}
+ V^1(t,x) &=  \sup_{\pi \in \mathcal{A}} \inf_{N \in \mathcal{B}}    E_{t,x,n} \left[ U(X^{\pi \tau}(T)) \right] \\
+          &=  \inf_{N \in \mathcal{B}}   \sup_{\pi \in \mathcal{A}}  E_{t,x,n}  \left[ U(X^{\pi \tau}(T)) \right] \\
+%          &=  \sup_{\pi \in \mathcal{A}} \inf_{\tau}  E_{t,x,n}  \left[  V^0(\tau,X^{\pi \tau}(\tau-)(1-k \pi(\tau)))  \right]\\
+          &=  \inf_{\tau}   \sup_{\pi \in \mathcal{A}}  E_{t,x,n}  \left[  V^0(\tau,X^{\pi \tau}(\tau-)(1-k \pi(\tau)))  \right]\\
+%          &=  \sup_{\pi \in \mathcal{A}} \inf_{\tau}  E_{t,x,n}  \left[  V^0(\tau,X^{\pi \tau}(\tau))  \right]\\
+          &=  \inf_{\tau}   \sup_{\pi \in \mathcal{A}}  E_{t,x,n}  \left[  V^0(\tau,X^{\pi \tau}(\tau))  \right]\\
 \end{align}
-und sei $p$ eine zulässige Handeslstrategie mit
+\end{mySatz}
+
+\begin{proof}
+ 
+% Aus dem Beweis, den Teil halte ich aber für überflüssig.
+% Wie wenden 4 mal die $\epsilon$-Charactersierung des Surprememus an:
+% \begin{equation}
+% \begin{split}
+%        & \sup_{\pi}  E_{t,x,n} \left[   V^0(\tau,X^{\pi N}(\tau-)(1-k \pi(\tau)))  \right] \\
+%  \leq  & E_{t,x,n} \left[   V^0(\tau,X^{\pi' N}(\tau-)(1-k \pi'(\tau)))  \right] + \frac{\epsilon}{4}
+% \end{split}
+% \end{equation}
+
+Wegen der $\epsilon$-Characterisierung des Surprememus können wir ein $\pi'(\tau)$ zu einem gegebenen $\tau$ mit
+\begin{equation} \label{eq:pistrichchar}
+       \sup_{\pi} E_{\tau,X(\tau),0} \left[ U(X_{\pi}(T)) \right] 
+ \leq E_{\tau,X(\tau),0} \left[ U(X_{\pi'}(T)) \right]  + \frac{\epsilon}{2} 
+\end{equation}
+wählen. Wegen der $\epsilon$-Characterisierung des Infimums können wir ein $\tau'$ mit
+\begin{equation} \label{eq:taustrichchar}
+\begin{split} 
+     & \inf_{\tau}    E_{t,x,n} \left[ V^0(\tau,X^{\pi \tau}(\tau)) \right] \\
+\geq &  E_{t,x,n} \left[  V^0(\tau',X^{\pi \tau'}(\tau'))  \right] - \frac{\epsilon}{2}
+\end{split}
+\end{equation}
+wählen.
+
+% Halte ich ebenfalls für überflüssig	
+% \begin{equation}
+%  \inf_{N}    E \left[ U(X^{\pi,N}(T)) \right] 
+% \geq  E \left[ V^0(\tau,X(\tau-)(1-k \pi(\tau))) \right] - \frac{\epsilon}{4}
+% \end{equation}
+
+Wir betrachten nun folgende Ungleichungskette. 
 \begin{equation}
- \mathcal{L}^{p(t,x)} v^0(t,x) = 0
+\begin{split}
+      &   \sup_{\pi} \inf_{\tau}    E_{t,x,1} \left[ U(X_{\pi,\tau}(T)) \right] \\
+\geq  &              \inf_{\tau}    E_{t,x,1} \left[ U(X_{\pi',\tau}(T)) \right] \\
+\geq  &              \inf_{\tau}    E_{t,x,1} \left[ E_{\tau,X_{\pi',\tau}(\tau),0} \left[  U(X_{\pi',\tau}(T))
+\right] \right] \\
+\geq  &              \inf_{\tau}    E_{t,x,1} \left[ \sup_{\pi \in \mathcal{A}(\tau,X_{\pi',\tau}(\tau))} E_{\tau,X_{\pi',\tau}(\tau),0} \left[  U(X^{\pi,\tau}(T)) \right] \right] 
+- \frac{\epsilon}{2} \\
+\geq  &              \inf_{\tau}    E_{t,x,1} \left[ V^0(\tau,X_{\pi',\tau}(\tau)) \right]  - \frac{\epsilon}{2} \\
+\geq  &                          E_{t,x,1} \left[ V^0(\tau',X_{\pi',\tau'}(\tau')) \right]  - \epsilon \\
+\end{split}
+\end{equation}
+Dabei folgt die erste Ungleichung durch Verwenden von $\pi'$ statt das surpremum über alle Handeslstrategien zu nehmen. Die zweite Ungleichung folgt aus der Turmeigenschaft der
+bedingten Erwartung. Die dritte Ungleichung folgt aus \ref{eq:pistrichchar}. Die vierte Ungleichung folgt aus der Definition von $V^0$. Die fünfte Ungleichung folgt aus
+\ref{eq:taustrichchar}. 
+
+Die Wahl von $\pi'$ hat nur Bedingungen für die Zeit nach $\tau$ gestellt. Vorher durfte $\pi$ beliebig gewählt werden. Deshalb können wir auf der rechten Site das Surprememum
+über alle handelsstrategien bilden und die Ungleichung bleibt erhalten.
+\begin{equation}
+\begin{split}
+      &   \sup_{\pi} \inf_{N}    E_{t,x,1} \left[ U(X^{\pi N}(T)) \right] \\
+\geq  &   \sup_{\pi}  E_{t,x,1} \left[ V^0(\tau,X^{\pi'' N}(\tau)) \right]  - \epsilon \\
+\end{split}
+\end{equation}
+Nehmen des Infimum macht die rechten Seite nur kleiner und wir erhalten:
+\begin{equation} \label{eq:Ungleichung1}
+\begin{split}
+      &   \sup_{\pi} \inf_{N}    E_{t,x,1} \left[ U(X^{\pi N}(T)) \right] \\
+\geq  &   \inf_{N}   \sup_{\pi}  E_{t,x,1} \left[ V^0(\tau,X^{\pi'' N}(\tau)) \right]  - \epsilon \\
+\end{split}
 \end{equation}
 
-Dann gilt $V^0(t,x) = v^0(t,x)$ und $p$ ist die optimale Strategie.
+
+Wir nehmen nun ein beliebiges $\tau$ und betrachten folgende Ungleichungskette:
+\begin{equation}
+\begin{split}
+      &  \sup_{\pi}     E_{t,x,1} \left[ U(X_{\pi,\tau}(T)) \right] \\
+ =  & \  \sup_{\pi}     E_{t,x,1} \left[ E_{\tau,X_{\pi,\tau}(\tau),0} \left[  U(X^{\pi N}(T))
+\right] \right] \\
+\leq &   \sup_{\pi}     E_{t,x,1} \left[  \sup_{\pi} E_{\tau,X_{\pi,\tau}(\tau),0} \left[  U(X_{\pi,\tau}(T))
+\right] \right] \\
+\leq &   \sup_{\pi}     E_{t,x,1} \left[ V^0(\tau,X_{\pi,\tau}(\tau))   \right] \\
+\end{split}
+\end{equation}
+
+Infimum nehmen auf beiden Seiten führt dann zu:
+
+\begin{equation} \label{eq:Ungleichung2}
+\begin{split}
+      & \inf_{\tau}  \sup_{\pi}     E_{t,x,1} \left[ U(X^{\pi N}(T)) \right] \\
+ \leq  &   \inf_{\tau}        \sup_{\pi}     E_{t,x,1} \left[ V^0(\tau,X^{\pi'' N}(\tau))  \right] + \frac{\epsilon}{4} \\
+\end{split}
+\end{equation}
+
+Jetzt haben wir folgende Ungleichungskette:
+ \begin{equation}
+ \begin{split}
+       &   \sup_{\pi} \inf_{N}    E_{t,x,1} \left[ U(X^{\pi N}(T)) \right] \\
+ \geq  &   \inf_{N}   \sup_{\pi}  E_{t,x,1} \left[ V^0(\tau,X^{\pi'' N}(\tau)) \right]  - \epsilon \\
+ \geq  &    \inf_{N}  \sup_{\pi}     E_{t,x,1} \left[ U(X^{\pi N}(T)) \right]  - \epsilon\\
+ \geq  &    \sup_{\pi}  \inf_{N}    E_{t,x,1} \left[ U(X^{\pi N}(T)) \right]  - \epsilon
+\end{split}
+\end{equation}
+Dabei folgt die erste Ungleichung aus \ref{eq:Ungleichung1}, die zweite Ungleichung folgt aus \ref{eq:Ungleichung2} und die dritte Ungleichung aus der $ \sup \inf \leq \inf \sup$
+Beziehung.
+
+Da das $\epsilon$ beliebig gewählt war, bleibt hier jede Ungleichung auch ohne $\epsilon$ erhalten, da dann links und rechts von der Ungleichungskette das gleiche steht erhalten
+wir also lauter Gleichheiten. Damit ist das Lemma bewiesen.
+\end{proof}
 
 Sei 
 \begin{equation}
@@ -103,110 +240,6 @@ und
 
 Dann gilt $v^1(t,x)=V^1(t,x)$ und $p$ ist die optimale Strategie.
 
-Wir brauchen noch ein Lemma:
-Die Wertfunktion kann auf die folgenden Weisen ausgedrückt werden:
-\begin{align}
- V^1(t,x) &=  \sup_{\pi \in \mathcal{A}} \inf_{N \in \mathcal{B}}    E \left[ U(X(T)) \right] \\
-          &=  \inf_{N \in \mathcal{B}}   \sup_{\pi \in \mathcal{A}}  E \left[ U(X(T)) \right] \\
-          &=  \sup_{\pi \in \mathcal{A}} \inf_{\tau}    V^0(\tau,X(\tau-)(1-k \pi(\tau))) \\
-          &=  \inf_{\tau}   \sup_{\pi \in \mathcal{A}}    V^0(\tau,X(\tau-)(1-k \pi(\tau))) \\
-\end{align}
-
-Beweis des Lemmas:
-Wie wenden 4 mal die $\epsilon$-Charactersierung des Surprememus an:
-\begin{equation}
-\begin{split}
-       & \sup_{\pi}  E_{t,x,n} \left[   V^0(\tau,X^{\pi N}(\tau-)(1-k \pi(\tau)))  \right] \\
- \leq  & E_{t,x,n} \left[   V^0(\tau,X^{\pi' N}(\tau-)(1-k \pi'(\tau)))  \right] + \frac{\epsilon}{4}
-\end{split}
-\end{equation}
-
-\begin{equation}
-       \sup_{\pi} \inf_{N} E_{\tau,x,n} \left[ U(X^{\pi N}(T)) \right] 
-  \inf_{N} E_{\tau,x,n} \left[ U(X^{\pi'' N}(T)) \right]  + \frac{\epsilon}{4} 
-\end{equation}
-
-\begin{equation}
-\begin{split}
-     & \inf_{\tau}    E_{t,x,n} \left[ V^0(\tau,X^{\pi \tau}(\tau-)(1-k \pi(\tau))) \right] \\
-\geq &  E_{t,x,n} \left[  V^0(\tau,X^{\pi \tau'}(\tau-)(1-k \pi(\tau)))  \right] - \frac{\epsilon}{4}
-\end{split}
-\end{equation}
-
-
-\begin{equation}
- \inf_{N}    E \left[ U(X^{\pi,N}(T)) \right] 
-\geq  E \left[ V^0(\tau,X(\tau-)(1-k \pi(\tau))) \right] - \frac{\epsilon}{4}
-\end{equation}
-
-Jetzt haben wir folgende Ungleichungskette:
-\begin{equation}
-\begin{split}
-      &   \sup_{\pi} \inf_{N}    E_{t,x,1} \left[ U(X^{\pi N}(T)) \right] \\
-\geq  &              \inf_{N}    E_{t,x,1} \left[ U(X^{\pi'' N}(T)) \right] \\
-\geq  &              \inf_{N}    E_{t,x,1} \left[ E_{\tau,X^{\pi'' N}(\tau),0} \left[  U(X^{\pi'' N}(T))
-\right] \right] \\
-\geq  &              \inf_{N}    E_{t,x,1} \left[ \sup_{\pi} E_{\tau,X^{\pi'' N}(\tau),0} \left[  U(X^{\pi''
-N}(T)) \right] \right]  - \frac{\epsilon}{4} \\
-\geq  &              \inf_{N}    E_{t,x,1} \left[ V^0(\tau,X^{\pi'' N}(\tau)) \right]  - \frac{\epsilon}{4} \\
-\geq  &                          E_{t,x,1} \left[ V^0(\tau,X^{\pi'' N}(\tau)) \right]  - \frac{\epsilon}{2} \\
-\end{split}
-\end{equation}
-
-Surpremum nehmen links und rechts führt zu:
-\begin{equation}
-\begin{split}
-      &   \sup_{\pi} \inf_{N}    E_{t,x,1} \left[ U(X^{\pi N}(T)) \right] \\
-\geq  &   \sup_{\pi}  E_{t,x,1} \left[ V^0(\tau,X^{\pi'' N}(\tau)) \right]  - \frac{\epsilon}{2} \\
-\end{split}
-\end{equation}
-Und nochmal Infimum nehmen auf der rechten Seite führt zu:
-\begin{equation} \label{eq:Ungleichung1}
-\begin{split}
-      &   \sup_{\pi} \inf_{N}    E_{t,x,1} \left[ U(X^{\pi N}(T)) \right] \\
-\geq  &   \inf_{N}   \sup_{\pi}  E_{t,x,1} \left[ V^0(\tau,X^{\pi'' N}(\tau)) \right]  - \frac{\epsilon}{2} \\
-\end{split}
-\end{equation}
-
-
-Nun eröffnen wir die folgende Ungleichungskette:
-\begin{equation}
-\begin{split}
-      & \inf_{N}  \sup_{\pi}     E_{t,x,1} \left[ U(X^{\pi N}(T)) \right] \\
-\leq  &           \sup_{\pi}     E_{t,x,1} \left[ U(X^{\pi N'}(T)) \right]  \\
-\leq  &           \sup_{\pi}     E_{t,x,1} \left[ E_{\tau,X^{\pi'' N}(\tau),0} \left[  U(X^{\pi'' N}(T))
-\right] \right] \\
-\leq  &           \sup_{\pi}     E_{t,x,1} \left[ \inf{N} E_{\tau,X^{\pi'' N}(\tau),0} \left[  U(X^{\pi'' N}(T))
-\right] \right] + \frac{\epsilon}{4} \\
- \leq  &           \sup_{\pi}     E_{t,x,1} \left[ \sup_{\pi} \inf{N} E_{\tau,X^{\pi'' N}(\tau),0} \left[  U(X^{\pi'' N}(T))
- \right] \right] + \frac{\epsilon}{4} \\
- \leq  &           \sup_{\pi}     E_{t,x,1} \left[ V^0(\tau,X^{\pi'' N}(\tau))  \right] + \frac{\epsilon}{4} \\
-\end{split}
-\end{equation}
-
-Infimum nehmen auf beiden Seiten führt dann zu:
-
-\begin{equation} \label{eq:Ungleichung2}
-\begin{split}
-      & \inf_{N}  \sup_{\pi}     E_{t,x,1} \left[ U(X^{\pi N}(T)) \right] \\
- \leq  &   \inf_{N}        \sup_{\pi}     E_{t,x,1} \left[ V^0(\tau,X^{\pi'' N}(\tau))  \right] + \frac{\epsilon}{4} \\
-\end{split}
-\end{equation}
-
-Jetz haben wir folgende Ungleichungskette:
-\begin{equation}
-\begin{split}
-      &   \sup_{\pi} \inf_{N}    E_{t,x,1} \left[ U(X^{\pi N}(T)) \right] \\
-\geq  &   \inf_{N}   \sup_{\pi}  E_{t,x,1} \left[ V^0(\tau,X^{\pi'' N}(\tau)) \right]  - \frac{\epsilon}{2} \\
-\geq  &    \inf_{N}  \sup_{\pi}     E_{t,x,1} \left[ U(X^{\pi N}(T)) \right] \\
-\geq  &    \sup_{\pi}  \inf_{N}    E_{t,x,1} \left[ U(X^{\pi N}(T)) \right]
-\end{split}
-\end{equation}
-Dabei folgt die erste Ungleichung aus \ref{eq:Ungleichung1}, die zweite Ungleichung folgt aus \ref{eq:Ungleichung2} und die dritte Ungleichung aus der $ \sup \inf \leq \inf \sup$
-Beziehung.
-
-Da das $\epsilon$ beliebig gewählt war, bleibt hier jede Ungleichung auch ohne $\epsilon$ erhalten, da dann links und rechts von der Ungleichungskette das gleiche steht erhalten
-wir also lauter Gleichheiten.
 
 
 Beweis des Verifikationssatzes:
