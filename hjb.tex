@@ -31,6 +31,15 @@ Wir bezeichen mit $X_{\tau,\pi,t_0,x_0}$ die Lösung der von $\tau$ und $\pi$ kon
   X(t_0) &= x_0
 \end{align}
 \end{myDefinition}
+Mit unserem Wissen über die Lösung dieses Differentialgleichung ohne $N$ können wir auch die Lösung dieser Diffenrentailgleichung ganz konkret angeben. Es gilt nämlich:
+\begin{equation}
+ X_{\tau,\pi,t_0,x_0}(t) = X_{\pi,t_0,x_0}(t) \left( 1 - \mathbf{1}_{\left[\tau,T\right]} \pi(\tau) k \right)
+\end{equation} 
+Der Prozess  $X_{\tau,\pi,t_0,x_0}$ folgt also im wesentlichen der Dynamik im crasfreien Setting; vor dem Crash sind sie gleich, nach dem Crash unterscheiden sie sich um einen
+Faktor. Insbeondere gilt:
+\begin{equation}
+ X_{\tau,\pi,t_0,x_0}(\tau) = X_{\pi,t_0,x_0}(\tau) \left( 1 - \pi(\tau) k \right) = X_{\tau, \pi,t_0,x_0}(\tau-) \left( 1 - \pi(\tau) k \right)
+\end{equation} 
 
 
 Ohne $N$ ist $X$ on  Ito-Diffusion. Den Generator von $(t,X(t))$ geben wir in der folgenden Definition einen Namen:
@@ -45,7 +54,7 @@ Ohne $N$ ist $X$ on  Ito-Diffusion. Den Generator von $(t,X(t))$ geben wir in de
 
 
 \begin{myDefinition}
-Wir bezeichnen
+Sei $n \in \{0,1\}$. Wir bezeichnen
 \begin{equation}
  J^n(t,x,\pi,N) := E_{t,x,n} \left[ U(X(T)) \right] := E \left[ U(X(T)) | X(t) = x, N(t)=1-n \right] 
 \end{equation}
@@ -61,6 +70,9 @@ als optimale Wertfunktion und eine Handelsstrategie $\pi'$ für die
 gilt, als optimale Strategie.
 \end{myDefinition}
 % In der Notation von Fleming und Soner ist das also ein Statisches Spiel
+
+Für $n=0$ befinden wir uns offenbar in der Situation von ??? und dafür kennen wir schon einen Verifikationssatz für die Wertfunktion und die optimale Strategie. Im folgenden wird
+es unser Ziel sein, einen Analogen Verifikationssatz für $n=1$ zu formulieren und zu beweisen.
 
 % Erster Teil des Verifikationsatzes
 % Sei
@@ -88,7 +100,7 @@ Zunächst beweisen wir ein Lemma, wie $V^1$ charaktriesert werden kann.
  V^1(t,x) &=  \sup_{\pi \in \mathcal{A}} \inf_{N \in \mathcal{B}}    E_{t,x,n} \left[ U(X^{\pi \tau}(T)) \right] \\
           &=  \inf_{N \in \mathcal{B}}   \sup_{\pi \in \mathcal{A}}  E_{t,x,n}  \left[ U(X^{\pi \tau}(T)) \right] \\
 %          &=  \sup_{\pi \in \mathcal{A}} \inf_{\tau}  E_{t,x,n}  \left[  V^0(\tau,X^{\pi \tau}(\tau-)(1-k \pi(\tau)))  \right]\\
-          &=  \inf_{\tau}   \sup_{\pi \in \mathcal{A}}  E_{t,x,n}  \left[  V^0(\tau,X^{\pi \tau}(\tau-)(1-k \pi(\tau)))  \right]\\
+%          &=  \inf_{\tau}   \sup_{\pi \in \mathcal{A}}  E_{t,x,n}  \left[  V^0(\tau,X^{\pi \tau}(\tau-)(1-k \pi(\tau)))  \right]\\
 %          &=  \sup_{\pi \in \mathcal{A}} \inf_{\tau}  E_{t,x,n}  \left[  V^0(\tau,X^{\pi \tau}(\tau))  \right]\\
           &=  \inf_{\tau}   \sup_{\pi \in \mathcal{A}}  E_{t,x,n}  \left[  V^0(\tau,X^{\pi \tau}(\tau))  \right]\\
 \end{align}
@@ -142,7 +154,7 @@ Dabei folgt die erste Ungleichung durch Verwenden von $\pi'$ statt das surpremum
 bedingten Erwartung. Die dritte Ungleichung folgt aus \ref{eq:pistrichchar}. Die vierte Ungleichung folgt aus der Definition von $V^0$. Die fünfte Ungleichung folgt aus
 \ref{eq:taustrichchar}. 
 
-Die Wahl von $\pi'$ hat nur Bedingungen für die Zeit nach $\tau$ gestellt. Vorher durfte $\pi$ beliebig gewählt werden. Deshalb können wir auf der rechten Site das Surprememum
+Die Wahl von $\pi'$ hat nur Bedingungen für die Zeit nach $\tau$ gestellt. Vorher durfte $\pi$ beliebig gewählt werden. Deshalb können wir auf der rechten Seite das Surprememum
 über alle handelsstrategien bilden und die Ungleichung bleibt erhalten.
 \begin{equation}
 \begin{split}
@@ -196,7 +208,10 @@ Da das $\epsilon$ beliebig gewählt war, bleibt hier jede Ungleichung auch ohne $
 wir also lauter Gleichheiten. Damit ist das Lemma bewiesen.
 \end{proof}
 
-Sei 
+Im folgenden formulieren und beweisen wir einen Verfikationsatz.
+
+\begin{mySatz}
+ Sei 
 \begin{equation}
  \mathcal{A}'(t,x) = \{ 
                 \pi : \pi \in R,  0 \leq \mathcal{L}^{\pi(t)} v^n(t,x) 
@@ -239,13 +254,19 @@ und
 % \end{equation}
 
 Dann gilt $v^1(t,x)=V^1(t,x)$ und $p$ ist die optimale Strategie.
+\end{mySatz}
 
 
-
-Beweis des Verifikationssatzes:
+\begin{proof}
+Wir beschreiben zunächst die Struktur des Beweise: Mit Hilfe der Ito-Formel können wir eine Relation zwischen $v(t,x)$ und den Werten von $v$ bis zum Crash herleiten (vergleiche
+\ref{itov}). Durch Angabe einer optimalen Strategie und aus den Vorrausetzungen des Satzes gelingt es dann eine obere Schranke für $v(t,x)$ (vergleiche
+\ref{eq:erstewichtigeUngleichung} anzugeben, und genauso gelingt es durch Angabe eines optimalen Crashes eine untere Schranke für $v(t,x)$ (vergleiche
+\ref{eq:erstewichtigeUngleichung}) herzuleiten. Diese Schranken falllen zusammen und charakterisieren nach dem vorangegangen Lemma die optimale Wertfunktion. Das die optimale
+Strategie wirklich optimal ist folgt dann aus einem auf dem Weg gewonnenen Ergebnis. Diesen Plan führen wir nun aus: 
+ 
 Wir gehen davon aus, das im Punkte $(t,x)$ $X(t)=x$ gilt und noch ein Crash möglich ist.
 Anwendung der Ito-formel ergibt dann:
-\begin{equation}
+\begin{equation} 
  dv^1(s,X(s))=\mathcal{L}^{\pi(s)}v(0,X(s))ds + v_x^1(s,X(s)) \sigma X(s) dW(s)
 \end{equation}
 und
@@ -254,8 +275,11 @@ und
 \end{equation}
 also
 \begin{equation} \label{itov}
-v^1(\tau-,X(\tau-)) - v^1(t,x) = \int_t^{\tau} \mathcal{L}^{\pi(s)}v(s,X(s))ds
+\begin{split}
+ & v^1(\tau-,X(\tau-)) - v^1(t,x) \\
+= & \int_t^{\tau} \mathcal{L}^{\pi(s)}v(s,X(s))ds
                             +   \int_t^{\tau} v_x^1(s,X(s)) \sigma X(s) p(s) dW(s) 
+\end{split}
 \end{equation}
 Wir fixieren nun die optimale Strategie $p$. Dann folgt aus der der Vorrausetzung \ref{eq:optimale_Strategie}
 an $p$ und der HJB-ungleichung \ref{eq:HJB-Ungleichung} für $t \leq s \leq \tau$:
@@ -271,9 +295,12 @@ und da $p(s,X(s)) \in \mathcal{A}''(s,X(s))$
 
 Wenn wir nun $p$ in \ref{itov} einsetzen und die Gleichung nach $v^1(t,x)$ umstellen, erhalten wir:
 \begin{equation}
- v^1(t,x) = v^1(\tau-,X(\tau-)) - \int_t^{\tau} \mathcal{L}^{p(s,X(s))}v(s,X(s))ds
-                                  -   \int_t^{\tau} v_x^1(s,X(s)) \sigma X(s) p(s) dW(s) 
+\begin{split}
+  v^1(t,x) &= v^1(\tau-,X(\tau-)) - \int_t^{\tau} \mathcal{L}^{p(s,X(s))}v(s,X(s))ds \\
+           &-   \int_t^{\tau} v_x^1(s,X(s)) \sigma X(s) p(s) dW(s) 
+\end{split}
 \end{equation}
+
 Mit \ref{schall} können wir den ersten Summanden auf der rechten Seite nach oben abschätzen, den zweiten
 Summanden können wir wegen \ref{rauch} durch Weglassen nach oben abschätzen und erhalten:
 \begin{equation}
@@ -290,20 +317,23 @@ Handelsstrategien:
 \end{equation}
 Da da das $\tau$ beliebig gewählt war erhaält nun auch das bilden des infimums auf er rechten Seite die
 Ungleichung:
-\begin{equation} 
- v^1(t,x) \leq \inf_{\tau} \sup_{\pi} E_{t,x} \left[ v^0(\tau,X(1-k\pi(\tau))  \right] 
+\begin{equation} \label{eq:erstewichtigeUngleichung} 
+ v^1(t,x) \leq \inf_{\tau} \sup_{\pi} E_{t,x} \left[ v^0(\tau,X(\tau)  \right] 
 \end{equation}
-Wieder ausgehend von \ref{ungleichung} können wir die beiden letzten Schritte auch in umgekehrter Reihenfolge
-durchführen. Da $\tau$ beliebig gewählt war erhält das Bilden des Infimums auf der rechten Seite von
-\ref{ungleichung} die Ungleichung und wir erhalten
-\begin{equation} 
- v^1(t,x) \leq \inf_{\tau} E_{t,x} \left[ v^0(\tau,X(1-k\pi(\tau))  \right] 
-\end{equation}
-und bilden des Surprememus über alle Handelstrategien macht die rechte Seite davon nur größer
 
-\begin{equation} 
- v^1(t,x) \leq \sup_{\pi} \inf_{\tau} E_{t,x} \left[ v^0(\tau,X(1-k\pi(\tau))  \right] 
-\end{equation}
+% Ist glaube ich erstmal nicht nötig
+
+% Wieder ausgehend von \ref{ungleichung} können wir die beiden letzten Schritte auch in umgekehrter Reihenfolge
+% durchführen. Da $\tau$ beliebig gewählt war erhält das Bilden des Infimums auf der rechten Seite von
+% \ref{ungleichung} die Ungleichung und wir erhalten
+% \begin{equation} 
+%  v^1(t,x) \leq \inf_{\tau} E_{t,x} \left[ v^0(\tau,X(1-k\pi(\tau))  \right] 
+% \end{equation}
+% und bilden des Surprememus über alle Handelstrategien macht die rechte Seite davon nur größer
+% 
+% \begin{equation} 
+%  v^1(t,x) \leq \sup_{\pi} \inf_{\tau} E_{t,x} \left[ v^0(\tau,X(1-k\pi(\tau))  \right] 
+% \end{equation}
 
 Sein nun $\pi$ wieder eine beliebige Handelsstrategie. Dann fixieren wir dazu die Stoppzeit
 \begin{equation}
@@ -353,37 +383,59 @@ Also unabhängig ob \ref{hanni} oder \ref{nanni} gilt, es folgt
 
 Wenn wir nun $\theta$ in \ref{itov} einsetzen und die Fleichung nach $v(t,x)$ umstellen erhalten wir 
 \begin{equation}
- v^1(t,x) = v^1(\theta,X(\theta)) - \int_t^{\theta} \mathcal{L}^{\pi(s)}v(s,X(s))ds
-                                  -   \int_t^{\theta} v_x^1(s,X(s)) \sigma X(s) dW(s) 
+\begin{split}
+v^1(t,x) &= v^1(\theta,X(\theta)) - \int_t^{\theta} \mathcal{L}^{\pi(s)}v(s,X(s))ds \\
+         & -   \int_t^{\theta} v_x^1(s,X(s)) \sigma X(s) dW(s)
+\end{split}
 \end{equation}
 Mit \ref{duper} können wir den ersten Summanden auf der rechten Seite verkleinern, und wegen \ref{shappi}
 wird die rechte Seite durch Weglassen des zweiten Summanden ebenfalls nur kleiner. So erhalten wir
 \begin{equation}
  v^1(t,x) \geq v^0(\tau-,X(\tau-))  -   \int_t^{\tau} v_x^1(s,X(s)) \sigma X(s) dW(s) 
 \end{equation}
-Bildung des erwartungwertes führt zu
-\begin{equation} \label{ungleichung2}
- v^1(t,x) \geq E_{t,x} \left[ v^0(\tau-,X(\tau-)) \right]
-\end{equation}
-Wie im ersten Teil des Beweises nehmen wir nun surprema und infina:
-Bilden des Infimums über alle Crashzeiten macht die rechte Seite von \ref{ungleichung2} nur kleiner.
- \begin{equation} 
-  v^1(t,x) \geq \inf_{\tau} E_{t,x} \left[ v^0(\tau-,X(\tau-)) \right]
+
+ 
+ Bildung des erwartungwertes führt zu
+ \begin{equation} \label{ungleichung2}
+  v^1(t,x) \geq E_{t,x} \left[ v^0(\tau-,X(\tau-)) \right]
  \end{equation}
- Da $\pi$ beliebig gewählt war, bleibt die Ungleichung durch Bildung des Surpremums über alle Handelstrategie
-erhalten:
-\begin{equation} 
- v^1(t,x) \geq \sup_{\pi} \inf_{\tau} E_{t,x} \left[ v^0(\tau-,X(\tau-)) \right]
-\end{equation}
-Wieder ausgehen von \ref{ungleichung2} können wir mit den gleichen Argument wie  in der verherigen Gleichung
+
+% nächster unnötiger Teil
+% Wie im ersten Teil des Beweises nehmen wir nun surprema und infina:
+% Bilden des Infimums über alle Crashzeiten macht die rechte Seite von \ref{ungleichung2} nur kleiner.
+%  \begin{equation} 
+%   v^1(t,x) \geq \inf_{\tau} E_{t,x} \left[ v^0(\tau-,X(\tau-)) \right]
+%  \end{equation}
+%  Da $\pi$ beliebig gewählt war, bleibt die Ungleichung durch Bildung des Surpremums über alle Handelstrategie
+% erhalten:
+% \begin{equation} 
+%  v^1(t,x) \geq \sup_{\pi} \inf_{\tau} E_{t,x} \left[ v^0(\tau-,X(\tau-)) \right]
+% \end{equation}
+
+Ausgehend von \ref{ungleichung2} können wir mit den gleichen Argument wie  in der verherigen Gleichung
 das Surpremum über alle handelsstrategien bilden.
 \begin{equation} 
  v^1(t,x) \geq \sup_{\pi}  E_{t,x} \left[ v^0(\tau-,X(\tau-)) \right]
 \end{equation}
 Und das Bilden des Infimums macht die rechte Seite nur kleiner.
-\begin{equation} 
- v^1(t,x) \geq \inf_{\tau} \sup_{\pi}  E_{t,x} \left[ v^0(\tau-,X(\tau-)) \right]
+\begin{equation} \label{eq:zweitewichtigeUngleichung}
+ v^1(t,x) \geq \inf_{\tau} \sup_{\pi}  E_{t,x} \left[ v^0(\tau,X(\tau)) \right]
 \end{equation}
+
+Nun folgt aus \ref{eq:erstewichtigeUngleichung} und \ref{eq:zweitewichtigeUngleichung}
+\begin{equation} \label{eq:zweitewichtigeUngleichung}
+ v^1(t,x) = \inf_{\tau} \sup_{\pi}  E_{t,x} \left[ v^0(\tau,X(\tau)) \right]
+\end{equation}
+Nach dem vorangegangen Lemma folgt dann also $V^1 = v^1$.
+
+Es bleibt noch die Optimalität der Strategie zu zeigen: Ausgehend von \ref{ungleichung} können wir, da $\tau$ beliebig gewählt war, auf der rechten Seite das Infimum bilden und wir
+erhalten
+\begin{equation}
+ v^1(t,x) \leq \inf_{\tau} E_{t,x} \left[ v^0(\tau,X(1-k\pi(\tau))  \right] 
+\end{equation}
+Das bedeutet aber gerade das die Strategie optimal ist.
+\end{proof}
+
 
 \section{Charakteriesierung der Lösung}
 In $\mathcal{N}$ gilt
@@ -474,6 +526,23 @@ Differentialgleichung.
   \right)
 \end{equation}
 
+\section{Alles richtig}
+Wir zeigen nun, dass die Lösung von
+\begin{equation}
+ \pi^1_t=\frac{1}{k} (1- \pi^1 k) 
+  \left(
+   \pi^1 (\mu-r) - \einhalb \left[ \pistern + (\pi^1)^2 \sigma^2 \right] 
+  \right)
+\end{equation}
+mit $\pi^1(T)=0$ und das dazugehörige $f$ mit
+\begin{equation} 
+f^1_t(t) =  -(r+\pi^1(\mu-r)) + \einhalb (\pi^1)^2 \sigma^2
+\end{equation}
+und $f(T)=0$ die optimale Wertfunktion
+\begin{equation}
+ V^1(t,x) = \log(x) + f^1(t)
+\end{equation}
+alle Vorraustezngen des Verifikationsatzes erfüllen.
 
 
 
