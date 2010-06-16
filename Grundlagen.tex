@@ -1,0 +1,122 @@
+
+\chapter{Grundlagen}
+
+\section{Stochastische Grundlagen}
+\begin{mySatz} \label{StochDgl}
+Die stochastische Differentialgleichung
+\begin{align*}
+ dX(t) &= X(t)(A(t) dt + S(t)dW(t)) \\
+  X(t_0) &= x_0
+\end{align*}
+besitzt die eindeutige Lösung
+
+\begin{equation}
+ X_{t_0,x_0}(t) = \exp \left( 
+                             \int_{t_0}^{t} (A(u)-\frac{1}{2}S(u)^2)du + \int_{t_0}^{t}S(u)dW(u)
+                       \right) 
+\end{equation}
+
+\end{mySatz}
+
+
+\section{Finanzmarktmodell}
+\begin{myDefinition} \label{Standardfinanzmarktmodell}
+Sei $(\Omega,F,P) $ ein Wahrscheinlichkeitsraum. Sei $W$ eine auf diesen Raum definierte Brownsche
+Bewegung. Seien $r$, $\mu$, $\sigma$ reelle Zahlen und sei $r < \mu$ und $\sigma>0$. Der Bond $B$ und die
+Aktie $S$ seien die eindeutigen Lösungen der stochastischen Differentialgleichungen
+\begin{align}
+ dB(t) &= r B(t) dt \\
+  B(0) &= 1         \\
+ dS(t) &= S(t)(\mu dt + \sigma dW(t)) \\
+  S(0) &= s_0
+\end{align}
+Gelten alle diese Vorrausetzungen, so sagen wir dass die Vorrausetzungen unseres Standardfinanzmarktmodells
+gelten.
+\end{myDefinition}
+
+\begin{myDefinition} \label{Handelsstrategie}
+Eine Handelsstrategie $\pi$ ist ein stochastischer Prozess auf dem Wahrscheinlichkeitsraum des
+Standardfinanzmarktmodells.
+\end{myDefinition}
+
+\begin{myDefinition} \label{Vermögensgleichung}
+Es gelten die Vorrausetzungen unseres Standardfinanzmarktmodells. Die Lösung von
+\begin{align} \label{eq:Vermögensgleichung}
+ dX(t) &= X(t)(r dt + \pi(t)(\mu -r) dt + \sigma dW(t)) \\
+  X(t_0) &= x_0
+\end{align}
+bezeichen wir mit $X_{\pi,t_0,x}$. Ist $t_0=0$, so schreiben wir auch $X_{\pi,x}$. 
+\end{myDefinition}
+
+\begin{myDefinition} \label{def:f}
+Es gelten die Vorrausetzungen unseres Standardfinanzmarktmodells. Sei $f$ durch 
+\begin{equation} \label{eq:fvonpi}
+ f(\pi) =  \pi (\mu-r)-\einhalb \pi^2 \sigma^2
+\end{equation}
+definiert.
+\end{myDefinition}
+
+% Satz und definition
+\begin{mySatz} \label{Eigenschaften_f}
+$f$ besitzt die beiden Nullstellen
+\begin{align}
+ x_0 &= 0 \\
+ x_1 &= 2 \frac{\pi-\mu}{\sigma^2},
+\end{align}
+nimmt ihr Maximum bei
+\begin{equation} \label{eq:pimax}
+ \pi_{max} =  \pistern
+\end{equation}
+an hat dort den Wert $\einhalb \frac{(\pi-\mu)^2}{\sigma^2}$.
+\end{mySatz}
+
+
+
+Die eindeutige Lösung von \ref{eq:Vermögensgleichung} ist nach \ref{StochDgl} duch 
+\begin{align} \label{eq:LösVermögensgleichung}
+                  & X_{\pi,t_0,x}(t) \\
+  &= x \exp \left(
+                                   \int_{t_0}^{t} r + \pi(u)(\mu -r) - \frac{1}{2} \pi(u)^2 \sigma^2 du 
+                                  +\int_{t_0}^{t}\pi(u)\sigma dW(u)) 
+                            \right) \\
+                  &= x \exp \left(
+                                   \int_{t_0}^{t} r + f(\pi(u)) du 
+                                  +\int_{t_0}^{t}\pi(u)\sigma dW(u)) 
+                            \right)  \\
+                 &= x \exp \left(
+                                   \int_{t_0}^{t} r + \pi(u)(\mu -r) du
+                           \right) 
+                     \exp \left(      
+                                \int_{t_0}^{t}\pi(u)\sigma dW(u)) - \frac{1}{2}  \int_{t_0}^{t} \pi(u)^2 \sigma^2 du
+                            \right) \\
+\end{align}
+gegeben. In der letzten Gleichung ist dabei der letzte Faktor ein Martingal.
+
+Für einen konstanten Vermögensprozess $\pi$ vereinfacht diese Gleichung sich zu:
+\begin{align} \label{eq:aaa}
+ X_{\pi,t_0,x}(t) &= x \exp \left(
+                                    (t-t_0) ( r + \pi (\mu -r) - \frac{1}{2} \pi^2 \sigma^2 )
+                                   + \pi \sigma (W(t) - W(t_0)) 
+                             \right) \\
+                  &= x \exp \left(
+                                    (t-t_0)f(\pi)
+                                   + \pi \sigma (W(t) - W(t_0))
+                             \right) 
+\end{align}
+
+% Dessen erwartungswert berechnet sich zu 
+% \begin{align} 
+%  E(X(t)) &= x exp( r + \pi (\mu -r)) exp(\pi \sigma W(t) -\frac{1}{2} \pi^2\sigma^2) \\
+%        &= x exp( r + \pi (\mu -r))
+% \end{align}
+
+Logaritmiert man \ref{eq:LösVermögensgleichung} und nimmt den Erwartungswert so erhält man
+\begin{equation} \label{eq:ExpLogUtility}
+E(log(X_{\pi,x}(T))) = log(x)  + \int_{0}^{T} (r + \pi(u)(\mu -r)-\frac{1}{2}\pi(u)^2\sigma^2)du 
+\end{equation}
+und bezeichnet dies als erwarteten logaritmischen Nutzen des Endvermögens. Unter der Annahme einer konstanten
+Handelsstrategie vereinfacht sich \ref{eq:ExpLogUtility} zu
+
+\begin{equation} \label{eq:ExpLogUtilityKonst}
+E(log(X_{\pi,x}(T))) = log(x)  + (r + \pi(\mu -r)-\frac{1}{2}\pi^2 \sigma^2) T. 
+\end{equation}

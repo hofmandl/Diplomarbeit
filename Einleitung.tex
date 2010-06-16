@@ -1,0 +1,51 @@
+\chapter{Einleitung}
+
+Sei $ (\Omega,F,P) $ ein Wahrscheinlichkeitsraum. Sei $W$ eine auf diesen Raum definierte Brownsche
+Bewegung. Wir betrachten das Black-Scholes-Marktmodell mit einer Aktie und konstanten Koeffizienten, die
+Preisprozesse seien also durch die folgenden Gleichungen gegeben:
+\begin{align*}
+ dB(t) &= r B(t) dt \\
+  B(0) &= 1         \\
+ dS(t) &= S(t)(\mu dt + \sigma dW(t)) \\
+  S(0) &= s_0
+\end{align*}
+
+Sei $X$ der Vermögensprozess zur Handelsstrategie $\pi$. Er ist durch folgende Differentialgleichung gegeben:
+\begin{align*}
+ dX(t) &= X(t)(r dt + \pi(t)(\mu -r) dt + \sigma dW(t)) \\
+  X(0) &= x_0
+\end{align*}
+Sei $U$ eine Nutzenfunktion. Dann nennen wir
+\begin{equation*}
+  \underset{\pi}{\text{max}} E(U(X^{\pi}(T)))
+\end{equation*}
+das \emph{klassische Portfoliooptimierungsproblem}. Wir diskutieren seine Lösung mittels stochastischer
+Steuerung, welche auf Merton zurüchgeht.
+
+Das Black-Scholes-Modell wurde vielfach dafür kritisiert, dass seine Preisprozesse stetig sind. In Realität
+beobachtet man aber Crashes von Aktienmärkten. Um dies zu modellieren machen wir nun einen anderen Ansatz als
+den vielfach diskutierten Vorschlag den Aktienprozess $S$ durch einen unstetigen Prozess zu modellieren: Wir
+betrachten eine Stoppzeit $\tau$, zu der die Aktie um den Faktor $k$ fällt. Das Endvermögen hat in
+diesem Modell dann die folgende Form:
+\begin{equation*}
+  X^{\pi \tau}(T)=(1-\pi(\tau)k)X(T)
+\end{equation*}
+
+Nun betrachten wir den Markt als Gegenspieler des Investors und versuchen das folgende Maximierungsproblem
+\begin{equation*}
+  \underset{\pi}{\text{max}} \underset{\tau}{\text{min}} E(U(X^{\pi\tau}(T)))
+\end{equation*}
+zu lösen, das wir als \emph{Worst-Case Portfoliooptimierungsproblem} bezeichnen. Wir diskutieren
+zwei von Ralf Korn vorgeschlagene Lösungen für dieses Problem. Die erste Lösung bestimmt die
+Handelstrategie durch Gleichgewichtsüberlegungen. Die zweite Lösung macht einen ganz anderen
+Ansatz, durch Aufstellung eines Systems von HJB-Gleichungen kann eine Wertfunktion ermittelt
+werden, aus der dann auf die optimale Handelstrategie geschlossen werden kann. Dabei werden wir
+insbesondere untersuchen, inwiefern sich diese beiden Ansätze in ihren Ergebnissen,in ihrer
+Beweismethodik und ihren weiteren Anwendungsmöglichkeiten unterscheiden.
+
+Um konkret rechen zu können, werden wir sowohl das \emph{klassische Portfoliooptimierungsproblem} als auch
+die beiden Ansätze beim \emph{Worst-Case Portfoliooptimierungsproblem} nach Wahl der logarithmischen
+Nutzenfunktion diskutieren. 
+
+Schliesslich soll noch untersucht werden, inwieweit wir das Problem als ein optimales Stoppproblem, welches
+der Markt als Gegenspieler des Investors zu lösen hat, formuliert werden kann.
