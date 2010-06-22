@@ -4,7 +4,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0.85
-lastDocument=Diplomarbeit.tex
+lastDocument=Wilmott.tex
 masterDocument=Diplomarbeit.tex
 name=Diplomarbeit
 pkg_extIsRegExp=false
@@ -32,12 +32,44 @@ Indentation Mode=
 Mode=LaTeX
 ReadWrite=true
 
+[document-settings,item:Einleitung.tex]
+Bookmarks=
+Encoding=ISO-8859-1
+Highlighting=LaTeX
+Indentation Mode=
+Mode=LaTeX
+ReadWrite=true
+
+[document-settings,item:Grundlagen.tex]
+Bookmarks=
+Encoding=ISO-8859-1
+Highlighting=LaTeX
+Indentation Mode=
+Mode=LaTeX
+ReadWrite=true
+
 [document-settings,item:Literatur.bib]
 Bookmarks=
 Encoding=ISO-8859-1
 Highlighting=BibTeX
 Indentation Mode=
 Mode=BibTeX
+ReadWrite=true
+
+[document-settings,item:Portfoliooptimierung.tex]
+Bookmarks=
+Encoding=ISO-8859-1
+Highlighting=LaTeX
+Indentation Mode=
+Mode=LaTeX
+ReadWrite=true
+
+[document-settings,item:Wilmott.tex]
+Bookmarks=
+Encoding=ISO-8859-1
+Highlighting=LaTeX
+Indentation Mode=
+Mode=LaTeX
 ReadWrite=true
 
 [document-settings,item:hjb.tex]
@@ -63,10 +95,30 @@ archive=true
 column=0
 encoding=ISO-8859-1
 highlight=LaTeX
-line=38
+line=19
 mode=LaTeX
 open=true
 order=0
+
+[item:Einleitung.tex]
+archive=true
+column=0
+encoding=ISO-8859-1
+highlight=LaTeX
+line=0
+mode=LaTeX
+open=true
+order=5
+
+[item:Grundlagen.tex]
+archive=true
+column=10
+encoding=ISO-8859-1
+highlight=LaTeX
+line=46
+mode=LaTeX
+open=true
+order=6
 
 [item:Literatur.bib]
 archive=true
@@ -77,6 +129,26 @@ line=80
 mode=BibTeX
 open=true
 order=3
+
+[item:Portfoliooptimierung.tex]
+archive=true
+column=0
+encoding=ISO-8859-1
+highlight=LaTeX
+line=0
+mode=LaTeX
+open=true
+order=4
+
+[item:Wilmott.tex]
+archive=true
+column=3
+encoding=ISO-8859-1
+highlight=LaTeX
+line=625
+mode=LaTeX
+open=true
+order=7
 
 [item:diplomarbeit.kilepr]
 archive=true
@@ -90,10 +162,10 @@ order=-1
 
 [item:hjb.tex]
 archive=true
-column=52
+column=16
 encoding=ISO-8859-1
 highlight=LaTeX
-line=544
+line=1
 mode=LaTeX
 open=true
 order=1
@@ -104,12 +176,28 @@ CursorLine=8
 
 [view-settings,view=0,item:Diplomarbeit.tex]
 CursorColumn=0
-CursorLine=38
+CursorLine=19
+
+[view-settings,view=0,item:Einleitung.tex]
+CursorColumn=0
+CursorLine=0
+
+[view-settings,view=0,item:Grundlagen.tex]
+CursorColumn=10
+CursorLine=46
 
 [view-settings,view=0,item:Literatur.bib]
 CursorColumn=14
 CursorLine=80
 
+[view-settings,view=0,item:Portfoliooptimierung.tex]
+CursorColumn=0
+CursorLine=0
+
+[view-settings,view=0,item:Wilmott.tex]
+CursorColumn=3
+CursorLine=625
+
 [view-settings,view=0,item:hjb.tex]
-CursorColumn=52
-CursorLine=544
+CursorColumn=16
+CursorLine=1

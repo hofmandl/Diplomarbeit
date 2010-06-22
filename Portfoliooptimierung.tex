@@ -1,9 +1,9 @@
 
-\chapter{Portfoliooptimierung in kontinuirlicher Zeit mit stochastischer Steuerung und HJB-Gleichungen}
-\section{Stochastische Steuerung}
-
-
-\section{Anwendung auf das Portfolioproblem}
+\chapter{Portfoliooptimierung im Black-Scholes-Modell: Der Ansatz über stochastische Steuerung}
+\section{Das Portfoliooptimierungsproblem}
+Wir stellen uns nun die Frage, wenn wir ein gegebenes Anfangskapital $x>0$ besitzen, wir wir uns im Black-Scholes-Modell optimal verhalten, also welche Handelstrategie wir
+verwenden. Dazu müssen wir erstmal präzise machen, was wir mit optimal meinen. Als Ziel setzen wir uns hier das Errreichen eines optimalen Endvermögens. Um das quantifizieren zu
+können, führen wir zunächst den Begriff einer Nutzenfunktion ein.
 \begin{myDefinition}
  Sei $U:(0,\infty) \rightarrow R$ strikt konkav, stetig differenzierbar und es gelte
 \begin{equation}
@@ -12,8 +12,8 @@
 Dann nennen wir $U$ eine Nutzenfunktion.
 \end{myDefinition}
 
-
-
+Im folgenden geben wir nun ein Funktional an, dass jeder Strategie einen erwarteten Nutzen zuweist. Optimales Verhalten heißt dann, eine Strategie zu wählen, so dass dieses
+Funtional maximiert wird.
 \begin{myDefinition}
 \standardsatz
 Wir bezeichen mit
@@ -28,7 +28,8 @@ Die Funktion
 heißt Wertfunktion.
 \end{myDefinition}
 Die Bedeutung der $0$ in der Notation wird in späteren Kapiteln klar werden. 
-
+\section{Die Lösung des Portfoliooptimierungsproblem}
+Mit Methoden der stochastischen Steuerung kann nun gezeigt werden:
 \begin{mySatz}
 Sei $v$ eine Lösung von 
 \begin{equation} \label{eq:HJBPortfolio} 
@@ -54,21 +55,28 @@ und $p$ ist der optimale Portfolioprozess.
 
 
 \section{Explizite Lösung für logaritmischen Nutzen}
-Wir zeigen, dass die Wertfunktion durch
+
+\begin{mySatz}
+ Es gilt:
 \begin{equation} \label{eq:LogWertfunktion}
- v^0(t,x)= \log(x)+\left(r + \einhalb \bruch^2 \right) (T-t)
-\end{equation}
-ist. Dazu berechen wir die Ableitungen
-\begin{equation}
- V_t(t,x)= -(r+\frac{1}{2} (\frac{\mu-r}{\sigma})^2,
-\end{equation}
-\begin{equation}
- V_x(t,x)= \frac{1}{x}
+ V^0(t,x)= \log(x)+\left(r + \einhalb \bruch^2 \right) (T-t)
 \end{equation}
 und
-\begin{equation}
- V_x(t,x)= -\frac{1}{x^2}.
-\end{equation}
+\begin{equation*}
+ \pistar=\pistern 
+\end{equation*}
+ist die optimale Strategie.
+\end{mySatz}
+
+\begin{proof}
+Zunächst berechen wir die Ableitungen von \eqref{eq:LogWertfunktion}
+
+\begin{align*}
+V_t(t,x) &= -(r+\frac{1}{2} (\frac{\mu-r}{\sigma})^2 \\
+V_x(t,x) &= \frac{1}{x} \\
+V_x(t,x) &= -\frac{1}{x^2} \\
+\end{align*}
+
 Einsetzen in Korn/Korn, Seite 276 ergibt:
 \begin{align*}
  B &= \einhalb \pi^2 \sigma^2 x^2 V_{xx}(t,x) + (r+\pi(b-r)) x V_x(t,x) + V_t(t,x) \\
@@ -89,6 +97,7 @@ Maximiert wird die Gleichung durch
  \pi=\pistern,
 \end{equation}
 das ist dann der optimale Portfolioprozess.
+\end{proof}
 
 
 Zur Probe berechen wir auch noch den besten konstanten Portfoliprozess, dabei erwarten wir natürlich das
