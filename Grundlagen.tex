@@ -36,19 +36,48 @@ diese Vorrausetzungen, so sagen wir dass die Vorrausetzungen unseres Standardfin
 \end{myDefinition}
 Die Interpretation unseres Standardfinanzmarktmodells ist allein durch die Namensgebung schon ziemlich klar. Die Bedeutung der Handelschranke wird in der folgenden Definition klar
 werden.
-\begin{myDefinition} \label{Handelsstrategie}
+
+\begin{myDefinition} \label{def:Handelsstrategie}
 \standardsatz
-Die Menge $\mathcal{A}(t,x)$ aller Funktionen von $\left[t,T \right] \times \mathbb{R}^+$ nach $\left[-c,c \right]$ für heißt die Menge der zulässigen Handelstrategien, wenn gilt:
+Die Menge $\mathcal{A}(t,x)$ aller progressiv messbaren Prozesse, für die die stochastische Differentialgleichung
+\begin{align*}
+ dX(t) &= X(t) \left[ \left( r + \pi(t)(\mu -r) \right) dt + \pi(t) \sigma dW(t) \right] \\
+  X(t) &= x
+\end{align*}
+eine eindeutige Lösung besitzt, für die $P$- fast sicher
+\begin{equation}
+ \int_0^T  \left( X(t) \pi(t) \right)^2 dt < \infty
+\end{equation}
+und
+\begin{equation}
+ X(t) \geq 0
+\end{equation}
+für alle $t \in [0,T]$ gilt, heißt die Menge der zulässige Handelsstrategien.
 \end{myDefinition}
 
+\begin{myDefinition} \label{Handelsstrategie}
+\standardsatz
+Die Menge $\mathcal{M}$ aller Funktionen von $\txbereich$ nach $\left[-c,c \right]$ heißt die Menge der zulässigen Markov-Handelstrategien, wenn
+gilt:
+Für alle $(t,x)$ und alle $p \in \mathcal{M}$ besitzt die die stochastische Differentialgleichung
+\begin{align*}
+ dX(t) &= X(t) \left[ \left( r + p(t,X(t))(\mu -r) \right) dt + p(t,X(t)) \sigma dW(t) \right] \\
+  X(t) &= x
+\end{align*}
+eine eindeutige Lösung und mit dieser Lösung gilt $p(t,X(t)) \in \mathcal{A}(t,x)$.
+\end{myDefinition}
+In dem gerade gegebenen Sinne können wir also eine Markovstrategie auch immer als eine normale Handelstrategie auffassen und wir werden in dem Fall nicht mehr zwischen diesen
+beiden Begriffen unterscheiden.
 \begin{myDefinition} \label{Vermögensgleichung}
 Es gelten die Vorrausetzungen unseres Standardfinanzmarktmodells. Die Lösung von
 \begin{align} \label{eq:Vermögensgleichung}
  dX(t) &= X(t) \left[ \left( r + \pi(t)(\mu -r) \right) dt + \pi(t) \sigma dW(t) \right] \\
   X(t_0) &= x_0
 \end{align}
-bezeichen wir mit $X_{\pi,t_0,x}$. Ist $t_0=0$, so schreiben wir auch $X_{\pi,x}$. 
+bezeichen wir mit $X_{\pi,t_0,x}$. Ist $t_0=0$, so schreiben wir auch $X_{\pi,x}$.
 \end{myDefinition}
+Wie in der vorhegenden Bemerkung schon bemerkt, lassen wir es auch zu, dass statt $\pi$ eine Markovstrategie $p$ eingesetzt wird. Streng genommen ist $X$ dann eine Lösung der
+Differentialgleichung in der Definition der Markovstrategie.
 
 \begin{myDefinition} \label{def:f}
 Es gelten die Vorrausetzungen unseres Standardfinanzmarktmodells. Sei $f$ durch 
@@ -59,7 +88,7 @@ definiert.
 \end{myDefinition}
 
 % Satz und definition
-\begin{mySatz} \label{Eigenschaften_f}
+\begin{mySatz} \label{th:Eigenschaften_f}
 $f$ besitzt die beiden Nullstellen
 \begin{align}
  x_0 &= 0 \\

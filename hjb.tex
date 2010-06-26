@@ -1,5 +1,6 @@
 
 \chapter{Portfoliooptimierung unter Crashgefahr: Der HJB-Ansatz}
+\section{Formulierung der Problemstellung}
 Wir gehen wieder von unserem Standardfinanzmarktmodell aus \ref{Standardfinanzmarktmodell} aus. Wir betrachten dann zusätzlich noch einen Sprungprozess $N$, der auf dem Intervall
 $\left[0,T  \right]$ genau einen Sprung von 0 auf 1 macht. Damit modellieren wir die Möglichkeit des Aktienkurses zu crashen. Ähnlich wie beim vorher betrachteten Lösungsanstz
 führen wir wieder einen Parameter $k$ ein, der die Höhe des Crashes angibt.
@@ -12,7 +13,7 @@ Denn Nutzen aus dem Endvermögen T wollen wir nun mittels einer MaxMin-Strategie 
 
 
 \begin{myDefinition} \label{def:Handelstrategien}
-Handelstrategien bezeichen wir mit $\mathcal{A}(t,x)$. Crashprozesse sind alle auf $\Omega$ definierten Prozesse, die an die Filtrierung der Brownschen Bewegung adaptiert
+Crashprozesse sind alle auf $\Omega$ definierten Prozesse, die an die Filtrierung der Brownschen Bewegung adaptiert
 sind und genau einmal von 0 auf 1 springen zwischen t und T. Wir bezeichnen sie mit $\mathcal{B}(t)$.
 \end{myDefinition}
 
@@ -53,26 +54,29 @@ Ohne $N$ ist $X$ on  Ito-Diffusion. Den Generator von $(t,X(t))$ geben wir in de
 
 
 
-\begin{myDefinition}
-Sei $n \in \{0,1\}$. Wir bezeichnen
-\begin{equation}
- J^n(t,x,\pi,N) := E_{t,x,n} \left[ U(X(T)) \right] := E \left[ U(X(T)) | X(t) = x, N(t)=1-n \right] 
+\begin{myDefinition} \label{Worst-Case-portfoliooptimerungsproblem2}
+Sei $N \in \mathcal{B}(t)$. Wir bezeichnen mit 
+\begin{equation} 
+ J^1(t,x,\pi,N) := E \left[ U(X_{\pi,N,t,x}(T)) \right] 
 \end{equation}
-als Wertfunktion,
+den erwarteten Endnutzen durch Verfolgung von $\pi$ und dem Crashscenario $N$. 
+Wir nennen die Aufgabe
 \begin{equation}
- V^n(t,x)= \sup_{\pi \in \mathcal{A}} \inf_{N \in \mathcal{B}} J^n(t,x,\pi,N)
+  \text{maximiere}  \inf_{N \in \mathcal{B}(t)} J^1(t,x,\pi,N)
 \end{equation}
-als optimale Wertfunktion und eine Handelsstrategie $\pi'$ für die
+das Worst-Case-Portfoliooptimierunsproblem 2. Die Funktion
 \begin{equation}
-\sup_{\pi \in \mathcal{A}} \inf_{N \in \mathcal{B}} E \left[ U(X(T)) \right] 
-=  \inf_{N \in \mathcal{B}} E \left[ U(X_{\pi'}(T)) \right] 
+ V^1(t,x)= \sup_{\pi \in \mathcal{A}(t,x)} \inf_{N \in \mathcal{B}(t)} J^1(t,x,\pi,N)
 \end{equation}
-gilt, als optimale Strategie.
+heißt Wertfunktion des Problems und eine Handelsstrategie für die das Surpremum angenommen wird heißt
+optimale Strategie für $(t,x)$.
 \end{myDefinition}
-% In der Notation von Fleming und Soner ist das also ein Statisches Spiel
 
-Für $n=0$ befinden wir uns offenbar in der Situation von ??? und dafür kennen wir schon einen Verifikationssatz für die Wertfunktion und die optimale Strategie. Im folgenden wird
-es unser Ziel sein, einen Analogen Verifikationssatz für $n=1$ zu formulieren und zu beweisen.
+Schon in der Notation erkennt man die Analogie zum Standard Portfoliooptimierungsproblem aus Definition \ref{def:Standardportfoliooptimierungsproblem}. Dafür kennen wir schon 
+einen Verifikationssatz für die Wertfunktion und die optimale Strategie. Im folgenden wird es unser Ziel sein einen analogen Verifikationssatz für diese Erweuterung zu formulieren
+und zu beweisen. Dieses Problem hat einen anderen Namen bekommen als das Worst-Case-Portfoliooptimierungsproblem 1 aus Definition \ref{def:WCPortfolioproblem1}. Zwar wurde genau
+die gleiche Idee formuliert, aber die Modellierung ist ganz unterschiedlich. Für den logaritmischen Nutzen werden wir dennoch zeigen, dass beide Formulierungen zur gleichen
+optimalen Strategie führen. 
 
 % Erster Teil des Verifikationsatzes
 % Sei
@@ -95,14 +99,14 @@ es unser Ziel sein, einen Analogen Verifikationssatz für $n=1$ zu formulieren un
 
 Zunächst beweisen wir ein Lemma, wie $V^1$ charaktriesert werden kann.
 
-\begin{mySatz}
+\begin{mySatz} \label{th:Bellmanprinzip}
  \begin{align}
- V^1(t,x) &=  \sup_{\pi \in \mathcal{A}} \inf_{N \in \mathcal{B}}    E_{t,x,n} \left[ U(X^{\pi \tau}(T)) \right] \\
-          &=  \inf_{N \in \mathcal{B}}   \sup_{\pi \in \mathcal{A}}  E_{t,x,n}  \left[ U(X^{\pi \tau}(T)) \right] \\
+ V^1(t,x) &=  \sup_{\pi \in \mathcal{A}(t,x)} \inf_{N \in \mathcal{B}(t)}    E_{t,x,n} \left[ U(X^{\pi \tau}(T)) \right] \\
+          &=  \inf_{N \in \mathcal{B}(t)}   \sup_{\pi \in \mathcal{A}(t,x)}  E_{t,x,n}  \left[ U(X^{\pi \tau}(T)) \right] \\
 %          &=  \sup_{\pi \in \mathcal{A}} \inf_{\tau}  E_{t,x,n}  \left[  V^0(\tau,X^{\pi \tau}(\tau-)(1-k \pi(\tau)))  \right]\\
 %          &=  \inf_{\tau}   \sup_{\pi \in \mathcal{A}}  E_{t,x,n}  \left[  V^0(\tau,X^{\pi \tau}(\tau-)(1-k \pi(\tau)))  \right]\\
 %          &=  \sup_{\pi \in \mathcal{A}} \inf_{\tau}  E_{t,x,n}  \left[  V^0(\tau,X^{\pi \tau}(\tau))  \right]\\
-          &=  \inf_{\tau}   \sup_{\pi \in \mathcal{A}}  E_{t,x,n}  \left[  V^0(\tau,X^{\pi \tau}(\tau))  \right]\\
+          &=  \inf_{\tau}   \sup_{\pi \in \mathcal{A}(t,x)}  E_{t,x,n}  \left[  V^0(\tau,X^{\pi \tau}(\tau))  \right]\\
 \end{align}
 \end{mySatz}
 
@@ -208,29 +212,28 @@ Da das $\epsilon$ beliebig gewählt war, bleibt hier jede Ungleichung auch ohne $
 wir also lauter Gleichheiten. Damit ist das Lemma bewiesen.
 \end{proof}
 
+\section{Verifikationsatz für das Portfoliooptimierungsproblem}
 Im folgenden formulieren und beweisen wir einen Verfikationsatz.
 
 \begin{mySatz}
- Sei 
-\begin{equation}
- \mathcal{A}'(t,x) = \{ 
-                \pi : \pi \in R,  0 \leq \mathcal{L}^{\pi(t)} v^n(t,x) 
-                \}
-\end{equation}
-
-\begin{equation}
- \mathcal{A}''(t,x) = \{ 
+Seien die Voraussetzungen von Satz \ref{th:Verifikationsatz} erfüllt.
+Sei $v^1 \in C^{1,2}$ und seien $\mathcal{A}'(t,x)$ und $\mathcal{A}''(t,x)$ durch
+\begin{align}
+\mathcal{A}'(t,x) & = \{ 
+                \pi : \pi \in R,  0 \leq \mathcal{L}^{\pi} v^1(t,x) 
+                \} \\
+\mathcal{A}''(t,x) & = \{ 
                   \pi : \pi \in R, v^1(t,x) \leq v^0(t,x(1-k\pi)) 
-                 \}
-\end{equation}
-Es gelte nun
-\begin{equation} \label{eq:HJB-Ungleichung}
+                 \} 
+\end{align}
+definiert. Es gelte für alle $(t,x)$
+\begin{equation} \label{eq:HJB1-Ungleichung}
   0 \leq \sup_{\pi \in \mathcal{A}''(t,x)} \left[ \mathcal{L}^{\pi} v^0(t,x) \right]
 \end{equation}
-\begin{equation} \label{crashrelation}
+\begin{equation} \label{eq:HJB2-crashrelation}
  0 \leq \sup_{\pi \in \mathcal{A}'(t,x)} \left[ v^0(t,x(1-k\pi))-v^1(t,x) \right] 
 \end{equation}
-\begin{equation} \label{complementarity}
+\begin{equation} \label{eq:HJB3-complementarity}
  0 = \sup_{\pi \in \mathcal{A}''(t,x)} \left[ \mathcal{L}^{\pi} v^0(t,x) \right]  
      \sup_{\pi \in \mathcal{A}'(t,x)} \left[ v^0(t,x(1-k\pi))-v^1(t,x) \right]
 \end{equation}
@@ -238,8 +241,7 @@ und
 \begin{equation}
  v^1(T,x) = U(x)
 \end{equation}
-
-Existiert weiterhin eine zulässige Handelstrategie mit
+Existiert eine zulässige Handelstrategie mit
 \begin{equation}
  p(t,x) \in \mathcal{A}''(t,x)
 \end{equation}
@@ -247,27 +249,28 @@ und
 \begin{equation} \label{eq:optimale_Strategie}
   \mathcal{L}^{p(t,x)} v^1(t,x) = \sup_{\pi \in \mathcal{A}''(t,x)} \left[ \mathcal{L}^{\pi} v^0(t,x) \right]
 \end{equation}
-
+für alle $(t,x)$, 
+Dann gilt $v^1(t,x)=V^1(t,x)$ und $p$ ist die optimale Strategie bis zum Crash.
 
 % \begin{equation} \label{eq: optimaler_Crash}
 %  \theta = \inf_s \left[ v^0(s,x(1-k \pi)) \leq v^1(t,x) \right]
 % \end{equation}
 
-Dann gilt $v^1(t,x)=V^1(t,x)$ und $p$ ist die optimale Strategie.
+
 \end{mySatz}
 
 
 \begin{proof}
-Wir beschreiben zunächst die Struktur des Beweise: Mit Hilfe der Ito-Formel können wir eine Relation zwischen $v(t,x)$ und den Werten von $v$ bis zum Crash herleiten (vergleiche
-\ref{itov}). Durch Angabe einer optimalen Strategie und aus den Vorrausetzungen des Satzes gelingt es dann eine obere Schranke für $v(t,x)$ (vergleiche
-\ref{eq:erstewichtigeUngleichung} anzugeben, und genauso gelingt es durch Angabe eines optimalen Crashes eine untere Schranke für $v(t,x)$ (vergleiche
-\ref{eq:erstewichtigeUngleichung}) herzuleiten. Diese Schranken falllen zusammen und charakterisieren nach dem vorangegangen Lemma die optimale Wertfunktion. Das die optimale
+Wir beschreiben zunächst die Struktur des Beweises. Mit Hilfe der Ito-Formel können wir eine Relation zwischen $v^1(t,x)$ und den Werten von $v^1$ bis zum Crash herleiten
+(vergleiche \ref{itov}). Durch Angabe einer optimalen Strategie und aus den Vorrausetzungen des Satzes gelingt es dann eine obere Schranke für $v^1(t,x)$ (vergleiche
+\ref{eq:erstewichtigeUngleichung}) anzugeben, und genauso gelingt es durch Angabe eines optimalen Crashes eine untere Schranke für $v^1(t,x)$ (vergleiche
+\ref{eq:zweitewichtigeUngleichung}) herzuleiten. Diese Schranken falllen zusammen und charakterisieren nach dem vorangegangen Lemma die optimale Wertfunktion. Das die optimale
 Strategie wirklich optimal ist folgt dann aus einem auf dem Weg gewonnenen Ergebnis. Diesen Plan führen wir nun aus: 
  
-Wir gehen davon aus, das im Punkte $(t,x)$ $X(t)=x$ gilt und noch ein Crash möglich ist.
+Wir gehen davon aus, das in $(t,x)$ für das Vermögen $X(t)=x$ gilt und noch ein Crash möglich ist.
 Anwendung der Ito-formel ergibt dann:
 \begin{equation} 
- dv^1(s,X(s))=\mathcal{L}^{\pi(s)}v(0,X(s))ds + v_x^1(s,X(s)) \sigma X(s) dW(s)
+ dv^1(s,X_{\pi,\tau,t,x}(s))=\mathcal{L}^{\pi(s)}v(s,X_{\pi,\tau,t,x}(s))ds + v_x^1(s,X_{\pi,\tau,t,x}(s)) \sigma X(s) dW(s)
 \end{equation}
 und
 \begin{equation}
@@ -281,16 +284,15 @@ also
                             +   \int_t^{\tau} v_x^1(s,X(s)) \sigma X(s) p(s) dW(s) 
 \end{split}
 \end{equation}
-Wir fixieren nun die optimale Strategie $p$. Dann folgt aus der der Vorrausetzung \ref{eq:optimale_Strategie}
-an $p$ und der HJB-ungleichung \ref{eq:HJB-Ungleichung} für $t \leq s \leq \tau$:
+Wir fixieren nun die Strategie $p$ aus den Vorausetzungen des Satzes. Dann folgt aus der der Vorrausetzung \ref{eq:optimale_Strategie}
+an $p$ und der HJB-ungleichung \ref{eq:HJB1-Ungleichung} für $t \leq s \leq \tau$:
 \begin{equation} \label{rauch}
  0 \leq \sup_{\pi \in \mathcal{A}''(s,X(s))} \left[ \mathcal{L}^{\pi} v^1(s,X(s)) \right] = 
   \left[ \mathcal{L}^{p(s,X(s)} v^1(s,X(s)) \right]
 \end{equation}
-
 und da $p(s,X(s)) \in \mathcal{A}''(s,X(s))$
 \begin{equation} \label{schall}
-  v^1(s,X(s)) \leq v^0(s,X(s)(1-k\pi(s))
+  v^1(s,X(s)) \leq v^0(s,X(s)(1-k  p(s,X(s)))
 \end{equation}
 
 Wenn wir nun $p$ in \ref{itov} einsetzen und die Gleichung nach $v^1(t,x)$ umstellen, erhalten wir:
@@ -304,7 +306,7 @@ Wenn wir nun $p$ in \ref{itov} einsetzen und die Gleichung nach $v^1(t,x)$ umste
 Mit \ref{schall} können wir den ersten Summanden auf der rechten Seite nach oben abschätzen, den zweiten
 Summanden können wir wegen \ref{rauch} durch Weglassen nach oben abschätzen und erhalten:
 \begin{equation}
- v^1(t,x) \leq v^0(\tau,X(1-k\pi(\tau)) -  \int_t^{\tau} v_x^1(s,X(s)) \sigma X(s) dW(s) 
+ v^1(t,x) \leq v^0(\tau,X(1-k p(\tau)) -  \int_t^{\tau} v_x^1(s,X(s)) \sigma X(s) dW(s) 
 \end{equation}
 Bilden des Erwartungswertes führt dann zu:
 \begin{equation} \label{ungleichung}
@@ -431,120 +433,147 @@ Nach dem vorangegangen Lemma folgt dann also $V^1 = v^1$.
 Es bleibt noch die Optimalität der Strategie zu zeigen: Ausgehend von \ref{ungleichung} können wir, da $\tau$ beliebig gewählt war, auf der rechten Seite das Infimum bilden und wir
 erhalten
 \begin{equation}
- v^1(t,x) \leq \inf_{\tau} E_{t,x} \left[ v^0(\tau,X(1-k\pi(\tau))  \right] 
+ v^1(t,x) \leq \inf_{\tau} E_{t,x} \left[ v^0(\tau,X_{p,\tau}(\tau-)(1-k\pi(\tau))  \right] 
 \end{equation}
 Das bedeutet aber gerade das die Strategie optimal ist.
 \end{proof}
 
 
-\section{Charakteriesierung der Lösung}
-In $\mathcal{N}$ gilt
-\begin{equation} \label{eq:N1}
- \pi(t,x) = \frac{-V^1_x(t,x)}{V^1_xx(t,x) x} \pistar
-\end{equation}
-und
-\begin{equation} \label{eq:N2}
- V^1_t(t,x) = -V^1_x(t,x)(r+\pi(\mu-r))x - \einhalb V^1_{xx}(t,x) \pi^2 \sigma^2 x^2
-\end{equation}
-und auf dem Komplement von N gilt
-\begin{equation} \label{eq:NC1}
-V^1(t,x) = V^0(t,x(1-k\pi))
-\end{equation}
-und
-\begin{equation} \label{eq:NC2}
- V^1_t(t,x) = -V^1_x(t,x)(r+\pi(\mu-r))x - \einhalb V^1_{xx}(t,x) \pi^2 \sigma^2 x^2
-\end{equation}
 
 
 
-\section{Log Utility}
-Inspiriert duch die Lösung
-\begin{equation}
- V^0(t,x) = \log(x) + \left(r+\einhalb \pistern \right)(T-t)
-\end{equation}
-im crasfreien Scenario machen wir den Ansatz  
-\begin{equation}
- V^1(t,x) = \log(x) + f^1(t)
-\end{equation}
-Wir berechen die benötigten Ableitungen:
-\begin{equation}
- V^1_t(t,x)= f^1_t(t),
-\end{equation}
-\begin{equation}
- V^1_x(t,x)= \frac{1}{x}
-\end{equation}
-und
-\begin{equation}
- V^1_{xx}(t,x)= -\frac{1}{x^2}
-\end{equation}
+% Ab hier nochmal ganz von vorne
 
-Aus $V^1(t,x) = V^0(t,x(1-k\pi^1))$ folgt
-\begin{equation}
-\log(x) + f^1(t) = \log(x) + \log(1-k\pi^1) + f^0(t)
-\end{equation}
-Umstellen führt zu 
-\begin{equation} \label{zwischenergebnis}
-\exp(f^1(t) - f^0(t)) = 1-k\pi^1 
-\end{equation}
-
-und schliesslich
-\begin{equation}
-\pi^1 = \frac{1-\exp(f^1(t)-f^0(t))}{k}
-\end{equation}
-
-Setzen wir die Ableitungen von $V$ in \ref{eq:NC2} ein erhalten wird
-\begin{equation} \label{eq:f1}
-f^1_t(t) =  -(r+\pi^1(\mu-r)) + \einhalb (\pi^1)^2 \sigma^2
-\end{equation}
-
-Ableiten von $\pi^1$ ergibt
-\begin{equation}
-\pi_t^1=  \frac{\exp(f^1(t)-f^0(t)) (f_t^0(t)-f_t^1(t))}{k}
-\end{equation}
-
-und druch Einsetzen von \ref{zwischenergebnis}
-
-\begin{equation} \label{eq:zack}
- \pi^1_t=\frac{1}{k} (1- \pi^1 k) 
-  \left(
-   (f_t^0(t)-f_t^1(t)) 
-  \right)
-\end{equation}
-
-Mit \ref{eq:f1} und dem bekannten wert für $f^0$ berechnen wir
-\begin{align}
-   (f_t^0(t)-f_t^1(t)) &= -r - \einhalb \pistern - \left[ -r + \pi^1 (\mu-r) + \einhalb (\pi^1)^2 \sigma^2
- \right] \\
-  &= \pi^1 (\mu-r) - \einhalb \left[ \pistern + (\pi^1)^2 \sigma^2 \right]
-\end{align}
-und setzen wir das wieder in \ref{eq:zack} ein so ergibst sich die schon aus \ref{eq:dgl} bekannte
-Differentialgleichung.
-\begin{equation}
- \pi^1_t=\frac{1}{k} (1- \pi^1 k) 
-  \left(
-   \pi^1 (\mu-r) - \einhalb \left[ \pistern + (\pi^1)^2 \sigma^2 \right] 
-  \right)
-\end{equation}
-
-\section{Alles richtig}
+\section{Logaritmischer Nutzen}
 Wir zeigen nun, dass die Lösung von
-\begin{equation}
- \pi^1_t=\frac{1}{k} (1- \pi^1 k) 
+\begin{align*}
+ \pidach_t &=\frac{1}{k} (1- \pidach^1 k) 
   \left(
-   \pi^1 (\mu-r) - \einhalb \left[ \pistern + (\pi^1)^2 \sigma^2 \right] 
-  \right)
-\end{equation}
-mit $\pi^1(T)=0$ und das dazugehörige $f$ mit
-\begin{equation} 
-f^1_t(t) =  -(r+\pi^1(\mu-r)) + \einhalb (\pi^1)^2 \sigma^2
-\end{equation}
-und $f(T)=0$ die optimale Wertfunktion
+   \pidach (\mu-r) - \einhalb \left[ \bruch^2 + (\pidach^1)^2 \sigma^2 \right] 
+  \right) \\
+ \pidach(T) &=0
+\end{align*}
+und
+\begin{align*} 
+f^1_t(t) &=  -(r+\pidach (\mu-r)) + \einhalb (\pidach)^2 \sigma^2 \\
+f^1(T) &=0
+\end{align*}
+und
 \begin{equation}
  V^1(t,x) = \log(x) + f^1(t)
 \end{equation}
-alle Vorraustezngen des Verifikationsatzes erfüllen.
+alle Vorrausetzungen des Verifikationsatzes erfüllen.
+Zunächst zeigen wir, dass damit
+\begin{equation*}
+ V^1(t,x)=V^0(t,x(1-k \pi(t,x))
+\end{equation*}
+gilt. Dazu halten wir $x$ fest und betrachten beide Seiten als Funktionen von $t$. Für $t=T$ gilt:
+\begin{equation*}
+ V^1(T,x)= \log x = V^0(T,x) = V^0(T,x(1-k \pi(T,x))
+\end{equation*}
+Ableiten der rechten Seite ergibt
+\begin{equation*}
+\begin{split}
+& \frac{d}{dt} \left[ ( V^0(t,x(1-k \pi(t,x)) ) )  \right] \\
+= & \frac{d}{dt} \left[ \log x + \log (1-k\pi(t)) + \left( r + \einhalb \bruch^2 \right) (T-t) \right] \\
+= & \frac{-k \pi_t}{1-k \pi} - r - \einhalb \bruch^2 \\
+= & \einhalb  \bruch^2 + (\pidach)^2 \sigma^2  - \pidach (\mu-r)- r - \einhalb \bruch^2 \\
+= &(\pidach)^2 \sigma^2  - \pidach (\mu-r)- r = f^1_t(t)  \\
+\end{split}
+\end{equation*}
+und das ist offensichtlich die Ableitung der rechten Seite von der Gleichgewichtsbeziehung und damit ist diese Bezeigung gezeigt.
+
+Die Beziehung
+\begin{equation} 
+ V^1_t(t,x) = -V^1_x(t,x)(r+\pi(\mu-r))x - \einhalb V^1_{xx}(t,x) \pi^2 \sigma^2 x^2
+\end{equation}
+kann man duch Einsetzen der entsprechenden Ableitungen sofort überprüfen.
+Also gilt für alle $(t,x)$
+\begin{equation*}
+ \pidach(t,x) \in \mathcal{A}'(t,x)
+\end{equation*}
+und
+\begin{equation*}
+ \pidach(t,x) \in \mathcal{A}''(t,x)
+\end{equation*}
+Also gilt die HJB-Ungleichung \eqref{eq:HJB-Ungleichung} und die Gleichgewichtsbeziehung \eqref{eq:Gleichgewichtsbedingung} aus den Vorausetzungen des Verifikationssatzes. Es
+bleibt noch die Bedingung \eqref{complementarity} zu überprüfen.
+dazu werden wird
+\begin{equation}
+ \sup_{\pi \in \mathcal{A}'(t,x)} \left[ v^0(t,x(1-k\pi))-v^1(t,x) \right] =0
+\end{equation} 
+zeigen.
+Dazu berechnen wir zunäcst
+\begin{equation}
+\begin{split}
+  & \mathcal{A}'(t,x)  \\
+ =& \{ 
+     \pi :  0 \leq \mathcal{L}^{\pi} V^1(t,x) 
+     \} \\
+=& \{ 
+     \pi :  0 \leq -(r+\pidach (\mu-r)) + \einhalb (\pidach)^2 \sigma^2 + r - (\mu -r) \pi + \einhalb \pi^2 \sigma^2
+     \} \\
+=& \{ 
+     \pi :  0 \leq -f(\pidach) + f(\pi)
+     \} \\
+=& \{ 
+     \pi :  \pidach \leq  \pi
+     \} \\
+\end{split}
+\end{equation}
+
+Wir haben schon
+\begin{equation}
+ f^1(t) = log(1 - k \pidach(t)) + f^0(t)
+\end{equation}
+gezeigt. Ersetzen wir $\pidach$ durch ein $\pi$ aus $\mathcal{A}'(t,x)$, so wird die rechte Seite kleiner, und wir erhalten durch Addieren von $ \log x$
+
+\begin{equation}
+V^0(t,x(1-\pi(t) k)) \leq V^1(t,x),
+\end{equation}
+das Surpremum wird also tatsächlich in $\pidach$ angenommen und es gilt
+\begin{equation}
+ \sup_{\pi \in \mathcal{A}'(t,x)} \left[ v^0(t,x(1-k\pi))-v^1(t,x) \right] =0
+\end{equation}
+Wir zeige nun noch das $\pidach$ die eine Gleichung das surpremum annimmt.
+Wir berechnen:
+\begin{equation}
+\begin{split}
+  & \mathcal{A}''(t,x)  \\
+ =& \{ 
+     \pi :   V^1(t,x) \leq V^0(t,x(1-k \pi)) 
+     \} \\
+=& \{ 
+     \pi :  f^1(t) \leq \log(1-k \pi) + f^0(t)
+     \} \\
+=& \{ 
+     \pi :  \pi \leq \pidach
+     \} 
+\end{split}
+\end{equation}
+Dabei ergibt sich die letzte Gleichheit, da genau für $\pidach$ in der die Menge definierenden Ungleichung Gleichheit herrscht und die rechte Seite monoton falllend in $\pi$ ist.
+\begin{equation}
+\begin{split}
+ & \mathcal{L}^{p(t,x)} v^1(t,x) \\
+ = & f_t + r + \pi (\mu -r) - \einhalb \pi^2 \sigma^2 \\
+ = & f_t + r + f(\pi) \\
+\end{split}
+\end{equation}
+Da $f$ aber monoton wachsend bis $\pistar$ ist und $\pidach \leq \pistar$ gilt wird das Surpremum tatsächlich mit $\pidach$ angenommen.
+
+
+Damit sind alle Vorrausetzungen des Verifikationssatzes erfüllt und wir haben gezeigt
 
 \section{Vergleich der beiden Ansätze}
-Zunächst einige Bemerkungen zum stochastscihen Modell:
-
+Zunächst einige Bemerkungen zum stochastischen Modell. 
+Im ersten Ansatz wurde der Crash nicht in das stochastische Modell des Aktienkurses mit aufgenommen. Es wurde heuristisch
+argumentiert, wie das Endvermögen aussieht, wenn ein Crash zur Zeit $t$ geschieht und dann einfach das Infimum über alle möglichen Zeitpunkte genommen. Damit war es auch nicht
+möglich zu formulieren wie eine Handelstrategie auf einem Crash reagieren kann und wie mussten das Problem mit $V^0$ formulieren. 
+Im zweiten Ansatz hingegen war der Crash im Aktienkurs modelliert, das Endvermögen ergibt sich aus der Lösung der Differentialgleichung, die Formulierung des Optimierungsproblems
+ist viel weniger schwerfällig und das Bellmanprinzip aus Satz \ref{th:Bellmanprinzip} konnten wir beweisen anstatt er vorausetzen zu müssen. Allerdings haben wir dabei auch
+Sprungprozesse im Integrator des stochastischen Integrals gehabt, während wir beim ersten Ansatz nicht über das Ito-Kalkül hinausgehen mussten.
+Mit dem ersten Ansatz konnten wir eine Lösung nur für den Fall des logaritmischen Nutzen angeben, an einigen Stellen im Beweis werden Eigenschaften des Logarithmuses ausgenutzt.
+Dafür wird im Beweis genau klar, was passiert, dass jede Strategie die nicht mit der Gleichgewichtsbedingung ausbalnaciert ist eine nierigere Worst-Case-Scranke besitzt.
+Beim zweiten Ansatz wird dieses Motiv viel weniger deutlich, auch wenn in der einen Gleichung die Gleichgewichtsbedingung steht. Dafür kann man das Ergebnis als eine
+Verallgemeinerung des gewöhnlichen HJB-Ansatz sehen und wir mussten auch nicht die Nutzenfunktion spezifizieren.
 

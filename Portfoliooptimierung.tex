@@ -14,39 +14,46 @@ Dann nennen wir $U$ eine Nutzenfunktion.
 
 Im folgenden geben wir nun ein Funktional an, dass jeder Strategie einen erwarteten Nutzen zuweist. Optimales Verhalten heißt dann, eine Strategie zu wählen, so dass dieses
 Funtional maximiert wird.
-\begin{myDefinition}
+\begin{myDefinition} \label{def:Standardportfoliooptimierungsproblem}
 \standardsatz
+Sei $U$ eine Nutzenfunktion und $\pi$ eine Handelstrategie.
 Wir bezeichen mit
 \begin{equation}
  J^0(x,t,\pi,U) = E(U(X_{\pi,x,t}(T))
 \end{equation}
-den erwarteten Endnutzen durch Verfolgung einer Handestrategie $\pi$ bezüglich $U$.
+den erwarteten Endnutzen durch Verfolgung von  $\pi$ bezüglich $U$.
+Die Aufgabe
+\begin{equation}
+ \text{maximiere} \qquad J^0(x,t,\pi,U)
+\end{equation}
+heißt (Standard-) Portfoliooptimierungsproblem.
 Die Funktion
 \begin{equation}
- V^0(t,x,U) = \sup_{\pi} J^0(x,t,\pi,U)
+ V^0(t,x,U) = \sup_{\pi \in \mathcal{A}(t,x)} J^0(x,t,\pi,U)
 \end{equation}
-heißt Wertfunktion.
+heißt Wertfunktion des Portfoliooptimierungsproblem und eine Strategie für die das Surpremum angenommen wird heißt optimale Strategie für $(t,x)$.
 \end{myDefinition}
-Die Bedeutung der $0$ in der Notation wird in späteren Kapiteln klar werden. 
+Die Bedeutung der $0$ in der Notation wird in späteren Kapiteln klar werden. Sie wurde hier nur schon in die Notation aufgenommen um die Notation in der ganzen Arbeit konsistent
+zu halten. 
 \section{Die Lösung des Portfoliooptimierungsproblem}
 Mit Methoden der stochastischen Steuerung kann nun gezeigt werden:
-\begin{mySatz}
-Sei $v$ eine Lösung von 
+\begin{mySatz} \label{th:Verifikationsatz}
+\standardsatz 
+Sei $v \in C^{1,2}$ und für alle $(t,x)$ gelte 
 \begin{equation} \label{eq:HJBPortfolio} 
- \underset{\pi \in (a,b)}{\text{max}}  \einhalb \pi^2 \sigma^2 x^2 v_{xx}(t,x) + (r+\pi (\mu-r) x)
+ \underset{\pi \in (-c,c)}{\text{max}}  \einhalb \pi^2 \sigma^2 x^2 v_{xx}(t,x) + (r+\pi (\mu-r) x)
 v_{x}(t,x) + v_t(t,x)=0  
 \end{equation}
 mit
-\begin{equation}
+\begin{equation} \label{eq:HJBEndbedingung}
  v(T,x)=U(x)
 \end{equation}
-Sei außerdem $p$ ein zulässiger Portfolioprozess mit
-\begin{equation} 
+Sei außerdem $p$ ein zulässiger Portfolioprozess sodass für alle $(t,x)$
+\begin{equation}  \label{eq:optimaleHandelsstrategie}
   \einhalb p(t,x)^2 \sigma^2 x^2 v_{xx}(t,x) + (r+ p(t,x) (\mu-r) x)
 v_{x}(t,x) + v_t(t,x)=0 
 \end{equation}
-
-Dann gilt 
+gilt. Dann gilt 
 \begin{equation}
  V^0(t,x)=v^0(t,x)
 \end{equation}
@@ -55,7 +62,7 @@ und $p$ ist der optimale Portfolioprozess.
 
 
 \section{Explizite Lösung für logaritmischen Nutzen}
-
+Als Anwendung des vorangegangen Satzes berechnen wir das optimale Portfolio und die Wertfunktion für den Fall des logarithmischen Nutzens.
 \begin{mySatz}
  Es gilt:
 \begin{equation} \label{eq:LogWertfunktion}
@@ -69,35 +76,35 @@ ist die optimale Strategie.
 \end{mySatz}
 
 \begin{proof}
+Wir müssen lediglich alle Vorausetzungen von Satz \ref{th:Verifikationsatz} überprüfen.
 Zunächst berechen wir die Ableitungen von \eqref{eq:LogWertfunktion}
-
 \begin{align*}
-V_t(t,x) &= -(r+\frac{1}{2} (\frac{\mu-r}{\sigma})^2 \\
+V_t(t,x) &= - \left( r+\frac{1}{2} \bruch^2 \right) \\
 V_x(t,x) &= \frac{1}{x} \\
 V_x(t,x) &= -\frac{1}{x^2} \\
 \end{align*}
-
-Einsetzen in Korn/Korn, Seite 276 ergibt:
-\begin{align*}
- B &= \einhalb \pi^2 \sigma^2 x^2 V_{xx}(t,x) + (r+\pi(b-r)) x V_x(t,x) + V_t(t,x) \\
-   &= \einhalb \pi^2 \sigma^2 x^2 \frac{1}{ \cancel{x^2}} + (r+\pi(b-r)) x \frac{1}{x} + -r+\frac{1}{2}
-         (\frac{\mu-r}{\sigma})^2\\
-  &= -\pi^2\einhalb \sigma^2+\pi(b-r)-\einhalb (\frac{\mu-r}{\sigma})^2 \\
-  &= f(\pi) -\einhalb (\frac{\mu-r}{\sigma})^2
-\end{align*}
-Dabei haben wir in der letzten Gleichung \ref{eq:fvonpi} eingesetzt. Das Maximum von $f$ ist $\einhalb
-(\frac{\mu-r}{\sigma})^2$, Maximieren der vorhergehenden Gleichung ergibt also tatsächlich $0$. Ausserdem
-erfüllt \ref{eq:LogWertfunktion} auch die Endbedingung: 
+Einsetzen in \eqref{eq:HJBPortfolio} ergibt:
+\begin{equation*}
+\begin{split}
+    &\einhalb \pi^2 \sigma^2 x^2 V_{xx}(t,x) + (r+\pi(b-r)) x V_x(t,x) + V_t(t,x) \\
+   =&\einhalb \pi^2 \sigma^2 x^2 \frac{1}{x^2} + (r+\pi(b-r)) x \frac{1}{x} + - \left( r+\frac{1}{2} \bruch^2 \right) \\
+  =& -\pi^2\einhalb \sigma^2+\pi(b-r)-\einhalb \bruch^2 \\
+  = & f(\pi) -\einhalb \bruch^2
+\end{split}
+\end{equation*}
+Dabei haben wir in der letzten Gleichung das f aus \eqref{eq:fvonpi} eingesetzt. Das Maximum von $f$ ist, wir im Satz \ref{th:Eigenschaften_f} angegeben, $\einhalb
+\bruch^2$, maximieren der vorhergehenden Gleichung ergibt also tatsächlich $0$. Weiter wissen wir aus Satz \ref{th:Eigenschaften_f}, dass dass Maximum von $f$ in $\pistar$
+angenommen wird, also ist auch \eqref{eq:optimaleHandelsstrategie} erfüllt. 
+Ausserdem erfüllt \ref{eq:LogWertfunktion} auch die Endbedingung: 
 \begin{equation}
- V(T,x)= (r+\frac{1}{2} (\frac{\mu-r}{\sigma})^2 (T-T)= \log(x)+0 = \log(x)
+ V(T,x)= \log x + \left( r+\frac{1}{2} \bruch^2  \right) (T-T)= \log x +0 = \log(x)
 \end{equation}
-
-Maximiert wird die Gleichung durch
-\begin{equation}
- \pi=\pistern,
-\end{equation}
-das ist dann der optimale Portfolioprozess.
+Damit sind alle Bedingungen von Satz \ref{th:Verifikationsatz} erfüllt und die Behauptung ist bewiesen.
 \end{proof}
+
+Die Wertfunktion und die optimale Strategie fallen natürlich nicht vom Himmel. Normalerweise geht man umgekehrt vor und versucht die Differentialgleichung zu lösen. Bei solch
+einenm Vorgehen besteht immer die Gefahr, dass man notwendige und hinreichende Bedingungen durcheinander wirft.Wir haben uns hier darauf beschränkt nur die Lösung anzugeben und zu
+verifizieren, dass sie tatsächliche die Vorausetzungen erfüllt.
 
 
 Zur Probe berechen wir auch noch den besten konstanten Portfoliprozess, dabei erwarten wir natürlich das

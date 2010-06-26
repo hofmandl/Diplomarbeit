@@ -74,7 +74,7 @@ Ist unsere Aktienposition positiv, so schadet uns ein Crash der maximalen Größe 
 (wenn wir also Aktien leerverkauft haben), so schadet uns das Ausbleiben eines Crashes am meisten. 
 
 Alle diese Gedanken berücksichtigend, gelangen wir so zur folgenden
-\begin{myDefinition} \label{def:WCPortfolioproblem}
+\begin{myDefinition} \label{def:WCPortfolioproblem1}
 Wir sage es gelten die Vorausetzungen unseres \emph{Standardfinanzmarktes mit Crashmöglichkeit}, wenn die Vorausetzungen unseres Standardfinanzmarktes gegeben sind und es
 zusätzlich ein $k\in (0,1)$gegeben ist. Unter diesen Vorrausetzungen ordnen wir jeder Handelsstrategie die Worst-Case-Schranke
 \begin{equation*}
@@ -84,12 +84,16 @@ zusätzlich ein $k\in (0,1)$gegeben ist. Unter diesen Vorrausetzungen ordnen wir 
                    E \left[ U(X_{\pi,t,x}(T)) \right] 
                   \right)
 \end{equation*}
-zu. Die Aufgabe ein zulässige Handesstrategie $\pi_{\text{opt}} \in \mathcal{A}$ zu finden. so dass für alle $(t,x) \in \left[0,T \right] \times \mathbb{R}^+$ gilt
+zu. Die Aufgabe ein zulässige Markov-Handesstrategie $\pi_{\text{opt}} \in \mathcal{M}$ zu finden. so dass für alle $(t,x)$ in
 \begin{equation*}
  \sup_{\pi \in \mathcal{A}} WC(\pi,t,x) =  WC(\pi_{\text{opt}},t,x)
 \end{equation*}
-bezeichnen wir als Worst-Case-Portfoliooptimierungsproblem. Eine solche Strategie  $\pi_{\text{opt}}$ nennen wir dann optimale Strategie.
+gilt bezeichnen wir als Worst-Case-Portfoliooptimierungsproblem 1. Eine solche Strategie  $\pi_{\text{opt}}$ nennen wir dann optimale Strategie.
 \end{myDefinition}
+
+Die Beschränkung auf Markov-Strategien und dass das Surpremum für alle $(t,x)$ angenommen werden muss hat damit zu tun, dass wir wollen, dass unsere Stratgie sich auch noch
+optimal verhält, wenn bis kurz vor Ende des Zeithorizonts kein Crash geschehen ist. A priori können wir nämlich nicht ausschließen, dass das Infimum der Worst-Case-Schranke weit
+vorne angenommen wird und dann bräuchte sich die Handelstrategie ohne unsere Forderung danach nicht mehr optimal zu verhalten.
 
 \section{Erste Eigenschaften}
 
@@ -304,6 +308,12 @@ Damit folgt aus der expliziten Form aus $V^0$ die wir aus Satz \ref{th:explizite
 V^0(t,x(1-\pidach(t)k)) = E(\log(X_{\pidach,t,x}(T))) 
 \end{equation*}
 \end{proof}
+
+Es gilt auch
+\begin{equation}
+ V^0(t,X(t) (1-\pidach(t)k)) = E(\log(X_{\pidach}(T)) | s) 
+\end{equation}
+
 
 Nun formulieren und beweisen wir das Hauptergebnis dieses Kapitels
 
