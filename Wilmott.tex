@@ -75,23 +75,23 @@ Ist unsere Aktienposition positiv, so schadet uns ein Crash der maximalen Größe 
 
 Alle diese Gedanken berücksichtigend, gelangen wir so zur folgenden
 \begin{myDefinition} \label{def:WCPortfolioproblem1}
-Wir sage es gelten die Vorausetzungen unseres \emph{Standardfinanzmarktes mit Crashmöglichkeit}, wenn die Vorausetzungen unseres Standardfinanzmarktes gegeben sind und es
-zusätzlich ein $k\in (0,1)$gegeben ist. Unter diesen Vorrausetzungen ordnen wir jeder Handelsstrategie die Worst-Case-Schranke
+\standardsatz 
+Wir ordnen jeder Handelsstrategie die Worst-Case-Schranke
 \begin{equation*}
  WC(\pi,t,x) =  \min \left( 
-                   \inf_{t \leq s \leq T} E \left[ V^0(s,X_{\pi,t,x}(s)(1-\pi(s)k)) \right] 
+                   \inf_{t \leq s \leq T} E_{t,x} \left[ V^0(s,X_{\pi}(s)(1-\pi(s)k)) \right] 
                   , 
-                   E \left[ U(X_{\pi,t,x}(T)) \right] 
+                   E_{t,x} \left[ U(X_{\pi}(T)) \right] 
                   \right)
 \end{equation*}
-zu. Die Aufgabe ein zulässige Markov-Handesstrategie $\pi_{\text{opt}} \in \mathcal{M}$ zu finden. so dass für alle $(t,x)$ in
+zu. Die Aufgabe ein zulässige Markov-Handesstrategie $\pi_{\text{opt}} \in \mathcal{A}$ zu finden. so dass für alle $(t,x)$ in
 \begin{equation*}
  \sup_{\pi \in \mathcal{A}} WC(\pi,t,x) =  WC(\pi_{\text{opt}},t,x)
 \end{equation*}
-gilt bezeichnen wir als Worst-Case-Portfoliooptimierungsproblem 1. Eine solche Strategie  $\pi_{\text{opt}}$ nennen wir dann optimale Strategie.
+gilt bezeichnen wir als \textbf{Worst-Case-Portfoliooptimierungsproblem \RM{1}}. Eine solche Strategie  $\pi_{\text{opt}}$ nennen wir dann optimale Strategie.
 \end{myDefinition}
 
-Die Beschränkung auf Markov-Strategien und dass das Surpremum für alle $(t,x)$ angenommen werden muss hat damit zu tun, dass wir wollen, dass unsere Stratgie sich auch noch
+Die Forderung, dass das Surprememum für alle $(t,x)$ angenommen werden muss hat damit zu tun, dass wir wollen, dass unsere Stratgie sich auch noch
 optimal verhält, wenn bis kurz vor Ende des Zeithorizonts kein Crash geschehen ist. A priori können wir nämlich nicht ausschließen, dass das Infimum der Worst-Case-Schranke weit
 vorne angenommen wird und dann bräuchte sich die Handelstrategie ohne unsere Forderung danach nicht mehr optimal zu verhalten.
 
@@ -203,12 +203,38 @@ Insgesamt folgt also
 \end{proof}
 
 
-% \begin{mySatz}
-% Eine optimale Worst-Case Strategie $\pi_{\text{opt}}$ erfüllt
-% \begin{equation}
-% \pi_{\text{opt}}(T)=0
-% \end{equation}
-% \end{mySatz}
+\begin{mySatz}
+Eine optimale Worst-Case Strategie $\pi_{\text{opt}}$ erfüllt
+\begin{equation}
+\pi_{\text{opt}}(T)=0
+\end{equation}
+\end{mySatz}
+
+\begin{proof}
+Dazu  berechnen wir wie Worst-Case-Schranke am Ende des Zeithorizonts.
+\begin{equation}
+\begin{split}
+ &WC(\pi,T,x)  \\
+=  & \min \left( 
+                   \inf_{T \leq s \leq T} E_{T,x} \left[ V^0(s,X_{\pi}(s)(1-\pi(s)k)) \right] 
+                  , 
+                   E_{T,x} \left[ U(X_{\pi}(T)) \right] 
+                  \right) \\
+=  & \min \left( 
+                 \left[ V^0(T,x(1-\pi(T)k)) \right] 
+                  , 
+                   E_{T,x} \left[ \log x ) \right] 
+                  \right) \\
+=  & \min \left( 
+                  \log x + \log(1-\pi(T)k) 
+                  , 
+                   \log x 
+                  \right) \\
+\end{split}
+\end{equation}
+Nur Handelstrategien mit $\pi(T)=0$ nehmen hier also das Surpremum $\log x$ an.
+\end{proof}
+
 
 
 \section{Optimale Strategie}
@@ -311,7 +337,7 @@ V^0(t,x(1-\pidach(t)k)) = E(\log(X_{\pidach,t,x}(T)))
 
 Es gilt auch
 \begin{equation}
- V^0(t,X(t) (1-\pidach(t)k)) = E(\log(X_{\pidach}(T)) | s) 
+ V^0(t,X(t) (1-\pidach(t)k)) = E(\log(X_{\pidach}(T)) | X(t)) 
 \end{equation}
 
 
@@ -362,8 +388,12 @@ Da $\pidach \leq \pistar$ und $f$ bis $\pistar$ streng monoton wachsend ist folg
 \begin{equation} \label{forsomet}
  E(\pi(s)) > \pidach(s).
 \end{equation}
-Wir bezeichen mit $\vdach$ den erwarteten logaritmischen Nutzen durch Verfolgung der Handelsstrategie
-$\pidach$. Wir geben sie hier nochmal explizit an und berechnen dir zur Anwendung der Ito-Formel
+Wir definieren $\vdach$ durch
+\begin{equation}
+ \vdach(t,x)= E \left[ \log X_{\pidach}(T) | X_{\pidach}(t) = x \right]
+\end{equation}
+ den erwarteten logaritmischen Nutzen durch Verfolgung der Handelsstrategie
+$\pidach$. Wir geben ihn hier nochmal explizit an und berechnen dir zur Anwendung der It\^{o}-Formel
 benötigten partiellen Ableitungen:
 \begin{align}
 \vdach(t,x) &= \log(x)  +  r(T-t) + \int_{t}^{T}  \pidach(u)(\mu -r)-\frac{1}{2}\pidach(u)^2\sigma^2du \\
@@ -371,22 +401,32 @@ benötigten partiellen Ableitungen:
 \vdach_{xx}(t,x) &= - \frac{1}{x^2} \\
 \vdach_t(t,x) &= -\pidach(t)(\mu -r)+\frac{1}{2}\pidach(t)^2\sigma^2 -r
 \end{align}
-Wir wiedeholen hier auch nochmal die $X$ treibende Dynamik um im folgenden die Anwendung der Ito-Formel
+Wir wiedeholen hier auch nochmal die $X$ treibende Dynamik um im folgenden die Anwendung der It\^{o}-Formel
 nachvollziehen zu können:
-\begin{align}
- dX(t) &= X(t) \left[ \left( r + \pi(t)(\mu -r) \right) dt + \pi(t) \sigma dW(t) \right]\\
-  X(t_0) &= x_0
-\end{align}
-Nun machen wir folgende Rechnung für ein $t$ (Erklärunge folgen)
+\begin{equation}
+ dX(t) = X(t) \left[ \left( r + \pi(t)(\mu -r) \right) dt + \pi(t) \sigma dW(t) \right]
+\end{equation}
+Nun gehen wir dabon aus dass $X(t_0)=x_0$ gilt (formal müssten wir in der folgende Gleichungskette jeden Ausdruch durch $E\left[\cdot | X(t_0)=x_0 \right]$ einschließen) und  wir
+folgende Rechnung für ein $t>t_0$ durch (Erklärunge folgen)
+% \begin{align*}
+% &V^0(t_0,X_{\pidach,t_0,x_0}(t)(1-\pidach(t)k)) \\
+% &= E(\log(X_{\pidach,t,X_{\pidach,t_0,x_0}(t)}(T))) \\
+% &= \vdach(t,X_{\pidach,t_0,x_0}(t)) \\
+%  &= \vdach(t_0,x_0) \\
+%  &+ \int_{t_0}^t \vdach_x(s,X) \pidach(s) \sigma dW(s) \\
+%  &+ \int_{t_0}^t \vdach_t(s,X) +  \vdach_x(s,X(s)) X(s) (r+\pidach(s)(\mu-r)) + \einhalb \vdach_{xx}(s,X)\pidach(s)^2 X(s)^2 \sigma^2 ds
+% \end{align*}
+
 \begin{align*}
-&V^0(t_0,X_{\pidach,t_0,x_0}(t)(1-\pidach(t)k)) \\
-&= E(\log(X_{\pidach,t,X_{\pidach,t_0,x_0}(t)}(T))) \\
-&= \vdach(t,X_{\pidach,t_0,x_0}(t)) \\
+&  V^0(t,X_{\pidach}(t)(1-\pidach(t)k)) \\
+&= E \left[ \log ( X_{\pidach}(T)  | X(t) \right] \\
+&= \vdach(t,X_{\pi})(t) \\
  &= \vdach(t_0,x_0) \\
  &+ \int_{t_0}^t \vdach_x(s,X) \pidach(s) \sigma dW(s) \\
  &+ \int_{t_0}^t \vdach_t(s,X) +  \vdach_x(s,X(s)) X(s) (r+\pidach(s)(\mu-r)) + \einhalb \vdach_{xx}(s,X)\pidach(s)^2 X(s)^2 \sigma^2 ds
 \end{align*}
-Dabei folgt die erste Gleichung aus Satz \ref{th:Gleichgewicht}, die zweite Gleichung ist die Definition von $\vdach$ und die letzte Gleichung ist eine Anwendung der Ito-Formel.
+Dabei folgt die erste Gleichung aus Satz \ref{th:Gleichgewicht}, die zweite Gleichung ist die Definition von $\vdach$ und die letzte Gleichung ist eine Anwendung der
+It\^{o}-Formel.
 
 Nehmen wir nun davon den Erwartungswert, so fällt das Integral bezüglich der Brownschen Bewegung dank
 unserser Vorrausetzungen an eine zulässige Handelsstartegie weg.

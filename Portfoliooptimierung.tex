@@ -1,7 +1,7 @@
 
 \chapter{Portfoliooptimierung im Black-Scholes-Modell: Der Ansatz über stochastische Steuerung}
 \section{Das Portfoliooptimierungsproblem}
-Wir stellen uns nun die Frage, wenn wir ein gegebenes Anfangskapital $x>0$ besitzen, wir wir uns im Black-Scholes-Modell optimal verhalten, also welche Handelstrategie wir
+Wir stellen uns nun die Frage, wie wir zu usnerem gegebenes Anfangskapital $x_0$ uns im Black-Scholes-Modell optimal verhalten, also welche Handelstrategie wir
 verwenden. Dazu müssen wir erstmal präzise machen, was wir mit optimal meinen. Als Ziel setzen wir uns hier das Errreichen eines optimalen Endvermögens. Um das quantifizieren zu
 können, führen wir zunächst den Begriff einer Nutzenfunktion ein.
 \begin{myDefinition}
@@ -19,17 +19,18 @@ Funtional maximiert wird.
 Sei $U$ eine Nutzenfunktion und $\pi$ eine Handelstrategie.
 Wir bezeichen mit
 \begin{equation}
- J^0(x,t,\pi,U) = E(U(X_{\pi,x,t}(T))
+ J^0(x,t,\pi,U) = E \left[ U(X_{\pi}(T)) | X_{\pi}(t)=x \right] 
+               := E_{t,x} \left[ U(X_{\pi}(T)) \right] 
 \end{equation}
 den erwarteten Endnutzen durch Verfolgung von  $\pi$ bezüglich $U$.
 Die Aufgabe
 \begin{equation}
- \text{maximiere} \qquad J^0(x,t,\pi,U)
+ \text{maximiere} \qquad J^0(x_0,0,\pi,U)
 \end{equation}
 heißt (Standard-) Portfoliooptimierungsproblem.
 Die Funktion
 \begin{equation}
- V^0(t,x,U) = \sup_{\pi \in \mathcal{A}(t,x)} J^0(x,t,\pi,U)
+ V^0(t,x,U) = \sup_{\pi \in \mathcal{A}} J^0(x,t,\pi,U)
 \end{equation}
 heißt Wertfunktion des Portfoliooptimierungsproblem und eine Strategie für die das Surpremum angenommen wird heißt optimale Strategie für $(t,x)$.
 \end{myDefinition}
@@ -61,7 +62,7 @@ und $p$ ist der optimale Portfolioprozess.
 \end{mySatz}
 
 
-\section{Explizite Lösung für logaritmischen Nutzen}
+\section{Explizite Lösung für logaritmischen Nutzen} \label{sec:log1}
 Als Anwendung des vorangegangen Satzes berechnen wir das optimale Portfolio und die Wertfunktion für den Fall des logarithmischen Nutzens.
 \begin{mySatz}
  Es gilt:

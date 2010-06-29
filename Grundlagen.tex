@@ -18,9 +18,26 @@ besitzt die eindeutige Lösung
 
 \end{mySatz}
 
+\begin{mySatz} \label{th:Ito-Formel}
+Sei $X$ ein It\^{o}-Prozess der Form
+\begin{equation*}
+ dX(t) = K(t)dt + H(t)dW(t)
+\end{equation*}
+ Sei $f:[0,\infty) \times R \rightarrowtail R$ eine $C^{1,2}$-Funktion. Dann gilt:
+\begin{equation*}
+\begin{split}
+&df(t,X(t)) \\
+= &\left( f_t(t,X(t)) K(t) + f_x(t,X(t)) K(t)  \einhalb f_{xx}(t,X(t)) H(t)^2 \right) dt \\
+  &+ f_x(t,X(t))H(t) dW(t) 
+\end{split}
+\end{equation*}
+
+\end{mySatz}
+
+
 
 \section{Finanzmarktmodell}
-Im folgenden geben wir die Definition unseres Finanzmarktmodells. Fast alle Sätze werden mit dem rituellen Satz ``\standardsatz'' eingeleitet.
+Im folgenden geben wir die Definition unseres Finanzmarktmodells.
 \begin{myDefinition} \label{Standardfinanzmarktmodell}
 Sei $(\Omega,F,P) $ ein Wahrscheinlichkeitsraum. Sei $W$ eine auf diesen Raum definierte Brownsche
 Bewegung. Seien $r$, $\mu$, $\sigma$ reelle Zahlen und sei $r < \mu$ und $\sigma>0$. Der Bond $B$ und die
@@ -31,18 +48,33 @@ Aktie $S$ seien die eindeutigen Lösungen der stochastischen Differentialgleichun
  dS(t) &= S(t)(\mu dt + \sigma dW(t)) \\
   S(0) &= s_0
 \end{align}
-Dabei nennen wir $r$ den Zinssatz, $\mu$ die Aktienrendite und $\sigma$ die Volatilität. Weiterhin sei eine Konstante $c>0$ gegeben, die wir Handelscharnke nennen. Gelten alle
-diese Vorrausetzungen, so sagen wir dass die Vorrausetzungen unseres Standardfinanzmarktmodells gelten.
+Dabei nennen wir $r$ den Zinssatz, $\mu$ die Aktienrendite und $\sigma$ die Volatilität.
+Ausserdem sei eine Zahl $k$ mit $0<k<1$ gegeben, die wir als maximale Crashhöhe bezeichnen.
+Weiterhin sei eine Konstante $c>0$ gegeben mit $c>\max(1/k,\pistern)$, die wir Handelschranke nennen. 
+Desweiteren nennen wir $x_0>0$ unser Startvermögen und $T>0$ unseren Zeithorizont.
+Gelten alle diese Vorrausetzungen, so sagen wir dass die Vorrausetzungen unseres Standardfinanzmarktmodells gelten.
 \end{myDefinition}
-Die Interpretation unseres Standardfinanzmarktmodells ist allein durch die Namensgebung schon ziemlich klar. Die Bedeutung der Handelschranke wird in der folgenden Definition klar
-werden.
+Die Interpretation unseres Standardfinanzmarktmodells ist allein durch die Namensgebung schon ziemlich klar. Mit der Handelsschranke drücken wir aus, dass es verboten sein soll,
+mehr als das $c$-fache seines Vermögens in Aktien anzulegen, also Aktien auf Kredit zu kaufen (falls $c>1$), als auch mehr als $(-c)$-fache sein Vermögens in Aktien anzulegen, also
+Aktien leer zu verkaufen. Wir brauchen dieses Handelsschranke aus beweistechnischen Gründen, aber man kann auch argumentieren, dass es eine vernünftige Modellannahme ist in einer
+Welt mit Gesetzesbeschränkungen und einer endlichen Geldmenge. Ein Investorin, die nicht diesen Beschränungen unterliegt und die Resultate dieser Arbeit nutzen möchte, kann sich
+$c$ einfach als riesig groß vorstellen, so da es praktisch keine Einschränkung mehr für sie darstellt.
+
+Dieses Definition ist ein wenig auf Vorrat gemacht, sie dient dazu, dass wir mit dem rituellen Satz ``\standardsatz'' alle benötigten Vorausetzungen zusammen haben. Der Parameter
+$k$ zum beispiel wird erst in späteren Kapiteln benötigt.
+
+Um die folgenden Sätze formulieren und beweisen zu können, hätten wir im Prinzip nicht den Bond $B$ und die Aktie $S$ defineiren müssen. Wir werden im folgenden eine
+Vermögensgleichung definieren, die die Modellparameter enthält, aber nicht direkt den Aktienkurs un den Bond. Dieses Arbeit beschäftigt sich mit den Eigenschaften dieser
+Vermögensgleichung.
+
+Während die Parameter $\mu,r,\sigma$ und $k$ den Markt beschreiben, beschreiben $x_0$ und $T$ unsere persönliche Vorgaben.
 
 \begin{myDefinition} \label{def:Handelsstrategie}
 \standardsatz
-Die Menge $\mathcal{A}(t,x)$ aller progressiv messbaren Prozesse, für die die stochastische Differentialgleichung
+Die Menge $\mathcal{A}$ aller progressiv messbaren Prozesse $\pi$, für die die stochastische Differentialgleichung
 \begin{align*}
  dX(t) &= X(t) \left[ \left( r + \pi(t)(\mu -r) \right) dt + \pi(t) \sigma dW(t) \right] \\
-  X(t) &= x
+  X(0) &= x_0
 \end{align*}
 eine eindeutige Lösung besitzt, für die $P$- fast sicher
 \begin{equation}
@@ -57,14 +89,12 @@ für alle $t \in [0,T]$ gilt, heißt die Menge der zulässige Handelsstrategien.
 
 \begin{myDefinition} \label{Handelsstrategie}
 \standardsatz
-Die Menge $\mathcal{M}$ aller Funktionen von $\txbereich$ nach $\left[-c,c \right]$ heißt die Menge der zulässigen Markov-Handelstrategien, wenn
-gilt:
-Für alle $(t,x)$ und alle $p \in \mathcal{M}$ besitzt die die stochastische Differentialgleichung
+Die Menge $\mathcal{M}$ aller Funktionen von $\txbereich$ nach $\mathbf{R}$ heißt die Menge der zulässigen Markov-Handelstrategien, wenn die stochastische Differentialgleichung
 \begin{align*}
  dX(t) &= X(t) \left[ \left( r + p(t,X(t))(\mu -r) \right) dt + p(t,X(t)) \sigma dW(t) \right] \\
-  X(t) &= x
+  X(0) &= x_0
 \end{align*}
-eine eindeutige Lösung und mit dieser Lösung gilt $p(t,X(t)) \in \mathcal{A}(t,x)$.
+eine eindeutige Lösung besitzt und mit dieser Lösung  $p(\cdot,X(\cdot)) \in \mathcal{A}$ gilt.
 \end{myDefinition}
 In dem gerade gegebenen Sinne können wir also eine Markovstrategie auch immer als eine normale Handelstrategie auffassen und wir werden in dem Fall nicht mehr zwischen diesen
 beiden Begriffen unterscheiden.
@@ -153,8 +183,11 @@ gegeben. In der letzten Gleichung ist dabei der letzte Faktor ein Martingal.
 \begin{mySatz} \label{th:ExpLogUtility}
 Es gilt
  \begin{equation} \label{eq:ExpLogUtility}
-E \left[ \log(X_{\pi,t,x}(T)) \right] = \log(x)  + E \left[ \int_{t}^{T} (r + \pi(u)(\mu -r)-\frac{1}{2}\pi(u)^2\sigma^2)du  \right]
-                                      = \log(x)  + E \left[ \int_{t}^{T} f(\pi(u)) du  \right]
+\begin{split}
+ & E \left[ \log(X_{\pi,t,x}(T)) \right] \\
+ = &\log(x)  + E \left[ \int_{t}^{T} (r + \pi(u)(\mu -r)-\frac{1}{2}\pi(u)^2\sigma^2)du  \right]  \\
+ = & \log(x)  + E \left[ \int_{t}^{T} f(\pi(u)) du  \right] + r(T-t) \\
+\end{split}
 \end{equation}
 \end{mySatz}
 

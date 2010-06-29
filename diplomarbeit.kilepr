@@ -41,7 +41,7 @@ Mode=LaTeX
 ReadWrite=true
 
 [document-settings,item:Grundlagen.tex]
-Bookmarks=59
+Bookmarks=52,91
 Encoding=ISO-8859-1
 Highlighting=LaTeX
 Indentation Mode=
@@ -92,10 +92,10 @@ order=2
 
 [item:Diplomarbeit.tex]
 archive=true
-column=61
+column=51
 encoding=ISO-8859-1
 highlight=LaTeX
-line=33
+line=34
 mode=LaTeX
 open=true
 order=0
@@ -112,10 +112,10 @@ order=5
 
 [item:Grundlagen.tex]
 archive=true
-column=0
+column=91
 encoding=ISO-8859-1
 highlight=LaTeX
-line=56
+line=29
 mode=LaTeX
 open=true
 order=6
@@ -132,20 +132,20 @@ order=3
 
 [item:Portfoliooptimierung.tex]
 archive=true
-column=63
+column=40
 encoding=ISO-8859-1
 highlight=LaTeX
-line=106
+line=120
 mode=LaTeX
 open=true
 order=4
 
 [item:Wilmott.tex]
 archive=true
-column=51
+column=79
 encoding=ISO-8859-1
 highlight=LaTeX
-line=76
+line=234
 mode=LaTeX
 open=true
 order=7
@@ -162,10 +162,10 @@ order=-1
 
 [item:hjb.tex]
 archive=true
-column=41
+column=53
 encoding=ISO-8859-1
 highlight=LaTeX
-line=68
+line=474
 mode=LaTeX
 open=true
 order=1
@@ -175,29 +175,29 @@ CursorColumn=28
 CursorLine=8
 
 [view-settings,view=0,item:Diplomarbeit.tex]
-CursorColumn=61
-CursorLine=33
+CursorColumn=51
+CursorLine=34
 
 [view-settings,view=0,item:Einleitung.tex]
 CursorColumn=0
 CursorLine=0
 
 [view-settings,view=0,item:Grundlagen.tex]
-CursorColumn=0
-CursorLine=56
+CursorColumn=91
+CursorLine=29
 
 [view-settings,view=0,item:Literatur.bib]
 CursorColumn=14
 CursorLine=80
 
 [view-settings,view=0,item:Portfoliooptimierung.tex]
-CursorColumn=63
-CursorLine=106
+CursorColumn=40
+CursorLine=120
 
 [view-settings,view=0,item:Wilmott.tex]
-CursorColumn=51
-CursorLine=76
+CursorColumn=79
+CursorLine=234
 
 [view-settings,view=0,item:hjb.tex]
-CursorColumn=41
-CursorLine=68
+CursorColumn=53
+CursorLine=474
