@@ -16,6 +16,7 @@ Denn Nutzen aus dem Endvermögen $T$ wollen wir nun wieder mittels einer MaxMin-S
 möglichen Crashzeitpunkte, mathematisch betrachtet also reelle Zahlen, sonder über alle Crashprozesse genommen werden. Die benennen wir in der folgenden Definitionen präzise.
 
 \begin{myDefinition} \label{def:Handelstrategien}
+\standardsatz
 Die Menge der Crashprozesse $\mathcal{B}$ sind alle auf $\Omega$ definierten Prozesse $N$, die an die Filtrierung der Brownschen Bewegung adaptiert sind, für die $N(0)=0$ und
 $N(T)=1$ gilt und die bis auf genau einen Sprung konstant sind. 
 \end{myDefinition}
@@ -29,39 +30,46 @@ Jeder Crashprozess $N$ definiert eine Stoppzeit $\tau = \inf \{ t; N(t)=1 \}$ un
 daher $\tau$ und $N$ im folgenden austauschbar benutzen.
 
 \begin{myDefinition} 
-Wir bezeichnen mit $X_{\tau,\pi,t_0,x_0}$ die Lösung der von $\tau$ und $\pi$ kontrollierten Vermögensgleichung.
-\begin{align}
- dX(t) &= X(t)(r dt + \pi(t)(\mu -r) dt + \sigma dW(t) -k dN(t)) \\
-  X(t_0) &= x_0
-\end{align}
+\standardsatz
+Wir bezeichnen mit $X_{\tau,\pi}$ die Lösung der von $\tau$ und $\pi$ kontrollierten Vermögensgleichung.
+\begin{align*}
+ dX(t) &= X(t-)(r dt + \pi(t)(\mu -r) dt + \sigma dW(t) -k dN(t)) \\
+  X(0) &= x_0
+\end{align*}
 \end{myDefinition}
-Mit unserem Wissen über die Lösung dieses Differentialgleichung ohne $N$ können wir auch die Lösung dieser Differentialgleichung ganz konkret angeben. Es gilt nämlich:
-\begin{equation}
- X_{\tau,\pi,t_0,x_0}(t) = X_{\pi,t_0,x_0}(t) \left( 1 - \mathbf{1}_{\left[\tau,T\right]} \pi(\tau) k \right)
-\end{equation} 
-Der Prozess  $X_{\tau,\pi,t_0,x_0}$ folgt also im wesentlichen der Dynamik im crasfreien Scenario; vor dem Crash sind sie gleich, nach dem Crash unterscheiden sie sich um einen
+Mit unserem Wissen über die Lösung dieses Differentialgleichung ohne Sprung können wir auch die Lösung dieser Differentialgleichung ganz konkret angeben. Es gilt nämlich:
+\begin{equation*}
+ X_{\tau,\pi}(t) = X_{\pi}(t) \left( 1 - \Indikatorfunktion_{\left[\tau,T\right]} \pi(\tau) k \right)
+\end{equation*} 
+Der Prozess  $X_{\tau,\pi}$ folgt also im wesentlichen der Dynamik im crasfreien Scenario; vor dem Crash sind sie gleich, nach dem Crash unterscheiden sie sich um einen
 Faktor. Insbesondere gilt:
 \begin{equation}
- X_{\tau,\pi,t_0,x_0}(\tau) = X_{\pi,t_0,x_0}(\tau) \left( 1 - \pi(\tau) k \right) = X_{\tau, \pi,t_0,x_0}(\tau-) \left( 1 - \pi(\tau) k \right)
+ X_{\tau,\pi}(\tau) = X_{\pi}(\tau) \left( 1 - \pi(\tau) k \right) = X_{\tau, \pi}(\tau-) \left( 1 - \pi(\tau) k \right)
 \end{equation} 
 
-
-Ohne $N$ ist $X$ eine  It\^{o}-Diffusion. Den Generator von $(t,X(t))$ geben wir in der folgenden Definition einen Namen:
+Im folgenden geben wir noch einem oft benötigten Operator einen Namen.
 \begin{myDefinition} 
+\standardsatz
+Sei $v \in C^{1,2}$ und $\pi \in \reelleZahlen$. Dann sei der Operator  $\mathcal{L}^{\pi} v$ durch 
 \begin{equation} \label{eq:Generator}
  \mathcal{L}^{\pi} v(t,x) = v_t(t,x) + v_x(t,x)(r+\pi(\mu-r)) x + \einhalb v_{xx}(t,x) \pi^2 \sigma^2 x^2
 \end{equation}
+definiert.
 \end{myDefinition}
 
-
+Nun geben wir die dieser Modellierung angepassten Formulierung des Worst-Case-Portfoliooptimierungsproblem.
 
 
 \begin{myDefinition} \label{Worst-Case-portfoliooptimerungsproblem2}
-Sei $N \in \mathcal{B}$. Wir bezeichnen mit 
+\standardsatz
+Sei $N \in \mathcal{B}$ und $U$ eine Nutzenfunktion. Wir bezeichnen mit 
 \begin{equation} 
- J^1(x,t,\pi,N) := E \left[ U(X_{\pi,N}(T)) | X(t)=x,N(t)=0 \right] 
+\begin{split}
+ J^1(x,t,\pi,N) & := E_{t,x,1} \left[ U(X_{\pi,N}(T)) \right] \\
+                & := E \left[ U(X_{\pi,N}(T)) | X(t)=x,N(t)=0 \right] 
+\end{split}
 \end{equation}
-den erwarteten Endnutzen durch Verfolgung von $\pi$ und dem Crashscenario $N$. 
+den erwarteten Endnutzen durch Verfolgung von $\pi$ unter dem Crashscenario $N$. 
 Wir nennen die Aufgabe
 \begin{equation}
   \text{maximiere}  \inf_{N \in \mathcal{B}} J^1(x_0,0,\pi,N)
@@ -74,7 +82,7 @@ heißt Wertfunktion des Problems und eine Handelsstrategie für die das Surpremum 
 optimale Strategie für $(t,x)$.
 \end{myDefinition}
 
-Schon in der Notation erkennt man die Analogie zum Standard Portfoliooptimierungsproblem aus Definition \ref{def:Standardportfoliooptimierungsproblem}. Dafür kennen wir schon 
+Schon in der Notation erkennt man die Analogie zum Standard-Portfoliooptimierungsproblem aus Definition \ref{def:Standardportfoliooptimierungsproblem}. Dafür kennen wir schon 
 einen Verifikationssatz für die Wertfunktion und die optimale Strategie. Im folgenden wird es unser Ziel sein einen analogen Verifikationssatz für diese Erweiterung zu formulieren
 und zu beweisen. Dieses Problem hat einen anderen Namen bekommen als das Worst-Case-Portfoliooptimierungsproblem \RM{1} aus Definition \ref{def:WCPortfolioproblem1}. Zwar wurde
 genau die gleiche Idee formuliert, aber die Modellierung ist ganz unterschiedlich. Für den logarithmischen Nutzen werden wir dennoch zeigen, dass beide Formulierungen zur gleichen

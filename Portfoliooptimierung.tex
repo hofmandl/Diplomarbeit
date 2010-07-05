@@ -1,38 +1,38 @@
 
 \chapter{Portfoliooptimierung im Black-Scholes-Modell: Der Ansatz über stochastische Steuerung}
 \section{Das Portfoliooptimierungsproblem}
-Wir stellen uns nun die Frage, wie wir zu usnerem gegebenes Anfangskapital $x_0$ uns im Black-Scholes-Modell optimal verhalten, also welche Handelstrategie wir
+Wir stellen uns nun die Frage, wie wir zu unserem gegebenes Anfangskapital $x_0$ uns im Black-Scholes-Modell optimal verhalten, also welche Handelstrategie wir
 verwenden. Dazu müssen wir erstmal präzise machen, was wir mit optimal meinen. Als Ziel setzen wir uns hier das Errreichen eines optimalen Endvermögens. Um das quantifizieren zu
 können, führen wir zunächst den Begriff einer Nutzenfunktion ein.
 \begin{myDefinition}
- Sei $U:(0,\infty) \rightarrow R$ strikt konkav, stetig differenzierbar und es gelte
+ Sei $U:(0,\infty) \rightarrow \reelleZahlen$ strikt konkav, stetig differenzierbar und es gelte
 \begin{equation}
  \lim U'(x)=\infty, \qquad \lim U'(x)=0.
 \end{equation}
-Dann nennen wir $U$ eine Nutzenfunktion.
+Dann nennen wir $U$ eine \textbf{Nutzenfunktion}.
 \end{myDefinition}
 
 Im folgenden geben wir nun ein Funktional an, dass jeder Strategie einen erwarteten Nutzen zuweist. Optimales Verhalten heißt dann, eine Strategie zu wählen, so dass dieses
-Funtional maximiert wird.
+Funktional maximiert wird.
 \begin{myDefinition} \label{def:Standardportfoliooptimierungsproblem}
 \standardsatz
-Sei $U$ eine Nutzenfunktion und $\pi$ eine Handelstrategie.
-Wir bezeichen mit
+Sei $U$ eine Nutzenfunktion, sei $\pi$ eine zulässige Handelstrategie und sei $X_{\pi}$ der Vermögensprozess.
+Wir bezeichnen mit
 \begin{equation}
  J^0(x,t,\pi,U) = E \left[ U(X_{\pi}(T)) | X_{\pi}(t)=x \right] 
                := E_{t,x} \left[ U(X_{\pi}(T)) \right] 
 \end{equation}
-den erwarteten Endnutzen durch Verfolgung von  $\pi$ bezüglich $U$.
+den \textbf{erwarteten Endnutzen} durch Verfolgung von  $\pi$ bezüglich $U$.
 Die Aufgabe
 \begin{equation}
  \text{maximiere} \qquad J^0(x_0,0,\pi,U)
 \end{equation}
-heißt (Standard-) Portfoliooptimierungsproblem.
+heißt \textbf{(Standard-)Portfoliooptimierungsproblem}.
 Die Funktion
 \begin{equation}
  V^0(t,x,U) = \sup_{\pi \in \mathcal{A}} J^0(x,t,\pi,U)
 \end{equation}
-heißt Wertfunktion des Portfoliooptimierungsproblem und eine Strategie für die das Surpremum angenommen wird heißt optimale Strategie für $(t,x)$.
+heißt Wertfunktion des Portfoliooptimierungsproblem und eine Strategie für die das Surpremum angenommen wird heißt \textbf{optimale Strategie} für $(t,x)$.
 \end{myDefinition}
 Die Bedeutung der $0$ in der Notation wird in späteren Kapiteln klar werden. Sie wurde hier nur schon in die Notation aufgenommen um die Notation in der ganzen Arbeit konsistent
 zu halten. 
@@ -56,7 +56,7 @@ v_{x}(t,x) + v_t(t,x)=0
 \end{equation}
 gilt. Dann gilt 
 \begin{equation}
- V^0(t,x)=v^0(t,x)
+ V^0(t,x,U)=v^0(t,x)
 \end{equation}
 und $p$ ist der optimale Portfolioprozess.
 \end{mySatz}
@@ -64,64 +64,66 @@ und $p$ ist der optimale Portfolioprozess.
 
 \section{Explizite Lösung für logaritmischen Nutzen} \label{sec:log1}
 Als Anwendung des vorangegangen Satzes berechnen wir das optimale Portfolio und die Wertfunktion für den Fall des logarithmischen Nutzens.
-\begin{mySatz}
- Es gilt:
+\begin{mySatz} \label{th:LogWertfunktion}
+Die Wertfunktion für das Portfoliooptimierungsproblem für logarithmischen Nutzen ist gegeben durch
 \begin{equation} \label{eq:LogWertfunktion}
- V^0(t,x)= \log(x)+\left(r + \einhalb \bruch^2 \right) (T-t)
+ V^0(t,x,\log)= \log(x)+ f^0(t) 
 \end{equation}
+mit
+\begin{equation*}
+f^0(t) = \left(r + \einhalb \bruch^2 \right) (T-t)
+\end{equation*}
 und
 \begin{equation*}
  \pistar=\pistern 
 \end{equation*}
-ist die optimale Strategie.
+ist dabei die optimale Strategie.
 \end{mySatz}
 
 \begin{proof}
 Wir müssen lediglich alle Vorausetzungen von Satz \ref{th:Verifikationsatz} überprüfen.
-Zunächst berechen wir die Ableitungen von \eqref{eq:LogWertfunktion}
+Sei dazu
+\begin{equation} \label{eq:kanditatfürlognutzen}
+  v(t,x)= \log(x)+ f^0(t) 
+\end{equation}
+und wir berechnen zunächst die benötigten Ableitungen.
 \begin{align*}
-V_t(t,x) &= - \left( r+\frac{1}{2} \bruch^2 \right) \\
-V_x(t,x) &= \frac{1}{x} \\
-V_x(t,x) &= -\frac{1}{x^2} \\
+v_t(t,x) &= - \left( r+\frac{1}{2} \bruch^2 \right) \\
+v_x(t,x) &= \frac{1}{x} \\
+v_x(t,x) &= -\frac{1}{x^2} \\
 \end{align*}
 Einsetzen in \eqref{eq:HJBPortfolio} ergibt:
 \begin{equation*}
 \begin{split}
-    &\einhalb \pi^2 \sigma^2 x^2 V_{xx}(t,x) + (r+\pi(b-r)) x V_x(t,x) + V_t(t,x) \\
+    &\einhalb \pi^2 \sigma^2 x^2 v_{xx}(t,x) + (r+\pi(b-r)) x v_x(t,x) + v_t(t,x) \\
    =&\einhalb \pi^2 \sigma^2 x^2 \frac{1}{x^2} + (r+\pi(b-r)) x \frac{1}{x} + - \left( r+\frac{1}{2} \bruch^2 \right) \\
   =& -\pi^2\einhalb \sigma^2+\pi(b-r)-\einhalb \bruch^2 \\
   = & f(\pi) -\einhalb \bruch^2
 \end{split}
 \end{equation*}
-Dabei haben wir in der letzten Gleichung das f aus \eqref{eq:fvonpi} eingesetzt. Das Maximum von $f$ ist, wir im Satz \ref{th:Eigenschaften_f} angegeben, $\einhalb
-\bruch^2$, maximieren der vorhergehenden Gleichung ergibt also tatsächlich $0$. Weiter wissen wir aus Satz \ref{th:Eigenschaften_f}, dass dass Maximum von $f$ in $\pistar$
-angenommen wird, also ist auch \eqref{eq:optimaleHandelsstrategie} erfüllt. 
-Ausserdem erfüllt \ref{eq:LogWertfunktion} auch die Endbedingung: 
+Dabei haben wir in der letzten Gleichung das f aus Definition \ref{def:f} eingesetzt. Das Maximum von $f$ ist, wir im Satz \ref{th:Eigenschaften_f} angegeben,
+$\einhalb \bruch^2$. Maximieren der vorhergehenden Gleichung ergibt also tatsächlich $0$. Weiter wissen wir aus Satz \ref{th:Eigenschaften_f}, dass dass Maximum von $f$ in
+$\pistar$ angenommen wird, also ist auch die Gleichung \eqref{eq:optimaleHandelsstrategie}, die die optimale Strategie charakterisiert erfüllt. 
+Außerdem erfüllt \ref{eq:kanditatfürlognutzen} auch die Endbedingung: 
 \begin{equation}
- V(T,x)= \log x + \left( r+\frac{1}{2} \bruch^2  \right) (T-T)= \log x +0 = \log(x)
+ v(T,x)= \log x + \left( r+\frac{1}{2} \bruch^2  \right) (T-T)= \log x +0 = \log x
 \end{equation}
 Damit sind alle Bedingungen von Satz \ref{th:Verifikationsatz} erfüllt und die Behauptung ist bewiesen.
 \end{proof}
 
 Die Wertfunktion und die optimale Strategie fallen natürlich nicht vom Himmel. Normalerweise geht man umgekehrt vor und versucht die Differentialgleichung zu lösen. Bei solch
-einenm Vorgehen besteht immer die Gefahr, dass man notwendige und hinreichende Bedingungen durcheinander wirft.Wir haben uns hier darauf beschränkt nur die Lösung anzugeben und zu
-verifizieren, dass sie tatsächliche die Vorausetzungen erfüllt.
+einem Vorgehen besteht immer die Gefahr, dass man notwendige und hinreichende Bedingungen durcheinander wirft. Wir haben uns hier darauf beschränkt nur die Lösung anzugeben und zu
+verifizieren, dass sie tatsächliche die Voraussetzungen erfüllt.
 
 
-Zur Probe berechen wir auch noch den besten konstanten Portfoliprozess, dabei erwarten wir natürlich das
-gleiche Ergenis. Wir müssen dazu nur das $\pi$ finden, welches \ref{eq:ExpLogUtilityKonst} maximiert. Dazu
-setzen wir \ref{eq:fvonpi} in \ref{eq:ExpLogUtilityKonst} ein 
-
-\begin{equation}
- \pi=\pistern,
-\end{equation}
-
-\begin{align}
-E(log(X(t))) & = log(x)  + (r + \pi(\mu -r)-\frac{1}{2}\pi^2 \sigma^2) t \\
-              &= log(x)  +  (r+f(\pi))t 
-\end{align}
-Und man erkennt das wir das Maximum von $f$ suchen. Das haben wir schon in \ref{eq:pimax} als
-\begin{equation}
+Zur Probe berechnen wir auch noch den besten konstanten Portfoliprozess, dabei erwarten wir natürlich das
+gleiche Ergebnis. Wir müssen dazu nur das konstante $\pi$ finden, welches die Gleichung \ref{eq:ExpLogUtility} aus Satz \ref{th:ExpLogUtility} maximiert. Für ein konstantes $\pi$
+vereinfacht sich diese zu
+\begin{equation*}
+E \left[ \log(X_{\pi}(t)) \right] = \log x  +  (r+f(\pi))T 
+\end{equation*}
+und man erkennt wieder, dass wir das $\pi$ wählen müssen das $f$ maximiert. Das ist wieder
+\begin{equation*}
  \pi=\pistern
-\end{equation}
+\end{equation*}
 und wir sind in unserer Probe bestätigt worden.
