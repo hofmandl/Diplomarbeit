@@ -3,7 +3,6 @@
 \usepackage[ngerman]{babel}
 \usepackage[latin1]{inputenc}
 \usepackage[T1]{fontenc}
-% \usepackage{pdftex}
 
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{cancel}
@@ -14,19 +13,16 @@
 \usepackage{bibgerm}
 
 
-
-
-
+% Mathematikumgebungen
 \newtheorem{mySatz}{Satz}[section]
 \newtheorem{myDefinition}[mySatz]{Definition}
-
-
 
 \title{Lösungsansätze für das Worst-Case-Portfoliooptimierungsproblem}
 \author{Martin Böschen}
 
 \begin{document}
 
+% Definition eigener Kommandos
 \newcommand{\einhalb}{\frac{1}{2}}
 \newcommand{\pistern}{\frac{\mu-r}{\sigma^2}}
 \newcommand{\bruch}{ 
@@ -50,31 +46,15 @@
 
 \tableofcontents
 
-\include{Einleitung}
+\include{Kapitel/Einleitung}
+\include{Kapitel/Grundlagen}
+\include{Kapitel/Portfoliooptimierung}
+\include{Kapitel/Wilmott}
+\include{Kapitel/hjb}
+\include{Kapitel/numerischer}
+% \chapter{Symbolverzeichnis}
 
-\include{Grundlagen}
-
-\include{Portfoliooptimierung}
-
-
-\include{Wilmott}
-
-
-
-\include{hjb}
-
-\include{numerischer}
-
-\chapter{Symbolverzeichnis}
-
-
-% \include{HJBausgelagert}
-
-% \chapter{Simulationen}
-
-
-
-
+% Literaturverzeichnis
 \bibliographystyle{geralpha}
 \nocite{*} % auch alle nicht im Text zitierten Einträge werden mit aufgenommen
 \bibliography{Literatur}

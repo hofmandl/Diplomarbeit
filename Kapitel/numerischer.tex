@@ -1,0 +1,172 @@
+\chapter{Zahlenbeispiele und Simulation}
+\section{Worst-Case-Schranke der optimalen Strategie}
+In diesem Kapitel wollen wir konkret ein paar Zahlenbeispiele rechnen. Dazu spezifizieren wir unsere Marktkoeffizienten.
+\begin{align*}
+ \mu &=0.2 \\
+   r&=0.05 \\
+ \sigma &= 0.4
+\end{align*}
+Außerdem spezifizeiren wir unsere persönlichen Parameter zu
+\begin{align*}
+ x_0 &=1 \\
+  T&=10 
+\end{align*}
+Der erwartete Nutzen durch Verfolgen der reinen Bondstrategie ist dann
+\begin{equation*}
+ rT=0.5
+\end{equation*}
+Die optimale Strategie im crasfreien Setting führt zu einem erwarteten Endvermögen von
+\begin{equation*}
+ V^0(0,1,\log)=1.203
+\end{equation*}
+Als optimalen erwarteten Nutzen im Markt mit Crash erwarten wir nach den Ergebnissen dieser Arbeit dann einen Wert dazwischen. Dazu benötigen wir die Werte der Lösung $\pidach$ von
+der Differentialgleichung aus Satz \ref{th:DGL}.  Wir haben diese numerisch mit Matlab gelöst. Der Graph dieser Lösung ist in Abbildung \ref{fig:optimaleStrategie} abgebildet.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[type=eps,ext=.eps,read=.eps,width=1\linewidth]{Bilder/foo}
+\label{fig:optimaleStrategie}
+\caption{Optimale Handelstrategie $\pidach$}%
+\end{figure}
+
+
+Wir haben nun verschieden Möglichkeiten den erwarteten Nutzen bei Verfolgen dieser Strategie. Im Beweis von Satz \ref{th:hauptsatz_willmott} haben wir gelernt, daß es reicht wenn
+wir den Wert von der numerisch ermittelten Lösung von $\pidach$ an der Stelle $0$ nehmen und wie folgt in die Wertfunktion einsetzen
+\begin{equation*}
+ V^0(0,1-\pidach(0)k,\log)=1.0472
+\end{equation*}
+Genauso ist es aber auch möglich den erwarten Nutzen im crashfreien Scenario zu berechen und mit Satz \ref{th:ExpLogUtility} 
+\begin{equation*}
+ \int_0^T f(\pidach(t)) dt + rT = 1.0471
+\end{equation*}
+zu berechnen.
+Eine weitere Möglichkeit wäre die Verwendung der Wertfunktion aus $V^1(\cdot,\cdot,\log)$ aus Abschnitt \ref{sec:log_utility_hjb}.
+
+\section{Worst-Case-Schrankenberechnung durch Monte-Carlo-Simulation}
+
+Bei diesen Berechnungen haben wir die Ergebnisse aus den Sätzen für den logaritmischen Nutzen benutzt. Im folgenden berechnen wir Worst-Case-Schranke ohne diesen theoretischen
+Hinterbau, die Berechnungen beschränken sich dabei nicht auf den logaritmischen Nutzen.
+
+Wir stellen zunächst unsere in Matlab programmierte Funktion worstcase vor.
+Diese Funktion berechnet die WorstcaseSchranke nach dem Vorbild von Definition \ref{def:WCPortfolioproblem1}. Dort wurde die Worst-Case-Schranke wie folgt berechnet:
+\begin{equation*}
+  \min \left( 
+                   \inf_{0 \leq s \leq T} E \left[ V^0(s,X_{\pi}(s)(1-\pi(s)k),U) \right] 
+                  , 
+                   E \left[ U(X_{\pi}(T)) \right] 
+                  \right)
+\end{equation*}
+Mit einem Computer können wir natürlich nicht das Infimum über unendlich viele Werte nehmen. Deswegen übergeben wir der Funktion eine Liste von Werten, für die dann die jeweilige
+Erwartung für ein Crash zu diesem Zeitpunkt berechnet wird. Die folgende Tabelle beschreibt die Schnittstelle zu dieser Funktion.
+
+\begin{table}[htbp]
+% \centering
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|l|}{Funktion: worstcase} \\
+\hline
+\multicolumn{2}{|l|}{Eingaben} \\
+\hline
+ v &  Wertfunktion im crashfreien Scenario \\
+ p &  Handelstrategie  \\
+ t &  Liste von Crashzeitpunkten  \\
+\hline
+\multicolumn{2}{|l|}{Ausgaben} \\
+\hline
+crashUtilities & Erwarteter Nutzen zu dem jeweiligen Crashzeitpunkten \\
+noCrashUtility & Erwarteter Nutzen ohne Crash\\
+worstcasebound & Worst-Case-Schranke\\
+\hline
+\end{tabular}
+\caption{Beschreibung der Funktion worstcase}
+\end{table}
+
+Wir illustrieren die Benutzung dieser Funktion, in dem wir die Beispiele besprechen, die wir auch schon im theoretischen Teil behandelt haben. Dazu haben wir eine feste Liste von
+Crashzeitpunkten, die Wertfunktion für den logaritmischen Nutzen und jeweils verschiedene Handelsstrategien als Eingaben an die Funktion übergeben und haben in Tabelle
+\ref{tab:Ausgaben_von_worstcase} die Ergebnisse zusammengefasst.
+Als Erstes betrachten wir die Ausgaben für die reine Bondstrategie $\pi_0$ deren Worst-Case-Schranke wir in Satz \ref{th:worst-case-schranke-reine-bondstrategie} berechnet haben.
+Dort hatten wir schon erwähnt dass das Ausbleiben eines Crashes das Worst-Case-Scenario ist. Dass wird auch an der Programmausgabe deutlich. Je später der Markt crasht, umso
+weniger Zeit hat der Investor die optimale Strategie im crashfreien Markt zu verfolgen.
+Als nächstes betrachten wir die optimale Strategie $\pistar$ im crashfreien Scenario. Hier hatten wir in Satz \ref{th:worst-case-schranke-optimal-ohne-crash} behauptet, dass ein
+Crash mehr schadet als kein Crash, aber der Zeitpunkt egal ist. Auch dieses Verhalten lässt sich aus der Ausgabe herauslesen.
+Schliesslich betrachten wir noch die Ausgabe für die Handelsstrategie $\pidach$. Hier erwarten wir, dass wir die Gleichgewichtsbedingung wiederfinden. Wir sollten für jeden
+Crashzeitpunkt als auch für den chrashfreien Fall den gleichen erwarteten Nutzen haben. Das spiegelt sich auch in der Ausgabe wieder.
+
+\begin{table}[htbp]
+% \centering
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|p{11cm}|}{Ausgaben der Funktion worstcast mit den Eingaben $v=V^0(\cdot,\cdot,\log)$, $t=[0,2,5,8,10]$ und $p$ wie angegeben } \\
+\hline
+\hline
+\multicolumn{2}{|l|}{Eingabe:  $p=p_0$  } \\
+\hline
+\multicolumn{2}{|l|}{Ausgaben} \\
+\hline
+crashUtilities & $[1.20312 ,1.06248,0.85150,0.64053,0.49988]$ \\
+noCrashUtility & $0.49938$ \\
+worstcasebound & $0.49938$ \\
+\hline
+\hline
+\multicolumn{2}{|l|}{Eingaben: $\pistar$} \\
+\hline
+\multicolumn{2}{|l|}{Ausgaben} \\
+\hline
+crashUtilities & $[0.99549,0.99599,0.99116,1.00101,0.99856]$ \\
+noCrashUtility & $1.2125$ \\
+worstcasebound & $0.99116$ \\
+\hline
+\hline
+\multicolumn{2}{|l|}{Eingaben: $\pidach$} \\
+\hline
+\multicolumn{2}{|l|}{Ausgaben} \\
+\hline
+crashUtilities & $[1.0472,1.0436,1.0486,1.0559,1.0476]$ \\
+noCrashUtility & $1.0351$ \\
+worstcasebound & $1.0351$ \\
+\hline
+\end{tabular}
+\caption{Berechnung von Worst-Case-Schranken für verschiedene Handelsstrategien}
+\label{tab:Ausgaben_von_worstcase}
+\end{table}
+
+\section{Beste lineare Strategie}
+
+Mit unsere Funktion können wir nun also jede Handelstrategie beurteilen. Damit können wir nun zum Beispiel einen einfachen Algorithmus angeben um eine beste lineae Strategie zu
+berechnen. Mit linearer Strategie meinen wir eine lineare Funktion, die am Ende des Zeithorizonts $0$ ist. Damit ist solch eine Strategie durch einen Punkt auf der y-Achse
+festgelegt. Das passt auch ganz gut zu unserer Vorstellung, dass man je näher man sich dem Ende des Zeithorizonts nähert, desto vorsichtiger sollte man in Aktien investieren. Eine
+linear Funktion ist für solch ein Verhalten das einfachste Modell. Wenn wir nun zu einer Menge von Punkten auf der y-Achse jeweils die Worstcase-Schranke berechnen, und dann den
+mit der höchsten Worstcase-Schranke wählen, müssten wir dieses beste Strategie gefunden haben.
+
+In der Tabelle \ref{tab:lineare_Strategien} haben wir die Ergebnisse dieser Rechnung dargestellt. Man erkennt dass die beste lineare Strategie, die mit dem Startwert $1.0$ ist. Die
+dazugehörige Worst-Case-Schranke ist mit $0.97409$ nur geringfügig kleiner als die
+Worst-Case-Schranke der optimalen Strategie und deutlich größer als der erwartete nutzen der reinen Bondstrategie. In der Abbildung \ref{fig:optimale_lineare_Strategie} haben wir
+die optimale lineare Strategie und die optimale Strategie nochmal im Vergleich dargestellt.
+
+\begin{table}[!htbp]
+% \centering
+\begin{tabular}{|lllllll|}
+\hline
+\multicolumn{7}{|l|}{Startpunkte} \\
+\hline
+ 0.7 &  0.8 & 0.9 & 1.0 & 1.1 & 1.2 & 1.3 \\
+\hline
+\multicolumn{7}{|l|}{Worstcaseschranken} \\
+\hline
+0.88871 &  0.91934 &  0.96035 &  0.97409 &  0.95466 &  0.92869 &  0.90202 \\
+\hline
+\end{tabular}
+\caption{Worst-Case-Schranke für lineae Strategie mit unterschiedlichen Startwerten}
+\label{tab:lineare_Strategien}
+\end{table}
+
+
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[type=eps,ext=.eps,read=.eps]{Bilder/bar}
+\caption{Optimale und optimale lineare Strategie im Vergleich}%
+\label{fig:optimale_lineare_Strategie}
+\end{figure}
+

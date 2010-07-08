@@ -1,31 +1,18 @@
-\documentclass[pdftex,a4paper]{scrartcl}
+\chapter{Einleitung}
 
-% \usepackage{ngerman}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-
-\usepackage{amsmath, amsthm, amssymb}
-
-\title{Portfoliooptimierung}
-\author{Martin Böschen}
-
-\begin{document}
-
-
-\section{Abstract meiner Diplomarbeit}
-Sei $ (\Omega,F,P) $ ein Wahrscheinlichkeitsraum. Sei $W$ eine auf diesen Raum definierte Brownsche
+DDDD Sei $ (\Omega,F,P) $ ein Wahrscheinlichkeitsraum. Sei $W$ eine auf diesen Raum definierte Brownsche
 Bewegung. Wir betrachten das Black-Scholes-Marktmodell mit einer Aktie und konstanten Koeffizienten, die
 Preisprozesse seien also durch die folgenden Gleichungen gegeben:
 \begin{align*}
  dB(t) &= r B(t) dt \\
   B(0) &= 1         \\
- dS(t) &= S(t)(\alpha dt + \sigma dW(t)) \\
+ dS(t) &= S(t)(\mu dt + \sigma dW(t)) \\
   S(0) &= s_0
 \end{align*}
 
 Sei $X$ der Vermögensprozess zur Handelsstrategie $\pi$. Er ist durch folgende Differentialgleichung gegeben:
 \begin{align*}
- dX(t) &= X(t)(r dt + \pi(t)(\alpha -r) dt + \sigma dW(t)) \\
+ dX(t) &= X(t)(r dt + \pi(t)(\mu -r) dt + \sigma dW(t)) \\
   X(0) &= x_0
 \end{align*}
 Sei $U$ eine Nutzenfunktion. Dann nennen wir
@@ -62,7 +49,3 @@ Nutzenfunktion diskutieren.
 
 Schliesslich soll noch untersucht werden, inwieweit wir das Problem als ein optimales Stoppproblem, welches
 der Markt als Gegenspieler des Investors zu lösen hat, formuliert werden kann.
-
-
-
-\end{document}

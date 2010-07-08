@@ -277,6 +277,7 @@ löst. Dabei gilt $\pidach(0) < \min(\pistar,1/k)$ und $\pidach$ ist streng monot
 
 \end{mySatz}
 
+Ein Bild von $\pidach$ für gewisse Parameter findet man in Abbildung \ref{fig:optimaleStrategie}.
 Verwendet man die Funktion $\pidach$ aus dem vorhergehendem Satz als Handelsstrategie, so hält man immer das Gleichgewicht zwischen dem erwarteten Nutzen nach einem sofortigen
 Crash und dem erwarteten Nutzen, wenn überhaupt kein Crash geschieht. Das ist die Aussage des folgenden Satzes.
 \begin{mySatz} \label{th:Gleichgewicht}
@@ -360,6 +361,7 @@ Wir bemerken noch, dass es auch legitim ist für $x$ die Zufallsvariable $X_{\pid
 Nun formulieren und beweisen wir das Hauptergebnis dieses Kapitels
 
 \begin{mySatz}
+\label{th:hauptsatz_willmott}
 Die Lösung $\pidach$ der Differentalgleichung aus Satz \ref{th:DGL} ist eine Lösung des Worst-Case-Portfoliooptimierungsproblems.
 \end{mySatz}
 
@@ -666,7 +668,7 @@ Ein Blick auf den Graphen von $f$ und $\log (1 - (\cdot) k)$ (Figur \ref{fig:gra
 
 \begin{figure}
  \begin{center}
-  \input{plotflog.tex}
+  \input{Bilder/plotflog.tex}
  \end{center}
 \caption{Graphen von f und log}
 \label{fig:graph_von_f_und_log}
@@ -750,7 +752,7 @@ Dazu verwenden wir jeweils die Parameter $\mu=0.2, r=0.05, \sigma = 0.4$ und $k=
 
 \begin{figure}
  \begin{center}
-  \input{plotconstantwcb.tex}
+  \input{Bilder/plotconstantwcb.tex}
  \end{center}
 \caption{Worst-Case-Schranken konstanter Strategien}
 \label{fig:vergleich_konstanter_strategien}
