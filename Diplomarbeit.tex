@@ -1,4 +1,4 @@
-\documentclass[pdftex,a4paper]{report}
+\documentclass[a4paper]{report}
 
 \usepackage[ngerman]{babel}
 \usepackage[latin1]{inputenc}
@@ -7,6 +7,15 @@
 
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{cancel}
+
+\usepackage{graphicx}
+\usepackage{array}
+
+\usepackage{bibgerm}
+
+
+
+
 
 \newtheorem{mySatz}{Satz}[section]
 \newtheorem{myDefinition}[mySatz]{Definition}
@@ -54,26 +63,19 @@
 
 \include{hjb}
 
+\include{numerischer}
+
 \chapter{Symbolverzeichnis}
+
 
 % \include{HJBausgelagert}
 
 % \chapter{Simulationen}
 
-\chapter{Weitere Aspekte}
-
-Weitere Aspekte die diskutiert werden könnten:
-
-\begin{itemize}
- \item Further aspects in Korn, 2007, seite 16
- \item Further possible refinements, Korn/willmott, seite 183
- \item Durchgehen des Verifikationssatzes mit logaritmischen nutzen, Korn, 2007, seite 9
- \item Best constant portfolio process, Korn/Menkens, seite 133
- \item Formulierung des Worst-Case-Problem als optimal-stopping-problem
-\end{itemize}
 
 
-\bibliographystyle{plain}
+
+\bibliographystyle{geralpha}
 \nocite{*} % auch alle nicht im Text zitierten Einträge werden mit aufgenommen
 \bibliography{Literatur}
 

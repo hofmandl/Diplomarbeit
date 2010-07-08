@@ -70,6 +70,8 @@ Während die Parameter $\mu,r,\sigma$ und $k$ den Markt beschreiben, beschreiben 
 
 Im folgende werden wir noch einige Trivialitäten über eine bestimmte Parabel angeben. Wir geben ihr sogar einen Namen, denn sie wird in dieser Arbeit immer wieder als Abkürzung
 auftauchen und viele Argumente basieren auf der genauen Kenntnis ihres Verlaufes.
+
+
 \begin{myDefinition} \label{def:f}
 Es gelten die Voraussetzungen unseres Standardfinanzmarktmodells. Sei $f$ durch 
 \begin{equation} \label{eq:fvonpi}
@@ -80,20 +82,20 @@ definiert.
 
 % Satz und definition
 \begin{mySatz} \label{th:Eigenschaften_f}
-$f$ besitzt die beiden Nullstellen
-\begin{align}
- x_0 &= 0 \\
- x_1 &= 2 \frac{\mu-r}{\sigma^2},
-\end{align}
-nimmt ihr Maximum bei
-\begin{equation} \label{eq:pimax}
- \pi_{max} =  \pistern
-\end{equation}
-an hat dort den Wert
+Sei $\pistar:=\pistern$. Mit dieser Bezeichnung besitzt $f$ die beiden Nullstellen $0$ und $2\pistar$, nimmt sein Maximum an der Stelle $\pistar$ an und hat dort den Wert
 \begin{equation} 
- f(\pi_{max}) =  \einhalb \bruch^2
+ f(\pistar) =  \einhalb \bruch^2
 \end{equation}
 \end{mySatz}
+In Abbildung \ref{fig:graph_von_f} sind die Aussagen über $f$ nochmal veranschauchlicht.
+\begin{figure}
+ \begin{center}
+  \input{plotf.tex}
+ \end{center}
+\caption{Grapf von f}
+\label{fig:graph_von_f}
+\end{figure}
+
 
 \begin{myDefinition} \label{def:Handelsstrategie}
 \standardsatz
@@ -144,6 +146,8 @@ Wie in der vorhergehenden Bemerkung schon bemerkt, lassen wir es auch zu, dass s
 Differentialgleichung in der Definition der Markovstrategie.
 
 
+Die Lösung der Vermögensgleichung lässt sich auch ganz explizit als stochastisches Integral hinschreiben. Davon handelt der nächste Satz.
+
 \begin{mySatz} \label{th:expliziteLösungVermögensgleichung}
 Es gilt:
 \begin{align*} \label{eq:LösVermögensgleichung}
@@ -170,26 +174,10 @@ In der letzten Gleichung ist dabei der letzte Faktor ein Martingal.
 
 
 
+Ein spezieller Augenmerk wird in dieser Arbeit auf dem sogennannten logaritmischen Endnutzen liegen. Dafür stellen wir schon einmal ein Ergebnis bereit. Das folgt aus der
+expliziten Darstellung des Vermögenprozesse aus dem vorangegangen Satz und der Tatsache dass unter unserem Bedingungen an die Handelsstrategie das stochastische Integral einen
+Erwartungswert von 0 besitzt.
 
-
-
-% Für einen konstanten Vermögensprozess $\pi$ vereinfacht diese Gleichung sich zu:
-% \begin{align} \label{eq:aaa}
-%  X_{\pi,t_0,x}(t) &= x \exp \left(
-%                                     (t-t_0) ( r + \pi (\mu -r) - \frac{1}{2} \pi^2 \sigma^2 )
-%                                    + \pi \sigma (W(t) - W(t_0)) 
-%                              \right) \\
-%                   &= x \exp \left(
-%                                     (t-t_0)f(\pi)
-%                                    + \pi \sigma (W(t) - W(t_0))
-%                              \right) 
-% \end{align}
-
-% Dessen erwartungswert berechnet sich zu 
-% \begin{align} 
-%  E(X(t)) &= x exp( r + \pi (\mu -r)) exp(\pi \sigma W(t) -\frac{1}{2} \pi^2\sigma^2) \\
-%        &= x exp( r + \pi (\mu -r))
-% \end{align}
 
 \begin{mySatz} \label{th:ExpLogUtility}
 Es gilt
@@ -202,13 +190,3 @@ Es gilt
 \end{equation}
 \end{mySatz}
 
-% Logaritmiert man \ref{eq:LösVermögensgleichung} und nimmt den Erwartungswert so erhält man
-% \begin{equation} \label{eq:ExpLogUtility}
-% E(log(X_{\pi,x}(T))) = log(x)  + \int_{0}^{T} (r + \pi(u)(\mu -r)-\frac{1}{2}\pi(u)^2\sigma^2)du 
-% \end{equation}
-% und bezeichnet dies als erwarteten logaritmischen Nutzen des Endvermögens. Unter der Annahme einer konstanten
-% Handelsstrategie vereinfacht sich \ref{eq:ExpLogUtility} zu
-% 
-% \begin{equation} \label{eq:ExpLogUtilityKonst}
-% E(log(X_{\pi,x}(T))) = log(x)  + (r + \pi(\mu -r)-\frac{1}{2}\pi^2 \sigma^2) T. 
-% \end{equation}

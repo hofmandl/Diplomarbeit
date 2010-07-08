@@ -1,7 +1,7 @@
 
-\chapter{Portfoliooptimierung unter Crashgefahr: Der Gleichgewichts"-ansatz}
+\chapter{Portfoliooptimierungerung unter Crashgefahr: Der Gleichgewichts"-ansatz}
 
-\section{Einleitung in die Fragestellung}
+\section{Portfoliooptimierungerung unter Crashgefahr: Erste Formulierung}
 Das Modell unseres Standardfinanzmarktes hat den Nachteil, dass es den Aktienkurs als stetige Funktion der
 Zeit modelliert. In der Realität beobachtet man aber Kurssprünge, insbesondere nach unten, die man als Crash
 bezeichnet.
@@ -106,7 +106,7 @@ vorne angenommen wird und dann bräuchte sich die Handelstrategie ohne unsere For
 Wir berechen zur Illustration die Worst-Case-Schranke für die reinen Bondstrategie bezüglich des logaritmischen Nutzen. Intuitiv ist klar, das
 der Worst-Case das Ausbleiben eines Crashes ist. Denn ein Crash verursacht uns keinen Schaden, aber gibt uns
 die Möglichkeit in die optimale Stategie des crashfreien Scenarios zu wechseln. Das rechnen wir im folgenden Satz nach.
-\begin{mySatz}
+\begin{mySatz} \label{th:worst-case-schranke-reine-bondstrategie}
 Sei $\pi_0 \equiv 0$. Dann gilt:
 \begin{equation*}
  WC(\pi_0,t,x) =  \log x + r(T-t).
@@ -140,7 +140,7 @@ Als nächstes berechen wir die Worst-Case-Schranke für die optimalen Strategie $\
 auch nach dem Crash behält er seinen Wert bei. Ein Crash beinflusst also, unabhängig von seinem
 Zeitpunkt, das Endvermögen um einen konstanten Faktor. Wir erwarten also als Worst-Case-Scenario einen Crash zu einem beliebigen Zeitpunkt. Das wird sich im Beweis des folgenden
 Satzes auch so herausstellen.
-\begin{mySatz}
+\begin{mySatz} \label{th:worst-case-schranke-optimal-ohne-crash}
 Es gilt:
 \begin{equation*} 
  WC(\pistar,t,x) = \log x +r(T-t) + \einhalb \bruch^2(T-t) + \log(1-\pistar k).
@@ -258,7 +258,7 @@ verschwindet, beschränken können.
 
 
 
-\section{Optimale Strategie}
+\section{Optimale Strategie für logaritmischen Nutzen}
 In diesem Abschnitt wollen wir die optimale Strategie bezüglich des logaritmischen Nutzen angeben. Es wird sich herausstellen, dass sie sich als Lösung einer
 Differentialgleichung ergibt. Zunächst stellen wir einige Eigenschaften dieser Differentialgleichung bereit.
 \begin{mySatz} \label{th:DGL}
@@ -607,7 +607,7 @@ Danmit ist $\pi$ tatsächliche eine bessere Strategie als die reine Bondstrategie
 \end{proof}
 
 
-\section{Optimale konstante Strategie}
+\section{Optimale konstante Strategie für logarithmischen Nutzen}
 Wir geben zusätzlich noch die beste konstante Strategie für das Worst-Case-Portfoliooptimierungsproblem an. Damit ist dann eine Strategie gemeint, die bis zum Crash konstant ist
 und danach in die beste Strategie des crashfreien Scenarios wecheslt.
 \begin{mySatz}
@@ -640,26 +640,40 @@ Portfolioprozess $\pi_c$ an. Das Worst-Case-Scenario ist eine Crash unmittelbar 
 auf jeden Fall mehr schadet als kein Crash. Wegen des konstanten Portfolioprozess verliert man zu jedem Zeitpunkt den gleichen Anteil am Vermögen, je später aber der Crash
 geschieht, um so weniger Zeit hat man danach sich optimal zu verhalten. Damit ergibt sich die Worst-Case-Schranke:
 \begin{equation} \label{eq:WorstCaseKonstanteStrategie}
-  WC(\pi_c) = \log x  + rT + \left( \pi(\mu-r)-\einhalb \pi^2 \sigma^2 \right) T + \log(1-\pi k)
+  WC(\pi_c) = \log x  + rT + \left( \pi_c(\mu-r)-\einhalb \pi_c^2 \sigma^2 \right) T + \log(1-\pi_c k)
 \end{equation}
 Dieses intiutiv gewonnen Ergebnis rechnen wir nun nochmal nach:
-\begin{align*}
- &  E \left[ V^0(s,X_{\pi,x}(s)(1-\pi k)) \right] \\
- &= E \left[ \log(X_{\pi,x}(s)) + \log (1-\pi k)  + \left( r+ \einhalb \bruch^2(T-s) \right) \right] \\
- &= \log x + \left( r+ f (\pi) \right)s + \log(1-\pistar k)  + \left( r+ \einhalb \bruch^2(T-s) \right)  \\
- &= \log x + \left( r+ (\mu-r)(\pi) + \einhalb \bruch^2 \right)s + \log(1-\pistar k)  + \left( r+ \einhalb \bruch^2(T-s) \right)  \\
- &= \log x + \left( r+ \einhalb \bruch^2 \right)(T-t) + \log(1-\pistar k)  \\
-\end{align*}
+\begin{equation*}
+\begin{split}
+   &E \left[ V^0(s,X_{\pi,x}(s)(1-\pi k)) \right] \\
+ =& E \left[ \log(X_{\pi,x}(s)) + \log (1-\pi k)  + \left( r+ \einhalb \bruch^2(T-s) \right) \right] \\
+ =& \log x + \left( r+ f (\pi) \right)s + \log(1-\pistar k)  + \left( r+ \einhalb \bruch^2(T-s) \right)  \\
+ =& \log x + \left( r+ (\mu-r)(\pi) + \einhalb \bruch^2 \right)s + \log(1-\pistar k)  \\
+ +& \left( r+ \einhalb \bruch^2(T-s) \right)  \\
+ =& \log x + \left( r+ \einhalb \bruch^2 \right)(T-t) + \log(1-\pistar k)  \\
+\end{split}
+\end{equation*}
 
 Wir wissen bereits aus Satz \ref{th:UnnützeLeerverkäufe} dass wir uns bei der Suche nach optimalen Handelsstrategien auf solche beschänken können, die nach unten durch $0$
 beschränkt sind. Wir suchen also dasjenige $\pi$ aus $[0,1/k)$ das die Worst-Case-Schranke \eqref{eq:WorstCaseKonstanteStrategie} maximiert, für das also
 \begin{align*}
-  g(\pi) &:= \log x  + rT + \left( \pi(\mu-r)-\einhalb \pi^2 \sigma^2 \right) T + \log(1-\pi k) \\
-         &= f(\pi)  + \log(1-\pi k)
+  g(\pi) &:= \left( \pi(\mu-r)-\einhalb \pi^2 \sigma^2 \right) T + \log(1-\pi k) \\
+         &= f(\pi)T  + \log(1-\pi k)
 \end{align*}
 maximal wird.
  
-Ein Blick auf den Graphen von $f(\pi)$ und $\log (1 -\pi k)$ macht sofort deren Konkavitätät klar, dewegen ist auch $g$ konkav. Sowohl für $\pi$ gegen $-\infty$ als auch für
+Ein Blick auf den Graphen von $f$ und $\log (1 - (\cdot) k)$ (Figur \ref{fig:graph_von_f_und_log})  macht sofort deren Konkavitätät klar, dewegen ist auch $g$ konkav.
+
+\begin{figure}
+ \begin{center}
+  \input{plotflog.tex}
+ \end{center}
+\caption{Graphen von f und log}
+\label{fig:graph_von_f_und_log}
+\end{figure}
+
+
+ Sowohl für $\pi$ gegen $-\infty$ als auch für
 $\pi$ gegen $1/k$ geht $g$ gegen $-\infty$. Dazwischen muss es also genau ein Maximum geben.
 
 Ableiten nach $\pi$ ergibt:
@@ -728,3 +742,17 @@ Im Intervall $(-\infty,1/k)$ kann also nur in $\pi_1$ ein Maximum liegen, und da
 konkav ist, ist sie rechts vom Maximum monoton fallend, das Maximum in  $[0,1/k)$ wird also entweder, wenn $\pi_1 \geq 0$, in $\pi_1$ angenommen, oder in $0$. Damit ist die
 Behauptung bewiesen. 
 \end{proof}
+
+Wir wollen nochmal mit einer Grafik die zwei qualitativ unterschiedlichen Fälle betracten wo einmal die pure Bondstrategie die beste konstante Strategie ist und einmal die beste
+konstante Strategie echt positiv ist.
+Dazu verwenden wir jeweils die Parameter $\mu=0.2, r=0.05, \sigma = 0.4$ und $k=0.2$ und einmal mit $T=1$ und einmal mit $T=10$. Wir plotten die Worst-Case-Schranke aus Gleichung
+\eqref{eq:WorstCaseKonstanteStrategie}.
+
+\begin{figure}
+ \begin{center}
+  \input{plotconstantwcb.tex}
+ \end{center}
+\caption{Worst-Case-Schranken konstanter Strategien}
+\label{fig:vergleich_konstanter_strategien}
+\end{figure}
+

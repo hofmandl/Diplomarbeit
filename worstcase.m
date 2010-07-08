@@ -1,12 +1,12 @@
-function [w,g,wc]=worstcase(v,p)
+function [w,g,wc]=worstcase(v,p,times)
 global mu r sigma k;
-M=500; % Anzahl der Simulation bei der Monte-Carlo-Simulation
+M=10000; % Anzahl der Simulation bei der Monte-Carlo-Simulation
 
 n=1000; % Anzahl der Schritte
 T=10; % Zeithorizont
 h=T/n; % Schrittweite
 
-times=[0,2,5,7,10];
+% times=[0,2,5,7,10];
 time2step(times,10,n);
 
 w=zeros(1,length(times));
@@ -37,7 +37,7 @@ dW=sqrt(h)*randn(n,M);
 	X=zeros(1+n,M);
 	X(1,:)=1;
 	for j = 1:n
-		X(j+1,:)=X(j,:).*(1+(r+p(step2time(a,T,n))*(mu-r))*h + p(step2time(a,T,n))*sigma*dW(j,:));
+		X(j+1,:)=X(j,:).*(1+(r+p(step2time(j,T,n))*(mu-r))*h + p(step2time(j,T,n))*sigma*dW(j,:));
 	end
 g=(sum(v(T,X(1000,:))))/M;
 

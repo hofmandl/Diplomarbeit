@@ -3,15 +3,25 @@
 % zunächst definieren wir die globalen Marktparameter
 global r=0.05 mu=0.2 sigma=0.4 k=0.2;
 
+T=10;
+printf("Wieviel verdient man mit der reinen Bondstartegie?\n");
+r*T
+
+function wert=vlog(t,x)
+global mu r sigma T;
+wert=log(x)+ (r+0.5*(mu-r)^2/sigma^2)*(T-t);
+endfunction
+
+printf("Wieviel verdient man mit der optimalen Strategie im crashfreien Scenario?\n");
+vlog(0,1)
+
+
 function y=f(p)
 global mu r sigma;
 y=(mu-r)*p.-0.5*p.^2*sigma^2;
 endfunction
 
-function wert=vlog(t,x)
-global mu r sigma;
-wert=log(x)+(r+0.5*(mu-r)^2/sigma^2)*(10-t);
-endfunction
+
 
 
 function p=pstern(t)
