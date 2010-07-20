@@ -1,5 +1,6 @@
 
 \chapter{Portfoliooptimierungerung unter Crashgefahr: Der Gleichgewichts"-ansatz}
+\label{chap:Wilmott}
 
 \section{Portfoliooptimierungerung unter Crashgefahr: Erste Formulierung}
 Das Modell unseres Standardfinanzmarktes hat den Nachteil, dass es den Aktienkurs als stetige Funktion der
@@ -362,17 +363,17 @@ Nun formulieren und beweisen wir das Hauptergebnis dieses Kapitels
 
 \begin{mySatz}
 \label{th:hauptsatz_willmott}
-Die Lösung $\pidach$ der Differentalgleichung aus Satz \ref{th:DGL} ist eine Lösung des Worst-Case-Portfoliooptimierungsproblems.
+Die Lösung $\pidach$ der Differentialgleichung aus Satz \ref{th:DGL} ist eine Lösung des Worst-Case-Portfoliooptimierungsproblems.
 \end{mySatz}
 
 \begin{proof}
 Die Struktur dieses Beweises ist wie folgt. Wie betrachten in Fallunterscheidungen verschiedene
 Handelsstrategien die sich bezüglich $\pidach$ wie folgt unterscheiden.
 \begin{itemize}
- \item Handelstrategien mit einer höherem erwarteten Nutzen im als crashfreien Scenario ...
+ \item Handelstrategien mit einer höherem erwarteten Nutzen im crashfreien Scenario ...
   \begin{itemize}
-   \item ...und einem höheren Aktienanteil zu Beginn.
-   \item ...und einem niedrigerem Aktienanteil zu Beginn.
+   \item ... und einem höheren Aktienanteil zu Beginn.
+   \item ... und einem niedrigeren Aktienanteil zu Beginn.
    \end{itemize}
  \item Handelsstrategien mit einem niedrigeren erwarteten Nutzen als im crashfreien Scenario.
 \end{itemize}
@@ -383,7 +384,7 @@ Nun zur Ausführung unseres Planes. Sei $(t_0,x_0) \in \left[0,T \right] \times \
 \begin{equation*}
  WC(\pi,t_0,x_0) \leq WC(\pidach,t_0,x_0)
 \end{equation*}
-zeigen. Wir gliedern diesen etwas längeren Beweis nun in 5 Unterpunkte.
+gilt. Wir gliedern diesen etwas längeren Beweis nun in 5 Unterpunkte.
 \begin{enumerate}
  \item 
 Zunächst betrachten wir eine Handesstrategie $\pi$ mit einer höheren erwarteten Nutzen im crashfreien Scenario. 
@@ -399,7 +400,8 @@ Dann gilt (Erklärungen folgen)
 \end{equation*}
 Dabei haben wir bei der ersten Gleichung die Definition von $f$ benutzt, bei der ersten Ungleichung haben wir die für alle Zufallsvariablen $X$ gültige Beziehung
  $E\left[X^2 \right] \geq E\left[X\right]^2$ benutzt, in der zweiten Ungleichung haben wir Integral und Erwartungswert vertauscht und die letzte Ungleichung folgt aus der
-expliziten Form des erwarteten logarithmischen Nutzens (Satz \ref{th:ExpLogUtility}) und der Voraussetzung in diesem Fall. Dann folgt die Existenz eines $s$ mit $t_0 \leq s \leq T$
+expliziten Form des erwarteten logarithmischen Nutzens (Satz \ref{th:ExpLogUtility}) und der Voraussetzung des höheren erwarteten Endnutzens von $\pi$ in diesem Fall. Dann folgt
+die Existenz eines $s$ mit $t_0 \leq s \leq T$
 mit
 \begin{equation*}
  f(E(\pi(s))) > f(\pidach(s))
@@ -410,9 +412,9 @@ Da $\pidach \leq \pistar$ (Satz \ref{th:DGL}) und $f$ bis $\pistar$ streng monot
 \end{equation}
 
 \item
-Wir definieren $\vdach$ durch
+Wir definieren mit
 \begin{equation}
- \vdach(t,x)= E \left[ \log X_{\pidach}(T) | X_{\pidach}(t) = x \right]
+ \vdach(t,x) := E \left[ \log X_{\pidach}(T) | X_{\pidach}(t) = x \right]
 \end{equation}
  den erwarteten logaritmischen Nutzen durch Verfolgung der Handelsstrategie
 $\pidach$. Wir geben ihn hier nochmal explizit an und berechnen die zur Anwendung der It\^{o}-Formel
@@ -429,7 +431,7 @@ nachvollziehen zu können:
  dX_{\pidach}(t) = X_{\pidach}(t) \left[ \left( r + \pi(t)(\mu -r) \right) dt + \pi(t) \sigma dW(t) \right]
 \end{equation*}
 Nun gehen wir davon aus dass $X(t_0)=x_0$ gilt (formal müssten wir in der folgende Gleichungskette jeden Ausdruch durch $E\left[\cdot | X(t_0)=x_0 \right]$ einschließen) und  wir
-führen folgende Rechnung für ein $t>t_0$ durch (Erklärungen folgen)
+führen folgende Rechnung für ein $t \geq t_0$ durch (Erklärungen folgen)
 \begin{equation*}
 \begin{split}
  &V^0(t,X_{\pidach}(t)(1-\pidach(t)k)) \\
@@ -446,8 +448,7 @@ Dabei folgt die erste Gleichung aus Satz \ref{th:Gleichgewicht} (und der darauf 
 ist eine Anwendung der
 It\^{o}-Formel (Satz \ref{th:Ito-Formel}).
 
-Nehmen wir nun davon den Erwartungswert, so fällt das Integral bezüglich der Brownschen Bewegung dank
-unserser Vorrausetzungen an eine zulässige Handelsstrategie weg.
+Nehmen wir nun davon den Erwartungswert, so fällt das Integral bezüglich der Brownschen Bewegung dank der Beschränktheit von $\pidach$ weg.
 Für den Integranten des Integrals bezüglich $ds$ berechnen wir unter Ausnutzung des zuvor für $\vdach$ berechneten Ableitungen
 \begin{equation*}
 \begin{split}
@@ -462,8 +463,8 @@ Durch Anwenden des Erwartungswertes auf obige Gleichungsgruppe erhalten wir also
 \begin{equation*}
 E_{t_0,x_0}(V^0(t,X_{\pidach}(t)(1-\pidach(t)k))) = \vdach(t_0,x_0)  
 \end{equation*}
-Dabei ist $\vdach(t_0,x_0)$ der erwartete logaritmische nutzen im crashfreien Scenario bei Verfolgen der Handelsstrategie $\pidach$. Es herrscht also eine Indifferenz gegenüber den
-verschieden Scenarien. Ein Crash zu einem beliebigen Zeitpunkt als auch gar kein Crash führen stets zum gleichen erwarteten Endnutzen.
+Dabei ist $\vdach(t_0,x_0)$ der erwartete logarithmische nutzen im crashfreien Scenario bei Verfolgen der Handelsstrategie $\pidach$. Es herrscht also eine Indifferenz gegenüber
+den verschieden Scenarien. Ein Crash zu einem beliebigen Zeitpunkt als auch gar kein Crash führen stets zum gleichen erwarteten Endnutzen.
 Also gilt für alle $t$ mit $t_0\leq t \leq T$:
 \begin{equation} \label{worstcaseboundpidach}
   WC(\pidach,t_0,x_0) = E_{t_0,x_0}(V^0(t,X_{\pidach}(t)(1-\pidach(t)k))) =\vdach(t_0,x_0) 
@@ -486,16 +487,16 @@ Wir betrachten dann
 \begin{equation}
 \tau = \inf \{t; E \left[ \pi(t) \right] > \pidach(t) \}
 \end{equation}
-Wegen Gleichung \eqref{forsomet} und den Vorraussetzungen des gerade betrachteten Falles liegt dieses $\tau$ zwischen 0 und $T$.
+Wegen Gleichung \eqref{forsomet} und den Voraussetzungen des gerade betrachteten Falles liegt dieses $\tau$ zwischen 0 und $T$.
 
 Offensichtlich gilt dann auch:
 \begin{align*}
  & E_{t_0,x_0} \left[ \log (X_{\pi}(\tau)) \right] \\
- &= E \left[ \int_{t_0}^{\tau} f(\pi(u)) du  \right] + r(\tau-t_0) + \log x \\
- &= \int_{t_0}^{\tau} E \left[  f(\pi(u))  \right] du + r(\tau-t_0) + \log x \\
- &\leq \int_{t_0}^{\tau} f(E \left[ \pi(u)  \right]) du + r(\tau-t_0) + \log x \\
- &\leq \int_{t_0}^{\tau} f(\pidach) du + r(\tau-t_0) + \log x \\
- &=  E \left[ \log(X_{\pidach}(\tau)) \right]
+ &= E \left[ \int_{t_0}^{\tau} f(\pi(u)) du  \right] + r(\tau-t_0) + \log x_0 \\
+ &= \int_{t_0}^{\tau} E \left[  f(\pi(u))  \right] du + r(\tau-t_0) + \log x_0 \\
+ &\leq \int_{t_0}^{\tau} f(E \left[ \pi(u)  \right]) du + r(\tau-t_0) + \log x_0 \\
+ &\leq \int_{t_0}^{\tau} f(\pidach) du + r(\tau-t_0) + \log x_0 \\
+ &=  E_{t_0,x_0} \left[ \log(X_{\pidach}(\tau)) \right]
 \end{align*}
 Dabei folgt die erste Gleichung aus Satz \ref{th:ExpLogUtility}, die zweite folgt durch Vertauschen von Integral und Erwartungswert, die folgende Ungleichung folgt aus der
 Konkavität von $f$ und der Jensenschen Ungleichung, die nächste Ungleichung folgt aus der Definition von $\tau$ und die letzte Gleichung folgt wieder aus Satz
@@ -505,7 +506,7 @@ Konkavität von $f$ und der Jensenschen Ungleichung, die nächste Ungleichung folg
 \end{equation}
 fest. Zum Zeitpunkt $\tau$ gilt wegen der Jensenschen Ungleichung und der Definition von $\tau$
 \begin{equation} \label{dumdum}
- E(\log(1-\pi(\tau)k)) \leq \log(1-k E(\pi(\tau))) \leq \log(1-k \pidach(\tau)) 
+ E \left[ \log(1-\pi(\tau)k) \right] \leq \log(1-k E(\pi(\tau))) \leq \log(1-k \pidach(\tau)) 
 \end{equation}
 Nun haben wir alles zusammen, um die Worst-Case-Schranke von $\pi$ nach oben abzuschätzen(Erklärungen folgen): 
 \begin{align*}
@@ -516,8 +517,8 @@ Nun haben wir alles zusammen, um die Worst-Case-Schranke von $\pi$ nach oben abz
           &= E(V^0(\tau,X_{\pidach}(\tau)(1-\pi(\tau)k))) \\
           &= WC(\pidach,t_0,x_0) 
 \end{align*}
-Die erste Abschätzung folgt aus der Tatsache, dass die Worst-Case-Schranke kleiner als der erwartete Nutzen bei einem Crash zur Zeit $\tau$ ist (Gleichung
-\eqref{worstcaseboundpidach}). Die folgende Gleichung ist die explizite Form von $V^0$ aus Satz \ref{th:LogWertfunktion}. Die nächste Ungleichung folgt dann aus \eqref{dumdum} und
+Die erste Abschätzung folgt aus der Tatsache, dass die Worst-Case-Schranke kleiner als der erwartete Nutzen bei einem Crash zur Zeit $\tau$ ist. Die darauf folgende Gleichung ist
+die explizite Form von $V^0$ aus Satz \ref{th:LogWertfunktion}. Die nächste Ungleichung folgt dann aus \eqref{dumdum} und
 die folgende Abschätzung aus
 \eqref{damdam}. Dann verwenden wir wieder die explizite Form von $V^0$ und schliesslich die bekannte Worst-Case-Schranke von $\pidach$. Damit haben wir nun auch für diesen Fall
 gezeigt, dass $\pi$ keine bessere Worst-Case-Schranke haben kann.
@@ -527,17 +528,16 @@ Es bleibt noch der Fall, wo $\pi$ im crashfreien Scenario einen kleineren erwart
 \begin{equation*}
  WC(\pi,t_0,x_0) \leq  E_{t_0,x_0} \left[ \log(X_{\pi}(T)) \right]  \leq E_{t_0,x_0} \left[ \log(X_{\pidach}(T)) \right] = WC(\pidach,t_0,x_0)  
 \end{equation*}
-Dabei folgt die erste Ungleichung aus der Defintion der Worst-Case-Schranke, die zweite aus der Annahme für diesen Fall und die letzte Gleichung ist die bekannte
-Worst-Case-Schranke für $\pidach$. Damit sind alle Fälle behandelt und wir haben gezeigt dass jede Handelsstrategie $\pi$ keine bessere Worst-Case-Schranke als $\pidach$ besitzen
-kann.
+Dabei folgt die erste Ungleichung aus der Definition der Worst-Case-Schranke, die zweite aus der Annahme für diesen Fall und die letzte Gleichung ist die bekannte
+Worst-Case-Schranke für $\pidach$. Damit sind alle Fälle behandelt und wir haben gezeigt dass jede beliebige Handelsstrategie $\pi$ keine bessere Worst-Case-Schranke als $\pidach$
+besitzen kann.
 \end{enumerate}
 \end{proof}
 
 
 Wir haben noch nicht gezeigt, dass $\pidach$ wirklich eine bessere Worst-Case Schranke besitzt als die
-Bondstrategie. Dass tun wir nun, indem wir eine Stategie angeben, die eine höhere Worstcaseschranke als die
-pure Bondstrategie hat. Da $\pidach$ optimal ist, muss es auch eine bessere Worstcaseschranke besitzen. Für
-eine numerische Berechnung verweisen wir auf das letzte Kapitel.
+Bondstrategie. Dass tun wir nun, indem wir eine Strategie angeben, die eine höhere Worst-Case-Schranke als die
+pure Bondstrategie hat. Da $\pidach$ optimal ist, muss es auch eine bessere Worst-Case-Schranke besitzen.
 
 \begin{mySatz}
 Für das Worst-Case-Portfoliooptimierungsproblem gibt es eine bessere Strategie als die reine Bondstrategie.

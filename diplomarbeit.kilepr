@@ -4,7 +4,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0.85
-lastDocument=Diplomarbeit.tex
+lastDocument=Kapitel/Einleitung.tex
 masterDocument=Diplomarbeit.tex
 name=Diplomarbeit
 pkg_extIsRegExp=false
@@ -85,37 +85,37 @@ archive=true
 column=0
 encoding=ISO-8859-1
 highlight=LaTeX
-line=14
+line=28
 mode=LaTeX
 open=true
 order=0
 
 [item:Kapitel/Einleitung.tex]
 archive=true
-column=0
+column=6
 encoding=ISO-8859-1
 highlight=LaTeX
-line=0
+line=1
 mode=LaTeX
 open=true
 order=2
 
 [item:Kapitel/Grundlagen.tex]
 archive=true
-column=0
+column=23
 encoding=ISO-8859-1
 highlight=LaTeX
-line=0
+line=2
 mode=LaTeX
 open=true
 order=7
 
 [item:Kapitel/Portfoliooptimierung.tex]
 archive=true
-column=0
+column=33
 encoding=ISO-8859-1
 highlight=LaTeX
-line=0
+line=2
 mode=LaTeX
 open=true
 order=4
@@ -125,37 +125,37 @@ archive=true
 column=0
 encoding=ISO-8859-1
 highlight=LaTeX
-line=0
+line=2
 mode=LaTeX
 open=true
 order=3
 
 [item:Kapitel/hjb.tex]
 archive=true
-column=0
+column=21
 encoding=ISO-8859-1
 highlight=LaTeX
-line=0
+line=2
 mode=LaTeX
 open=true
 order=6
 
 [item:Kapitel/numerischer.tex]
 archive=true
-column=0
+column=27
 encoding=ISO-8859-1
 highlight=LaTeX
-line=0
+line=1
 mode=LaTeX
 open=true
 order=5
 
 [item:Literatur.bib]
 archive=true
-column=14
+column=63
 encoding=ISO-8859-1
 highlight=BibTeX
-line=35
+line=40
 mode=BibTeX
 open=true
 order=1
@@ -172,32 +172,32 @@ order=-1
 
 [view-settings,view=0,item:Diplomarbeit.tex]
 CursorColumn=0
-CursorLine=14
+CursorLine=28
 
 [view-settings,view=0,item:Kapitel/Einleitung.tex]
-CursorColumn=0
-CursorLine=0
+CursorColumn=6
+CursorLine=1
 
 [view-settings,view=0,item:Kapitel/Grundlagen.tex]
-CursorColumn=0
-CursorLine=0
+CursorColumn=23
+CursorLine=2
 
 [view-settings,view=0,item:Kapitel/Portfoliooptimierung.tex]
-CursorColumn=0
-CursorLine=0
+CursorColumn=33
+CursorLine=2
 
 [view-settings,view=0,item:Kapitel/Wilmott.tex]
 CursorColumn=0
-CursorLine=0
+CursorLine=2
 
 [view-settings,view=0,item:Kapitel/hjb.tex]
-CursorColumn=0
-CursorLine=0
+CursorColumn=21
+CursorLine=2
 
 [view-settings,view=0,item:Kapitel/numerischer.tex]
-CursorColumn=0
-CursorLine=0
+CursorColumn=27
+CursorLine=1
 
 [view-settings,view=0,item:Literatur.bib]
-CursorColumn=14
-CursorLine=35
+CursorColumn=63
+CursorLine=40
