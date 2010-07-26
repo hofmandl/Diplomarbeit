@@ -4,7 +4,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0.85
-lastDocument=Kapitel/Einleitung.tex
+lastDocument=Kapitel/Wilmott.tex
 masterDocument=Diplomarbeit.tex
 name=Diplomarbeit
 pkg_extIsRegExp=false
@@ -122,10 +122,10 @@ order=4
 
 [item:Kapitel/Wilmott.tex]
 archive=true
-column=0
+column=109
 encoding=ISO-8859-1
 highlight=LaTeX
-line=2
+line=311
 mode=LaTeX
 open=true
 order=3
@@ -187,8 +187,8 @@ CursorColumn=33
 CursorLine=2
 
 [view-settings,view=0,item:Kapitel/Wilmott.tex]
-CursorColumn=0
-CursorLine=2
+CursorColumn=109
+CursorLine=311
 
 [view-settings,view=0,item:Kapitel/hjb.tex]
 CursorColumn=21

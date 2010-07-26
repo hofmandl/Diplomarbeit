@@ -275,9 +275,45 @@ Es gibt genau eine Funktion $\pidach: \left[0, T \right] \rightarrow \mathbf{R}$
  \pi(T) &= 0
 \end{align}
 löst. Dabei gilt $\pidach(0) < \min(\pistar,1/k)$ und $\pidach$ ist streng monoton fallend.
-
 \end{mySatz}
 
+\begin{proof}
+Durch Umformen der Differentialgleichung gelangen wir zu:
+\begin{equation*} 
+\pi_t(t) =\frac{-\sigma^2}{2k}(1-\pi(t)k) \left( \pi(t)-\pistar \right)^2 
+\end{equation*}
+Trennung der Variablen ergibt:
+\begin{equation*} 
+\frac{1}{(1-\pi k) \left( \pi-\pistar \right)^2 }d\pi =\frac{-\sigma^2}{2k} dt
+\end{equation*}
+Integration ergibt nun:
+\begin{equation*} 
+\frac{k}{(k \pistar -1)^2} \log \left( \frac{\pistar-\pi}{1-k\pi}\right) + \frac{1}{(k\pistar-1)(\pi-\pistar)} =\frac{-\sigma^2}{2k} t + C
+\end{equation*}
+Mit den Bezeichnungen
+\begin{equation*} 
+\alpha =\frac{k}{(k \pistar -1)^2}
+\end{equation*}
+und
+\begin{equation*} 
+\beta =\frac{1}{1-k \pistar }
+\end{equation*}
+wird die Gleichung zu:
+\begin{equation} \label{eq:nichtlineareGleichung}
+\alpha \log \left( \frac{\pistar-\pi}{1-k\pi}\right) + \frac{\beta}{(\pi-\pistar)} =\frac{-\sigma^2}{2k} t + C
+\end{equation}
+Aus der Bedingung $\pi(T)=0$ folgt
+\begin{equation*} 
+C= \alpha \log \left( \pistar\right) - \frac{\beta}{\pistar} + \frac{\sigma^2}{2k} T
+\end{equation*}
+Für $t<T$ ist die rechte Seite von Gleichung \eqref{eq:nichtlineareGleichung} um $ \frac{\sigma^2}{2k}(T-t)$ größer als die linke Seite. Die Ableitung der linken Seite ist
+\begin{equation*}
+ \frac{1}{(1-\pi k) \left( \pi-\pistar \right)^2 },
+\end{equation*}
+also für $\pi <1/k$ immer streng positiv. Die Gleichung \eqref{eq:nichtlineareGleichung} hat einen ersten Pol bei $\min(\pi,1/k)$ mit dem Wert $\infty$, es gibt also genau einen
+Wert für $\pi$ der die Gleichung löst. Das beweist die Existenz und Eindeutigkeit und die Behauptung $\pidach(0)<\min(\pi,1/k)$. Das $\pidach$ eine monoton fallende Funktion ist
+folgt daraus, dass die rechte Seite von  Gleichung \eqref{eq:nichtlineareGleichung} in $t$ fällt.
+\end{proof}
 Ein Bild von $\pidach$ für gewisse Parameter findet man in Abbildung \ref{fig:optimaleStrategie}.
 Verwendet man die Funktion $\pidach$ aus dem vorhergehendem Satz als Handelsstrategie, so hält man immer das Gleichgewicht zwischen dem erwarteten Nutzen nach einem sofortigen
 Crash und dem erwarteten Nutzen, wenn überhaupt kein Crash geschieht. Das ist die Aussage des folgenden Satzes.
