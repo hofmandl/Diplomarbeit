@@ -7,7 +7,7 @@ In diesem Kapitel wollen wir konkret ein paar Zahlenbeispiele rechnen. Dazu spez
    r&=0.05 \\
  \sigma &= 0.4
 \end{align*}
-Außerdem spezifizeiren wir unsere persönlichen Parameter zu
+Außerdem spezifizieren wir unsere persönlichen Parameter zu
 \begin{align*}
  x_0 &=1 \\
   T&=10 
@@ -16,12 +16,13 @@ Der erwartete Nutzen durch Verfolgen der reinen Bondstrategie ist dann
 \begin{equation*}
  rT=0.5
 \end{equation*}
-Die optimale Strategie im crasfreien Setting führt zu einem erwarteten Endvermögen von
+Die optimale Strategie im crasfreien Scenario führt zu einem erwarteten Endvermögen von
 \begin{equation*}
  V^0(0,1,\log)=1.203
 \end{equation*}
 Als optimalen erwarteten Nutzen im Markt mit Crash erwarten wir nach den Ergebnissen dieser Arbeit dann einen Wert dazwischen. Dazu benötigen wir die Werte der Lösung $\pidach$ von
-der Differentialgleichung aus Satz \ref{th:DGL}.  Wir haben diese numerisch mit Matlab gelöst. Der Graph dieser Lösung ist in Abbildung \ref{fig:optimaleStrategie} abgebildet.
+der Differentialgleichung aus Satz \ref{th:DGL}.  Wir haben diese numerisch mit der Mathematiksoftware  \texttt{octave} gelöst. Der Graph dieser Lösung ist in Abbildung
+\ref{fig:optimaleStrategie} abgebildet.
 
 \begin{figure}[htbp]
 \centering
@@ -31,22 +32,22 @@ der Differentialgleichung aus Satz \ref{th:DGL}.  Wir haben diese numerisch mit 
 \end{figure}
 
 
-Wir haben nun verschieden Möglichkeiten den erwarteten Nutzen bei Verfolgen dieser Strategie. Im Beweis von Satz \ref{th:hauptsatz_willmott} haben wir gelernt, daß es reicht wenn
+Wir haben nun verschieden Möglichkeiten den erwarteten Nutzen bei Verfolgen dieser Strategie. Im Beweis von Satz \ref{th:hauptsatz_willmott} haben wir gelernt, dass es reicht wenn
 wir den Wert von der numerisch ermittelten Lösung von $\pidach$ an der Stelle $0$ nehmen und wie folgt in die Wertfunktion einsetzen
 \begin{equation*}
  V^0(0,1-\pidach(0)k,\log)=1.0472
 \end{equation*}
-Genauso ist es aber auch möglich den erwarten Nutzen im crashfreien Scenario zu berechen. Satz \ref{th:ExpLogUtility} liefert dafür die Formel und wir erhalten 
+Genauso ist es aber auch möglich den erwarten Nutzen im crashfreien Scenario zu berechnen. Satz \ref{th:ExpLogUtility} liefert dafür die Formel und wir erhalten 
 \begin{equation*}
  \int_0^T f(\pidach(t)) dt + rT = 1.0471.
 \end{equation*}
-\section{Worst-Case-Schrankenberechnung durch Monte"=Carlo"=Simulation}
+\section{Berechnung von Worst-Case-Schranken durch Monte"=Carlo"=Simulation}
 
-Bei den bisherigen Berechnungen haben wir die Ergebnisse aus den Sätzen des thoeretischen Teils dieser Arbeit benutzt, insbesondere aus Satz \ref{th:hauptsatz_willmott}, der nur
-eine Aussage für den logarithmischen Nutzen macht. Im folgenden berechnen wir Worst-Case-Schranke ohne diesen theoretischen Unterbau, die Berechnungen beschränken sich dabei nicht
-auf den logaritmischen Nutzen.
+Bei den bisherigen Berechnungen haben wir die Ergebnisse aus den Sätzen des theoretischen Teils dieser Arbeit benutzt, insbesondere aus Satz \ref{th:hauptsatz_willmott}, der nur
+eine Aussage für den logarithmischen Nutzen macht. Im folgenden berechnen wir \wcs ohne diesen theoretischen Unterbau, die Berechnungen beschränken sich dabei nicht
+auf den logarithmischen Nutzen.
 
-Wir stellen zunächst unsere in Matlab programmierte Funktion \texttt{worstcase} vor.
+Wir stellen zunächst unsere in  \texttt{octave} programmierte Funktion \texttt{worstcase} vor.
 Diese Funktion berechnet die \wcs nach dem Vorbild von Definition \ref{def:WCPortfolioproblem1}. Dort wurde die \wcs wie folgt berechnet:
 \begin{equation*}
   \min \left( 
@@ -56,7 +57,7 @@ Diese Funktion berechnet die \wcs nach dem Vorbild von Definition \ref{def:WCPor
                   \right)
 \end{equation*}
 Die Erwartungswerte werden wir mit einer Monte"=Carlo"-Simulation ermitteln. Mit einem Computer können wir natürlich nicht das Infimum über unendlich viele Werte nehmen. Da eine
-Monte"=Carlo"-Simulation eine sehr teure Operation ist, können wir das Infumum auch nur über eine relativ kleine Menge von Zeitpunkten berechnen. Deshalb übergeben wir der Funktion
+Monte"=Carlo"-Simulation eine sehr teure Operation ist, können wir das Infimum auch nur über eine relativ kleine Menge von Zeitpunkten berechnen. Deshalb übergeben wir der Funktion
 eine Liste von Werten, für die dann die jeweilige Erwartung für ein Crash zu diesem Zeitpunkt berechnet wird. Die folgende Tabelle beschreibt die Schnittstelle zu dieser Funktion.
 
 \begin{table}[htbp]
@@ -75,7 +76,7 @@ eine Liste von Werten, für die dann die jeweilige Erwartung für ein Crash zu die
 \hline
 crashUtilities & Erwarteter Nutzen zu dem jeweiligen Crashzeitpunkten \\
 noCrashUtility & Erwarteter Nutzen ohne Crash\\
-worstcasebound & Worst-Case-Schranke\\
+worstcasebound & \wcs\\
 \hline
 \end{tabular}
 \caption{Beschreibung der Funktion worstcase}
@@ -89,7 +90,7 @@ Dort hatten wir schon erwähnt dass das Ausbleiben eines Crashes das Worst-Case-S
 weniger Zeit hat der Investor die optimale Strategie im crashfreien Markt zu verfolgen.
 Als nächstes betrachten wir die optimale Strategie $\pistar$ im crashfreien Scenario. Hier hatten wir in Satz \ref{th:worst-case-schranke-optimal-ohne-crash} behauptet, dass ein
 Crash mehr schadet als kein Crash, aber der Zeitpunkt egal ist. Auch dieses Verhalten lässt sich aus der Ausgabe herauslesen.
-Schliesslich betrachten wir noch die Ausgabe für die Handelsstrategie $\pidach$. Hier erwarten wir, dass wir die Gleichgewichtsbedingung wiederfinden. Wir sollten für jeden
+Schließlich betrachten wir noch die Ausgabe für die Handelsstrategie $\pidach$. Hier erwarten wir, dass wir die Gleichgewichtsbedingung wiederfinden. Wir sollten für jeden
 Crashzeitpunkt als auch für den chrashfreien Fall den gleichen erwarteten Nutzen haben. Auch dieses Verhalten finden wir in der Ausgabe bestätigt.
 
 \begin{table}[htbp]
@@ -132,10 +133,10 @@ worstcasebound & $1.0351$ \\
 
 \section{Beste lineare Strategie}
 
-Mit unsere Funktion können wir nun also jede Handelstrategie beurteilen. Damit können wir nun zum Beispiel einen einfachen Algorithmus angeben um eine beste lineae Strategie zu
-berechnen. Mit linearer Strategie meinen wir eine lineare Funktion, die am Ende des Zeithorizonts $0$ ist. Die Suche nach solch einer Strategie ist motiviert durch die
-Vorstellung, dass man je näher man sich dem Ende des Zeithorizonts nähert, desto vorsichtiger sollte man in Aktien investieren. Eine lineare Funktion ist für solch ein Verhalten
-das einfachste Modell. Eine lieneare Strategie ist also durch einen Punkt auf der y-Achse festgelegt. Wenn wir nun zu einer Menge von Punkten auf der y-Achse jeweils die \wcs
+Mit unsere Funktion können wir nun also jede Handelsstrategie beurteilen. Damit können wir nun zum Beispiel einen einfachen Algorithmus angeben um eine beste lineare Strategie zu
+berechnen. Mit linearer Strategie meinen wir eine lineare Funktion, die beim Zeithorizont den Wert $0$ besitzt. Die Suche nach solch einer Strategie ist motiviert durch die
+Vorstellung, dass je weiter man sich dem Zeithorizont nähert, desto vorsichtiger sollte man in Aktien investieren. Eine lineare Funktion ist für solch ein Verhalten
+das einfachste Modell. Eine lineare Strategie ist durch einen Punkt auf der y-Achse festgelegt. Wenn wir nun zu einer Menge von Punkten auf der y-Achse jeweils die \wcs
 berechnen, und dann den mit der höchsten \wcs wählen, müssten wir die beste lineare Strategie gefunden haben.
 
 In der Tabelle \ref{tab:lineare_Strategien} haben wir die Ergebnisse dieser Rechnung dargestellt. Dabei haben wir durch vorherige Experimente diesen Bereich als den
@@ -170,3 +171,16 @@ haben wir die optimale lineare Strategie und die optimale Strategie nochmal im V
 \label{fig:optimale_lineare_Strategie}
 \end{figure}
 
+\section{Programmcode}
+Alle Ergebnisse wurden auch schon in den vorherigen Abschnitten besprochen. Inhaltlich wird der Leser hier also nichts Neues finden, dieser Abschnitt ist für den an der
+Implementierung interessierten Leser gedacht.
+
+Der Code ist in zwei Dateien aufgeteilt. Zum einen haben wir das Script \texttt{diplomarbeit.m}, dass alle Ergebnisse aus den vorherigen Abschnitten produziert. Dieser Code kann
+gut parallel zu den dort gegebenen Kommentaren gelesen werden. Zum anderen haben wir noch das M-file \texttt{worstcase}, in der die Funtion zur Berechnung der \wcs implementiert
+ist.
+
+\subsection{Der Code von diplomarbeit.m}
+\verbatiminput{Octaveprogrammee/diplomarbeit.m}
+
+\subsection{Der Code von worstcase.m}
+\verbatiminput{Octaveprogrammee/worstcase.m}
