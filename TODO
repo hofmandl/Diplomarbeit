@@ -5,20 +5,15 @@ poopt(T)=0
 unnütze Leerverkäufe
 v im Beweis der optimalen STrategie:Man kann statt x auch ZV einsetzen
 Symbolverzeichnis
-Zu diesem Dokument
-	Sätze, Bemerkungen
-	freie Software
-	Durchgängige Notation
-Optimales Stoppen
-numerische Simulationen
-Lösung der Differentialgleichung
+
+besserer Lösung der Differentialgleichung
 
 Kleinigkeiten:
 ZV als STartwert einer stochastischen Differentialgleichung zulassen
-Umburch in Fomreln im Textmodus
+Umburch in Formeln im Textmodus
 Hervorhebung in Definitionen
 Satz und Definition
-überall explizit machen, ob logaritmsicher Nutzen odernicht spezifizeirt gemeint ist
+überall explizit machen, ob logaritmsicher Nutzen oder nicht spezifizeirt gemeint ist
 Bild von f und log(1-pi x)
 Bild von f
 Zustandbereich des Vrmögensprozesses definieren

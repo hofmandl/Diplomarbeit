@@ -1,31 +1,25 @@
-% hier sollen einige Aspekte meiner Diplomarbeit nochmal numerschisch verdeutlicht werden
-
-% zunächst definieren wir die globalen Marktparameter
+% globale Marktparameter
 global r=0.05 mu=0.2 sigma=0.4 k=0.2;
-
 global T=10;
 
-% Erwarteter Nutzen aus reiner Bondtrategie
-printf("Wieviel verdient man mit der reinen Bondstartegie?\n");
+printf("Erwarteter Nutzen aus reiner Bondtrategie\n");
 r*T
 
-% Erwarteter Nutzen aus optimaler Strategie im crashfreien Scenario
 function wert=vlog(t,x)
 global mu r sigma T;
 wert=log(x)+(r+0.5*(mu-r)^2/sigma^2)*(10-t);
 endfunction
 
-printf("Wieviel verdient man mit der optimalen Strategie im crashfreien Scenario?\n");
+printf("Erwarteter Nutzen aus optimaler Strategie im crashfreien Scenario\n");
 @vlog(0,1)
 
-% --------------------------------
 function p=pstern(t)
 global mu r sigma k;
 p= (mu-r)/sigma^2;
 endfunction
 
 %Löser für die Differentialgleichung
-%Bischen rumgetrickse um aus anfangswertbedingung endwertbedingung zu machen
+%Bischen rumgetrickse um aus Anfangswertbedingung Endwertbedingung zu machen
 function pdot = pd(x, t)
 	global mu r sigma k;
     pdot=sigma^2*(1-x*k)*(x-pstern(0))^2/(2*k);
@@ -43,10 +37,11 @@ endfunction
 % In Funktion umgewandelt
 pidachf = @(x) interp1 (t,y,x);
 
+% Ausgabe der Lösung der Differentialgleichung
 plot(t,y);
 print -deps foo.eps
 
-%verschiedene Methoden zum Berechen der Worstcasebound beim optimalen Portfolio
+%verschiedene Methoden zum Berechen der Worst-Case-Schranke beim optimalen Portfolio
 printf("Berechnen der worst-case-bound bei sofortigem Absturz\n");
 vlog(0,1-y(1)*k)
 
@@ -73,10 +68,11 @@ printf("Berechnen der Worstcaseschranke von pdach\n");
 [a,b,wc]=worstcase(@vlog,pidachf,[0,2,5,8,10])
 
 
+% --------------------------------------------------------------------------------------------------
 printf("Berechnen der besten linearen Strategie\n");
-s=0.7:0.1:1.3; %alle zu checkenden startwerte
+s=0.7:0.1:1.3; % alle zu checkenden startwerte
 zaehler=1:(length(s));
-worst_case_schranken=zeros(1,length(s)); % zum speichern der worstcaseschranken
+worst_case_schranken=zeros(1,length(s)); % zum speichern der Worst-Case-Schranken
 
 % für alle möglichen Startwerte
 for z=zaehler
@@ -98,8 +94,6 @@ s
 printf("Worst-Case-Schranken\n");
 worst_case_schranken
 
-
-printf("Berechnen der besten linearen Strategie\n");
 % geplotteter Vergleich zwischen optimaler und optimaler linearer Strategie
 t=0:0.1:10;
 plot(t,pidachf(t),t,optlinear(t))

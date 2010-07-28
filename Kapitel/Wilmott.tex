@@ -2,7 +2,7 @@
 \chapter{Portfoliooptimierungerung unter Crashgefahr: Der Gleichgewichts"-ansatz}
 \label{chap:Wilmott}
 
-\section{Portfoliooptimierungerung unter Crashgefahr: Erste Formulierung}
+\section{Portfoliooptimierungerung unter Crash"-gefahr: Erste Formulierung}
 Das Modell unseres Standardfinanzmarktes hat den Nachteil, dass es den Aktienkurs als stetige Funktion der
 Zeit modelliert. In der Realität beobachtet man aber Kurssprünge, insbesondere nach unten, die man als Crash
 bezeichnet.
@@ -107,7 +107,7 @@ vorne angenommen wird und dann bräuchte sich die Handelstrategie ohne unsere For
 Wir berechen zur Illustration die Worst-Case-Schranke für die reinen Bondstrategie bezüglich des logaritmischen Nutzen. Intuitiv ist klar, das
 der Worst-Case das Ausbleiben eines Crashes ist. Denn ein Crash verursacht uns keinen Schaden, aber gibt uns
 die Möglichkeit in die optimale Stategie des crashfreien Scenarios zu wechseln. Das rechnen wir im folgenden Satz nach.
-\begin{mySatz} \label{th:worst-case-schranke-reine-bondstrategie}
+\begin{mySatz}[Worst-Case-Schranke der reinen Bondstrategie, \cite{Korn2002}, 2.1.(i)] \label{th:worst-case-schranke-reine-bondstrategie}
 Sei $\pi_0 \equiv 0$. Dann gilt:
 \begin{equation*}
  WC(\pi_0,t,x) =  \log x + r(T-t).
@@ -141,7 +141,7 @@ Als nächstes berechen wir die Worst-Case-Schranke für die optimalen Strategie $\
 auch nach dem Crash behält er seinen Wert bei. Ein Crash beinflusst also, unabhängig von seinem
 Zeitpunkt, das Endvermögen um einen konstanten Faktor. Wir erwarten also als Worst-Case-Scenario einen Crash zu einem beliebigen Zeitpunkt. Das wird sich im Beweis des folgenden
 Satzes auch so herausstellen.
-\begin{mySatz} \label{th:worst-case-schranke-optimal-ohne-crash}
+\begin{mySatz}[Worst-Case-Schranke der optimalen Strategie im crasfreien Scenario, \cite{Korn2002}, 2.1.(ii)] \label{th:worst-case-schranke-optimal-ohne-crash}
 Es gilt:
 \begin{equation*} 
  WC(\pistar,t,x) = \log x +r(T-t) + \einhalb \bruch^2(T-t) + \log(1-\pistar k).
@@ -179,11 +179,12 @@ Verluste wieder auszugleichen. Das ist im Prinzip die wesentliche Eigenschaft vo
 quantifizieren ist das Ziel dieser Arbeit.
 
 Als nächste Eigenschaft zeigen wir im folgenden noch, dass es niemals nötig ist, Aktien leer zu verkaufen um einen optimalen Nutzen zu erreichen. Auf der Suche nach einer optimalen
-Strategien dürfen wir uns dann auf solche beschränken, die nach unten durch $0$ beschränkt sind.
-\begin{mySatz} \label{th:UnnützeLeerverkäufe}
-Es gilt: $WC(\pi^{+},t,x) \geq WC(\pi,t,x)$
+Strategien dürfen wir uns dann auf solche beschränken, die nach unten durch $0$ beschränkt sind. Wir zeigen dieses Aussage nur für logaritmischen Nutzen. Der Autor hat das starke
+Gefühl, dass die Aussage für beliebige Nutzenfunktionen richtig ist, kann es aber nicht streng beweisen. Wir werden auf die diesbezüglich kritischen Stellen im Beweis aufmerksam
+machen.
+\begin{mySatz}[Keine Notwendigkeit von Leerverkäufen, \cite{Korn2002}, 2.3. (b)] \label{th:UnnützeLeerverkäufe}
+Für logaritmischen Nutzen gilt: $WC(\pi^{+},t,x) \geq WC(\pi,t,x)$
 \end{mySatz}
-
 \begin{proof}
  Der Beweis ist so organisiert, dass wir erst seine Struktur zeigen, und dann die Details ausarbeiten. Sei
 \begin{align*}
@@ -198,31 +199,72 @@ Wir haben also
 \end{equation*}
 zu zeigen.
 Wir zeigen zunächst, dass im crashfreien Scenario $\pi^+$ einen höheren erwarteten Nutzen bringt, also
-\begin{equation*}
+\begin{equation} \label{eq:eins}
  B\leq B^+
-\end{equation*}
+\end{equation}
 Wenn $A\leq A^+$ sind wir wegen $min(A,B)\leq B \leq B^+$ und $min(A,B)\leq A \leq A^+$, also auch $min(A,B)
 \leq min(A^+,B^+)$ fertig.
 Sei also $A>A^+$. Dann gilt für alle $s$ mit $t \leq s \leq T$
-\begin{equation*}
+\begin{equation} \label{eq:zwei}
   \pi(s) < 0.
-\end{equation*}
+\end{equation}
 Ddann ist $\pi^+=0$ und wie bei der Berechnung der Worst-Case-Schranke für die reine Bondstrategie kann man
-\begin{equation*}
+\begin{equation*} 
  A^+=B^+
 \end{equation*}
 zeigen. Für $\pi$ ist aber das Worst-Case-Scenario das Ausbleiben eines Crashes, denn die leerverkauften Aktien werden billiger, also
-\begin{equation*}
+\begin{equation} \label{eq:drei}
  A \geq B,
-\end{equation*}
+\end{equation}
 Insgesamt folgt also
 \begin{equation*}
  \min(A,B)=B \leq B^+ = A^+ = \min(A^+,B^+)
 \end{equation*}
+Bis hier hin haben wir noch nicht benutzt, dass die Nutzenfunktion der Logarithmus ist. Das wird aber massiv bei der Ausarbeitung der noch zu zeigenden Gleichungen
+\eqref{eq:eins}, \eqref{eq:zwei} und \eqref{eq:drei} benutzt.
+\begin{itemize}
+ \item ad \eqref{eq:eins}:
+      \begin{equation*}
+       \begin{split}
+         & E_{t,x}\left[ \log \left( X_{\pi}(T) \right) \right] \\
+       =& \log x + E_{t,x}\left[ \int_t^T f(\pi(u)) du \right] + r(T-t) \\
+      \leq & \log x + E_{t,x}\left[ \int_t^T f(\pi^+(u)) du \right] + r(T-t) \\
+      =&  E_{t,x}\left[ \log \left( X_{\pi^+}(T) \right) \right] \\
+       \end{split}
+      \end{equation*}
+ \item ad \eqref{eq:zwei}:
+    \begin{equation*}
+       \begin{split}
+	        & A>A^+ \\
+    \Rightarrow & \inf_s \log (1-\pi(s)k) + \log(X_{\pi}) + f^0(t) \\
+                & > \inf_s \log (1-\pi^+(s)k) + \log(X_{\pi^+}) + f^0(t)  \\
+    \Rightarrow & \inf_s \log (1-\pi(s)k)  \\
+                & > \inf_s \log (1-\pi^+(s)k) + \log(X_{\pi^+}) -\log(X_{\pi}) \\
+    \Rightarrow &  \inf_s \log (1-\pi(s)k) > \inf_s \log (1-\pi^+(s)k) \\
+    \Rightarrow &  \log (1- \sup_s \pi(s)k) > \log (1-\sup_s pi^+(s)k) \\
+    \Rightarrow &   1- \sup_s \pi(s)k > 1-\sup_s \pi^+(s)k \\
+    \Rightarrow &   \sup_s \pi^+(s)k > \sup_s \pi(s)k \\
+    \Rightarrow &   \forall s: \pi(s) < 0 \\
+       \end{split}
+      \end{equation*}
+  \item ad \eqref{eq:drei}:
+\begin{equation*}
+       \begin{split}
+	     B = & E_{t,x}\left[ \log(X_{\pi}(T)) \right] \\
+                = & \inf_s E_{t,x} \left[ V^0(s,X_{\pi}(s),\log) \right] \\
+                = & \inf_s E_{t,x} \log X_{\pi}(s) + ... \\
+             \leq& \inf_s E_{t,x} + \log(1-\pi(s)k) + \log X_{\pi}(s) + ... \\
+                =& \inf_s E_{t,x} \left[ V0 \right] \\
+                =& A
+       \end{split}
+      \end{equation*}
+    
+\end{itemize}
+
 \end{proof}
 
 Wir schließen diesen Abschnitt mit der Aussage, dass eine optimale Strategie am Ende des Zeithorizonts kein Geld mehr in Aktien haben darf.
-\begin{mySatz}
+\begin{mySatz} [\cite{Korn2002}, Proposition 2.1 ]
 Eine optimale Worst-Case Strategie $\pi_{\text{opt}}$ erfüllt
 \begin{equation}
 \pi_{\text{opt}}(T) \leq 0
@@ -264,7 +306,7 @@ In diesem Abschnitt wollen wir die optimale Strategie bezüglich des logaritmisch
 Differentialgleichung ergibt. Zunächst stellen wir einige Eigenschaften dieser Differentialgleichung bereit.
 \begin{mySatz} \label{th:DGL}
 Es gibt genau eine Funktion $\pidach: \left[0, T \right] \rightarrow \mathbf{R}$ die das Endwertproblem
-\begin{align} \label{eq:dgl}
+\begin{align*}
 \pi_t(t) & =\frac{1}{k}(1-\pi(t)k) 
 \left( 
 \pi(t)(\mu-r) - \einhalb 
@@ -273,23 +315,25 @@ Es gibt genau eine Funktion $\pidach: \left[0, T \right] \rightarrow \mathbf{R}$
   \right)
 \right) \\
  \pi(T) &= 0
-\end{align}
+\end{align*}
 löst. Dabei gilt $\pidach(0) < \min(\pistar,1/k)$ und $\pidach$ ist streng monoton fallend.
 \end{mySatz}
-
 \begin{proof}
-Durch Umformen der Differentialgleichung gelangen wir zu:
+Mit dem Beweis folgen wir der Idee aus \cite{Korn2002}(Example 2.4.) und korrigieren die dort gegebenen fehlerhaften Rechnungen.
+
+Wir formen die Differentialgleichung  zunächst zu
 \begin{equation*} 
-\pi_t(t) =\frac{-\sigma^2}{2k}(1-\pi(t)k) \left( \pi(t)-\pistar \right)^2 
+\pi_t(t) =\frac{-\sigma^2}{2k}(1-\pi(t)k) \left( \pi(t)-\pistar \right)^2
 \end{equation*}
-Trennung der Variablen ergibt:
+um. Durch Trennen der Variablen erhalten wir
 \begin{equation*} 
-\frac{1}{(1-\pi k) \left( \pi-\pistar \right)^2 }d\pi =\frac{-\sigma^2}{2k} dt
+\frac{1}{(1-\pi k) \left( \pi-\pistar \right)^2 }d\pi =\frac{-\sigma^2}{2k} dt.
 \end{equation*}
-Integration ergibt nun:
+Durch Integartion gelangen wir nun zu
 \begin{equation*} 
-\frac{k}{(k \pistar -1)^2} \log \left( \frac{\pistar-\pi}{1-k\pi}\right) + \frac{1}{(k\pistar-1)(\pi-\pistar)} =\frac{-\sigma^2}{2k} t + C
+\frac{k}{(k \pistar -1)^2} \log \left( \frac{\pistar-\pi}{1-k\pi}\right) + \frac{1}{(k\pistar-1)(\pi-\pistar)} =\frac{-\sigma^2}{2k} t + C.
 \end{equation*}
+Dabei haben wir die linke Seite mit Hilfe eines Computeralgebrasystem integriert, durch (langwieriges) Ableiten und Termzusammenfassen kann das Ergebnis überprüft werden.
 Mit den Bezeichnungen
 \begin{equation*} 
 \alpha =\frac{k}{(k \pistar -1)^2}
@@ -298,26 +342,26 @@ und
 \begin{equation*} 
 \beta =\frac{1}{1-k \pistar }
 \end{equation*}
-wird die Gleichung zu:
+können wir die erahltene Gleichung als
 \begin{equation} \label{eq:nichtlineareGleichung}
 \alpha \log \left( \frac{\pistar-\pi}{1-k\pi}\right) + \frac{\beta}{(\pi-\pistar)} =\frac{-\sigma^2}{2k} t + C
 \end{equation}
-Aus der Bedingung $\pi(T)=0$ folgt
+schreiben. Aus der Bedingung $\pi(T)=0$ folgt
 \begin{equation*} 
-C= \alpha \log \left( \pistar\right) - \frac{\beta}{\pistar} + \frac{\sigma^2}{2k} T
+C= \alpha \log \left( \pistar\right) - \frac{\beta}{\pistar} + \frac{\sigma^2}{2k} T.
 \end{equation*}
 Für $t<T$ ist die rechte Seite von Gleichung \eqref{eq:nichtlineareGleichung} um $ \frac{\sigma^2}{2k}(T-t)$ größer als die linke Seite. Die Ableitung der linken Seite ist
 \begin{equation*}
  \frac{1}{(1-\pi k) \left( \pi-\pistar \right)^2 },
 \end{equation*}
-also für $\pi <1/k$ immer streng positiv. Die Gleichung \eqref{eq:nichtlineareGleichung} hat einen ersten Pol bei $\min(\pi,1/k)$ mit dem Wert $\infty$, es gibt also genau einen
-Wert für $\pi$ der die Gleichung löst. Das beweist die Existenz und Eindeutigkeit und die Behauptung $\pidach(0)<\min(\pi,1/k)$. Das $\pidach$ eine monoton fallende Funktion ist
-folgt daraus, dass die rechte Seite von  Gleichung \eqref{eq:nichtlineareGleichung} in $t$ fällt.
+(sie ist ja durch Integrieren dieses Termes entstanden), also ist sie für $\pi <\frac{1}{k}$ immer streng positiv. Die Gleichung \eqref{eq:nichtlineareGleichung} hat einen ersten
+Pol bei $\min(\pi,1/k)$ mit dem Wert $\infty$, es gibt also genau einen Wert für $\pi$ der die Gleichung löst. Das beweist die Existenz und Eindeutigkeit und die Behauptung
+$\pidach(0)<\min(\pi,1/k)$. Das $\pidach$ eine monoton fallende Funktion ist folgt daraus, dass die rechte Seite von  Gleichung \eqref{eq:nichtlineareGleichung} in $t$ fällt.
 \end{proof}
-Ein Bild von $\pidach$ für gewisse Parameter findet man in Abbildung \ref{fig:optimaleStrategie}.
+Ein Bild von $\pidach$ für Beispielparameter findet man in Abbildung \ref{fig:optimaleStrategie}.
 Verwendet man die Funktion $\pidach$ aus dem vorhergehendem Satz als Handelsstrategie, so hält man immer das Gleichgewicht zwischen dem erwarteten Nutzen nach einem sofortigen
 Crash und dem erwarteten Nutzen, wenn überhaupt kein Crash geschieht. Das ist die Aussage des folgenden Satzes.
-\begin{mySatz} \label{th:Gleichgewicht}
+\begin{mySatz}[Gleichgewichtsbedingung, \cite{Korn2002}, Corollary 2.2. (b)] \label{th:Gleichgewicht}
 Es gilt:
 \begin{equation} \label{eq:Gleichgewichtsbedingung}
 V^0(t,x (1-\pidach(t)k), \log)= E_{t,x} \left[ \log(X_{\pidach}(T)) \right]
@@ -325,7 +369,7 @@ V^0(t,x (1-\pidach(t)k), \log)= E_{t,x} \left[ \log(X_{\pidach}(T)) \right]
 \end{mySatz}
 
 \begin{proof}
-Da $\pidach$ die Differentailgleichung aus Satz \ref{th:DGL} erfüllt gilt:
+Da $\pidach$ die Differentialgleichung aus Satz \ref{th:DGL} erfüllt gilt:
 \begin{equation*}
  \pidach_t(t) =\frac{1}{k}(1-\pidach(t)k) 
 \left( 
@@ -397,9 +441,9 @@ Wir bemerken noch, dass es auch legitim ist für $x$ die Zufallsvariable $X_{\pid
 \end{equation*}
 Nun formulieren und beweisen wir das Hauptergebnis dieses Kapitels
 
-\begin{mySatz}
+\begin{mySatz}[Optimale Strategie, \cite{Korn2002}, Theorem 2.3]
 \label{th:hauptsatz_willmott}
-Die Lösung $\pidach$ der Differentialgleichung aus Satz \ref{th:DGL} ist eine Lösung des Worst-Case-Portfoliooptimierungsproblems.
+Die Lösung $\pidach$ der Differentialgleichung aus Satz \ref{th:DGL} ist eine Lösung des Worst"=Case"=Portfoliooptimierungsproblems.
 \end{mySatz}
 
 \begin{proof}
@@ -553,7 +597,7 @@ Nun haben wir alles zusammen, um die Worst-Case-Schranke von $\pi$ nach oben abz
           &= E(V^0(\tau,X_{\pidach}(\tau)(1-\pi(\tau)k))) \\
           &= WC(\pidach,t_0,x_0) 
 \end{align*}
-Die erste Abschätzung folgt aus der Tatsache, dass die Worst-Case-Schranke kleiner als der erwartete Nutzen bei einem Crash zur Zeit $\tau$ ist. Die darauf folgende Gleichung ist
+Die erste Abschätzung folgt aus der Tatsache, dass die \wcs kleiner als der erwartete Nutzen bei einem Crash zur Zeit $\tau$ ist. Die darauf folgende Gleichung ist
 die explizite Form von $V^0$ aus Satz \ref{th:LogWertfunktion}. Die nächste Ungleichung folgt dann aus \eqref{dumdum} und
 die folgende Abschätzung aus
 \eqref{damdam}. Dann verwenden wir wieder die explizite Form von $V^0$ und schliesslich die bekannte Worst-Case-Schranke von $\pidach$. Damit haben wir nun auch für diesen Fall
@@ -575,8 +619,8 @@ Wir haben noch nicht gezeigt, dass $\pidach$ wirklich eine bessere Worst-Case Sc
 Bondstrategie. Dass tun wir nun, indem wir eine Strategie angeben, die eine höhere Worst-Case-Schranke als die
 pure Bondstrategie hat. Da $\pidach$ optimal ist, muss es auch eine bessere Worst-Case-Schranke besitzen.
 
-\begin{mySatz}
-Für das Worst-Case-Portfoliooptimierungsproblem gibt es eine bessere Strategie als die reine Bondstrategie.
+\begin{mySatz}[\cite{Korn2002}, Corollary 2.2. (a)]
+Für das Worst"=Case"=Portfoliooptimierungsproblem gibt es eine bessere Strategie als die reine Bondstrategie.
 \end{mySatz}
 \begin{proof}
 \newcommand{\besser}{\frac{ 1-\exp \left( -\einhalb \bruch ^2(T-t) \right) }{k}  }
@@ -648,7 +692,7 @@ Danmit ist $\pi$ tatsächliche eine bessere Strategie als die reine Bondstrategie
 \section{Optimale konstante Strategie für logarithmischen Nutzen}
 Wir geben zusätzlich noch die beste konstante Strategie für das Worst-Case-Portfoliooptimierungsproblem an. Damit ist dann eine Strategie gemeint, die bis zum Crash konstant ist
 und danach in die beste Strategie des crashfreien Scenarios wecheslt.
-\begin{mySatz}
+\begin{mySatz}[\cite{Korn2002}, Proposition 2.5]
 Die Strategie 
 \begin{equation}
  \pi= 

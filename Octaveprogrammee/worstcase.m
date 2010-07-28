@@ -6,11 +6,7 @@ n=1000; % Anzahl der Schritte
 T=10; % Zeithorizont
 h=T/n; % Schrittweite
 
-% times=[0,2,5,7,10];
-time2step(times,10,n);
-
 w=zeros(1,length(times));
-
 
 % für alle crashzeiten den erwarteten Nutzen berechen
 for a=1:(length(times))
@@ -23,10 +19,6 @@ for a=1:(length(times))
 	for j = 1:n
 		X(j+1,:)=X(j,:).*(1+(r+p(step2time(j,T,n))*(mu-r))*h + p(step2time(j,T,n))*sigma*dW(j,:));
 	end
-    % X(t(a),:)
-    % p(t(a))
-    % X(t(a),:)*(1-p(t(a))*k)
-    %
     %Berechnung des Schätzers
     w(a)=(sum(v(times(a),X(time2step(times(a),T,n),:)*(1-p(times(a))*k))))/M;
 end
@@ -39,7 +31,8 @@ dW=sqrt(h)*randn(n,M);
 	for j = 1:n
 		X(j+1,:)=X(j,:).*(1+(r+p(step2time(j,T,n))*(mu-r))*h + p(step2time(j,T,n))*sigma*dW(j,:));
 	end
-g=(sum(v(T,X(1000,:))))/M;
+% Berechnung des Schätzers
+g=(sum(v(T,X(1000,:))))/M;chnun
 
 % das Minimum von allen nehmen
 wc=min( [w,g]);

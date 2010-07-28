@@ -36,20 +36,18 @@ wir den Wert von der numerisch ermittelten Lösung von $\pidach$ an der Stelle $0
 \begin{equation*}
  V^0(0,1-\pidach(0)k,\log)=1.0472
 \end{equation*}
-Genauso ist es aber auch möglich den erwarten Nutzen im crashfreien Scenario zu berechen und mit Satz \ref{th:ExpLogUtility} 
+Genauso ist es aber auch möglich den erwarten Nutzen im crashfreien Scenario zu berechen. Satz \ref{th:ExpLogUtility} liefert dafür die Formel und wir erhalten 
 \begin{equation*}
- \int_0^T f(\pidach(t)) dt + rT = 1.0471
+ \int_0^T f(\pidach(t)) dt + rT = 1.0471.
 \end{equation*}
-zu berechnen.
-Eine weitere Möglichkeit wäre die Verwendung der Wertfunktion aus $V^1(\cdot,\cdot,\log)$ aus Abschnitt \ref{sec:log_utility_hjb}.
+\section{Worst-Case-Schrankenberechnung durch Monte"=Carlo"=Simulation}
 
-\section{Worst-Case-Schrankenberechnung durch Monte-Carlo-Simulation}
+Bei den bisherigen Berechnungen haben wir die Ergebnisse aus den Sätzen des thoeretischen Teils dieser Arbeit benutzt, insbesondere aus Satz \ref{th:hauptsatz_willmott}, der nur
+eine Aussage für den logarithmischen Nutzen macht. Im folgenden berechnen wir Worst-Case-Schranke ohne diesen theoretischen Unterbau, die Berechnungen beschränken sich dabei nicht
+auf den logaritmischen Nutzen.
 
-Bei diesen Berechnungen haben wir die Ergebnisse aus den Sätzen für den logaritmischen Nutzen benutzt. Im folgenden berechnen wir Worst-Case-Schranke ohne diesen theoretischen
-Hinterbau, die Berechnungen beschränken sich dabei nicht auf den logaritmischen Nutzen.
-
-Wir stellen zunächst unsere in Matlab programmierte Funktion worstcase vor.
-Diese Funktion berechnet die WorstcaseSchranke nach dem Vorbild von Definition \ref{def:WCPortfolioproblem1}. Dort wurde die Worst-Case-Schranke wie folgt berechnet:
+Wir stellen zunächst unsere in Matlab programmierte Funktion \texttt{worstcase} vor.
+Diese Funktion berechnet die \wcs nach dem Vorbild von Definition \ref{def:WCPortfolioproblem1}. Dort wurde die \wcs wie folgt berechnet:
 \begin{equation*}
   \min \left( 
                    \inf_{0 \leq s \leq T} E \left[ V^0(s,X_{\pi}(s)(1-\pi(s)k),U) \right] 
@@ -57,8 +55,9 @@ Diese Funktion berechnet die WorstcaseSchranke nach dem Vorbild von Definition \
                    E \left[ U(X_{\pi}(T)) \right] 
                   \right)
 \end{equation*}
-Mit einem Computer können wir natürlich nicht das Infimum über unendlich viele Werte nehmen. Deswegen übergeben wir der Funktion eine Liste von Werten, für die dann die jeweilige
-Erwartung für ein Crash zu diesem Zeitpunkt berechnet wird. Die folgende Tabelle beschreibt die Schnittstelle zu dieser Funktion.
+Die Erwartungswerte werden wir mit einer Monte"=Carlo"-Simulation ermitteln. Mit einem Computer können wir natürlich nicht das Infimum über unendlich viele Werte nehmen. Da eine
+Monte"=Carlo"-Simulation eine sehr teure Operation ist, können wir das Infumum auch nur über eine relativ kleine Menge von Zeitpunkten berechnen. Deshalb übergeben wir der Funktion
+eine Liste von Werten, für die dann die jeweilige Erwartung für ein Crash zu diesem Zeitpunkt berechnet wird. Die folgende Tabelle beschreibt die Schnittstelle zu dieser Funktion.
 
 \begin{table}[htbp]
 % \centering
@@ -91,7 +90,7 @@ weniger Zeit hat der Investor die optimale Strategie im crashfreien Markt zu ver
 Als nächstes betrachten wir die optimale Strategie $\pistar$ im crashfreien Scenario. Hier hatten wir in Satz \ref{th:worst-case-schranke-optimal-ohne-crash} behauptet, dass ein
 Crash mehr schadet als kein Crash, aber der Zeitpunkt egal ist. Auch dieses Verhalten lässt sich aus der Ausgabe herauslesen.
 Schliesslich betrachten wir noch die Ausgabe für die Handelsstrategie $\pidach$. Hier erwarten wir, dass wir die Gleichgewichtsbedingung wiederfinden. Wir sollten für jeden
-Crashzeitpunkt als auch für den chrashfreien Fall den gleichen erwarteten Nutzen haben. Das spiegelt sich auch in der Ausgabe wieder.
+Crashzeitpunkt als auch für den chrashfreien Fall den gleichen erwarteten Nutzen haben. Auch dieses Verhalten finden wir in der Ausgabe bestätigt.
 
 \begin{table}[htbp]
 % \centering
@@ -134,15 +133,15 @@ worstcasebound & $1.0351$ \\
 \section{Beste lineare Strategie}
 
 Mit unsere Funktion können wir nun also jede Handelstrategie beurteilen. Damit können wir nun zum Beispiel einen einfachen Algorithmus angeben um eine beste lineae Strategie zu
-berechnen. Mit linearer Strategie meinen wir eine lineare Funktion, die am Ende des Zeithorizonts $0$ ist. Damit ist solch eine Strategie durch einen Punkt auf der y-Achse
-festgelegt. Das passt auch ganz gut zu unserer Vorstellung, dass man je näher man sich dem Ende des Zeithorizonts nähert, desto vorsichtiger sollte man in Aktien investieren. Eine
-linear Funktion ist für solch ein Verhalten das einfachste Modell. Wenn wir nun zu einer Menge von Punkten auf der y-Achse jeweils die Worstcase-Schranke berechnen, und dann den
-mit der höchsten Worstcase-Schranke wählen, müssten wir dieses beste Strategie gefunden haben.
+berechnen. Mit linearer Strategie meinen wir eine lineare Funktion, die am Ende des Zeithorizonts $0$ ist. Die Suche nach solch einer Strategie ist motiviert durch die
+Vorstellung, dass man je näher man sich dem Ende des Zeithorizonts nähert, desto vorsichtiger sollte man in Aktien investieren. Eine lineare Funktion ist für solch ein Verhalten
+das einfachste Modell. Eine lieneare Strategie ist also durch einen Punkt auf der y-Achse festgelegt. Wenn wir nun zu einer Menge von Punkten auf der y-Achse jeweils die \wcs
+berechnen, und dann den mit der höchsten \wcs wählen, müssten wir die beste lineare Strategie gefunden haben.
 
-In der Tabelle \ref{tab:lineare_Strategien} haben wir die Ergebnisse dieser Rechnung dargestellt. Man erkennt dass die beste lineare Strategie, die mit dem Startwert $1.0$ ist. Die
-dazugehörige Worst-Case-Schranke ist mit $0.97409$ nur geringfügig kleiner als die
-Worst-Case-Schranke der optimalen Strategie und deutlich größer als der erwartete nutzen der reinen Bondstrategie. In der Abbildung \ref{fig:optimale_lineare_Strategie} haben wir
-die optimale lineare Strategie und die optimale Strategie nochmal im Vergleich dargestellt.
+In der Tabelle \ref{tab:lineare_Strategien} haben wir die Ergebnisse dieser Rechnung dargestellt. Dabei haben wir durch vorherige Experimente diesen Bereich als den
+kritischen erkannt. Man erkennt dass die beste lineare Strategie, die mit dem Startwert $1.0$ ist. Die dazugehörige Worst-Case-Schranke ist mit $0.97409$ nur geringfügig kleiner
+als die Worst-Case-Schranke der optimalen Strategie und deutlich größer als der erwartete Nutzen der reinen Bondstrategie. In der Abbildung \ref{fig:optimale_lineare_Strategie}
+haben wir die optimale lineare Strategie und die optimale Strategie nochmal im Vergleich dargestellt.
 
 \begin{table}[!htbp]
 % \centering
@@ -152,7 +151,7 @@ die optimale lineare Strategie und die optimale Strategie nochmal im Vergleich d
 \hline
  0.7 &  0.8 & 0.9 & 1.0 & 1.1 & 1.2 & 1.3 \\
 \hline
-\multicolumn{7}{|l|}{Worstcaseschranken} \\
+\multicolumn{7}{|l|}{Worst-Case-Schranken} \\
 \hline
 0.88871 &  0.91934 &  0.96035 &  0.97409 &  0.95466 &  0.92869 &  0.90202 \\
 \hline
