@@ -45,7 +45,7 @@ print -deps foo.eps
 
 %verschiedene Methoden zum Berechen der 
 %Worst-Case-Schranke beim optimalen Portfolio
-printf("Berechnen der Worst-Case-Schranke beim sofortigem Absturz\n");
+printf("Wert nach sofortigem Absturz\n");
 vlog(0,1-y(1)*k)
 
 printf("Berechnen der Worst-Case-Schranke ohne Crash\n");

@@ -7,19 +7,21 @@ einer Aktie mit konstanten Koeffizienten. Die Preisprozesse seien also durch die
  dS(t) &= S(t)(\mu dt + \sigma dW(t)) \\
   S(0) &= s_0
 \end{align*}
-gegeben, wobei $W$ eine auf einem Wahrscheinlichkeitsraum definierte Brownsche Bewegung bezeichnet. Daraus leitet sich für einen Investor, der mit einem Anfangsvermögen $x_0$ sein
-Vermögens gemäß eines Portfolioprozesses $\pi$ anlegt, der duch die stochastische Differentialgleichung 
+gegeben, wobei $W$ eine auf einem Wahrscheinlichkeitsraum definierte Brownsche Bewegung bezeichnet. Daraus leitet sich für einen Investorin, die mit einem Anfangsvermögen $x_0$
+ihr
+Vermögens gemäß eines Portfolioprozesses $\pi$ anlegt, der durch die stochastische Differentialgleichung 
 \begin{align*}
  dX(t) &= X(t)(r dt + \pi(t)(\mu -r) dt + \sigma dW(t)) \\
   X(0) &= x_0
 \end{align*}
 gegebene Vermögensprozess $X$ ab. Unter einen optimalen Portfolioprozess wollen wir in dieser Arbeit einen solchen verstehen, der einen optimalen erwarteten Nutzen aus dem
-Endvermögen zu einen gegebenen Zeithorizont $T$ bringt. Bezeichnet $U$ eine Nutzenfunktion, so wurde die Aufgabe
+Endvermögen zu einen gegebenen Zeithorizont $T$ bringt. Bezeichnet $U$ eine Nutzenfunktion, so ist die Aufgabe
 \begin{equation*}
   \max_{\pi} E(U(X_{\pi}(T)))
 \end{equation*}
-schon Ende der sechziger Jahre von Merton gelöst. Dabei hat er dieses Problem als stochastisches Steuerungsproblem betrachtet und es mit Standardmethoden aus diesem Feld gelöst.
-Wir werden diese Ergebnisse zitieren und den dabei gewonnenenn Verifikationssatz am beispiel der logarithmischen Nutzenfunktion nachrechnen.
+eine mathematische Beschreibung für das Portfoliooptimierungsproblem. Dies wurde schon Ende der sechziger Jahre von Merton gelöst. Dabei hat er dieses Problem als stochastisches
+Steuerungsproblem betrachtet und es mit Standardmethoden aus diesem Gebiet gelöst. Wir werden diese Ergebnisse zitieren und mit dem dabei gewonnenen Verifikationssatz zeigen, was
+die optimale Strategie für die logarithmischen Nutzenfunktion ist.
 
 Aktien verhalten sich in der Realität aber nicht so wie im Black-Scholes-Modell modelliert. Sie machen, ohne dass man eine Regel dahinter erkennen kann, von Zeit zu Zeit große
 Kurssprünge nach unten, sie crashen. Investoren wissen das: Für viele Nutzenfunktionen (zum Beispiel für den Logarithmus) maximieren konstante Portfolioprozesse den erwarteten
@@ -27,35 +29,35 @@ Endnutzen im oben formulierten Portfoliooptimierungsproblem. Trotzdem haben Inve
 die persönliche Finanzplanung gilt zum Beispiel die Faustregel, dass man (100-Lebensalter) \% seines Vermögens in Aktien investieren sollte. Diesem
 Verhalten liegt die Angst vor einem Crash zugrunde.
 
-Wie könnte man Crashes nun bei der Portfoliooptimierung berücksichtigen? Eine erste Idee wäre, die Aktienkurse anders zu modellierem, zum Beispiel durch Levy-Prozesse. In dieser
-Arbeit wollen wir aber einen ganz anderen Ansatz betrachten, nämlich den Worst-Case-Ansatz. Dabei wird die Verteilung der Crashzeit micht modelliert, sondern man sucht Strategien,
-die selbst für die ungünstigste Crashzeit eine untere Schranke für den erwarteten Endutzen garantieren. Dieser Ansatz ist in gewisser Weise natürlich, denn Crashes sind seltene
-Ereignisse deren Parameter man bei einer Modellierung nur schwer schätzen könnte und das gemeine an Ihnen ist, dass sie so unerwartet kommen, dass selbst
-Aussagen über ihre Verteilung eher Spekulation sind. 
+Wie könnte man Crashes nun bei der Portfoliooptimierung berücksichtigen? Eine erste Idee wäre, die Aktienkurse anders zu modellieren, zum Beispiel durch Levy-Prozesse. Darauf
+hat sich die mathematische Forschung in diesem Gebiet auch zunächst konzentriert. In dieser Arbeit wollen wir aber einen ganz anderen Ansatz betrachten, nämlich den neueren
+Worst-Case-Ansatz. Dabei wird die Verteilung der Crashzeit nicht modelliert, sondern man sucht Strategien, die selbst für die ungünstigste Crashzeit eine untere Schranke für den
+erwarteten Endnutzen garantieren. Dieser Ansatz ist in gewisser Weise natürlich, denn Crashes sind seltene Ereignisse deren Parameter man bei einer Modellierung nur schwer schätzen
+könnte und das Gemeine an ein einem Crash ist ja gerade, dass sie so unerwartet kommen, dass selbst Aussagen über ihre Verteilung eher Spekulation sind. 
 
-Die Aufgabenstellung ist nun also die folgende: Wenn $\tau$ den Zeitpunkt des Crashes beschreibt $k$ den Faktor, um den der Wert der Aktie schrumpft, dann ist
-$(1-\pi(\tau)k)X_{\pi}(T)$ das Endvemögen, wobei $X_{\pi}$ den Vermögensprozess des Black-Scholes-Modells bezeichnet. Wir suchen diejenige Handelstrategie $\pi$ die den
-Ausdruck
+Die Aufgabenstellung ist nun also die folgende: Wenn $\tau$ den Zeitpunkt des Crashes beschreibt, $\pi$ die Handelsstrategie der Investorin, dann sei $X_{\pi,\tau}$ der
+Vermögensprozess der mit Ausnahme des Crashzeitpunkts einer Black-Scholes-Dynamik folgt. Zur Crashzeit macht er einen Sprung nach unten. Wir suchen dann diejenige Handelsstrategie
+$\pi$
+die den Ausdruck
 \begin{equation*}
-  \max_{\pi} \min_{\tau} E \left[ U( (1-\pi(\tau)k)X_{\pi}(T)) \right]
+  \max_{\pi} \min_{\tau} E \left[ U( X_{\pi,\tau}(T)) \right]
 \end{equation*}
-maximiert. Diese Aufgabe bezeichen wir als Worst"=Case"=Portfoliooptimierungsproblem. Der Ansatz ist also der aus der Spieltheorie bekannte MaxMin-Ansatz. Nach dem gleichen Prinzip
-spielen Computer Schach. Man geht davon aus, dass einem Selbst immer das Schlimmste passiert und versucht dann durch seine Aktion den Nutzen noch möglichst hoch zu halten.
+maximiert. Diese Aufgabe bezeichnen wir als Worst"=Case"=Portfoliooptimierungsproblem. Der Ansatz ist also der aus der Spieltheorie bekannte MaxMin-Ansatz. Nach dem gleichen
+Prinzip spielen Computer Schach. Man geht davon aus, dass einem Selbst immer das Schlimmste passiert und versucht dann durch seine Aktion den Nutzen noch möglichst hoch zu halten.
 
 Im wesentlichen werden wir in dieser Arbeit zwei Artikel diskutieren, die dieses Problem lösen. Der Artikel \cite{Korn2002} von Ralf Korn und Paul Wilmott stellt den Begriff einer
 Worst-Case-Schranke in den Vordergrund und zeigt wie man durch Gleichgewichtsargumente für logarithmischen Nutzen einen optimalen Portfolioprozess findet. Wir versuchen, diesen
 Ansatz etwas formaler aufzuschreiben und bemühen uns um größere Ausführlichkeit in den Beweisen.
 
-Desweiteren diskutieren wir den Artikel \cite{Korn2007} von Ralf Korn und Mogens Steffensen. Dort wird das Optmierungsproblem als Spiel zwischen dem Investor und dem Markt
+Des weiteren diskutieren wir den Artikel \cite{Korn2007} von Ralf Korn und Mogens Steffensen. Dort wird das Optimierungsproblem als Spiel zwischen der Investorin und dem Markt
 aufgefasst. Das Hauptergebnis ist ein Verfikationssatz, der die Wertfunktion und die optimale Strategie in einem System von Ungleichungen angibt. Es ähnelt dabei den typischen
-Hamilton-Jacobi-Bellman-Gleichungen aus der stochastischen Kontrolltheorie. Auch hier beweisen wir die Sätze in größerer Ausführlichkeit als im Artikel, insbesondere an den Stellen
-die dem Autor dieser Diplomarbeit Schwierigkeiten bereitet haben. Für die logaritmische Nutzenfunktion werden wir alle Voraussetzungen des Verifikationssatzes ganz genau
-nachrechnen. In einem abschließenden Abschnitt vergleichen wir die beiden verschiedenen Absätze zur Lösung des Worst-Case-Portfoliooptimierungsproblems bezüglich ihrer
-Modellierung, ihrer Ergebniss und ihrer Beweismethodik.
+Hamilton-Jacobi-Bellman-Gleichungen aus der stochastischen Kontrolltheorie. Auch hier beweisen wir die Sätze in größerer Ausführlichkeit als im Artikel. Für die logaritmische
+Nutzenfunktion werden wir alle Voraussetzungen des Verifikationssatzes ganz genau nachrechnen. In einem abschließenden Abschnitt vergleichen wir die beiden verschiedenen Absätze
+zur Lösung des Worst"-Case"-Portfoliooptimierungsproblems bezüglich ihrer Modellierung, ihrer Ergebnisse und ihrer Beweismethodik.
 
-Um die Theorie anschaulicher zu machen, werden wir schliesslich mit dem Computer noch einige Beispiele rechnen. Dabei werden wir einige theoretisch erlangte Ergebnisse
-bestätigt finden. Wir werden den erwarteten Endnutzen aus dem Vermögen durch Monte-Carlo-Simulation berechnen. Damit geben wir auch einen kleinen Algorthmus an, wie man eine
-optimale lineare Startegie findet. Welche Nutzenfunktion dann speziell gewählt wird, spielt dabei dann keine Rolle mehr.
+Um die Theorie anschaulicher zu machen, werden wir schließlich mit dem Computer noch einige Beispiele rechnen. Dabei werden wir einige theoretisch erlangte Ergebnisse
+bestätigt finden. Zur Berechnung des erwarteten Endnutzen aus dem Vermögen werden wir Monte-Carlo-Simulation verwenden. Wir werden schließlich auch einen kleinen Algorithmus
+besprechen, wie man mit solchen Simulationen eine optimale lineare Strategie findet. 
 
 Diese Arbeit ist nun wie folgt organisiert. In Kapitel \ref{chap:Grundlagen} wird in die Notation eingeführt und einige Grundlagen bereitgestellt.
 Kapitel \ref{chap:Portfoliooptimierung} bespricht das Portfoliooptimierungsproblem im Black-Scholes-Modell und dessen Lösung mittels stochastischer Steuerung. In Kapitel
@@ -64,10 +66,10 @@ Simulationen folgen im abschließenden Kapitel \ref{chap:Zahlenbeispiele}.
 
 Alle Sätze und Definition sind deutlich gekennzeichnet und unter einem Satz versteht der Autor einfach eine mathematische Aussage, sie sind nicht nach irgendeinen Schema nach
 Wichtigkeit geordnet. Im Prinzip sollte es auch möglich sein, nur die Sätze und Definitionen zu lesen, der restliche Text sind Bemerkungen und Kommentare die für den Aufbau der
-Theorie nicht notwendig sind. Insbesondere beim Zurückblättern sollte es also möglich sein, sich auf die Sätze und Defintionen zu beschränken, jeder Begriff wurde darin und nicht
+Theorie nicht notwendig sind. Insbesondere beim Zurückblättern sollte es also möglich sein, sich auf die Sätze und Definitionen zu beschränken, jeder Begriff wurde darin und nicht
 im Nebentext eingeführt. Dabei halten wir unsere Notation die ganze Zeit durch und kommen ohne Doppelbezeichnungen aus.
 
 Diese Arbeit wurde vollständig mit freier Software erstellt. Gesetzt wurde der Text mit \texttt{Latex}, die Grafiken wurden mit \texttt{gnuplot} erstellt und als Programmiersprache
-für die Beispiele im letzen Kapitel wurde \texttt{octave} verwendet. 
+für die Beispiele im letzten Kapitel wurde \texttt{octave} verwendet. 
 
  

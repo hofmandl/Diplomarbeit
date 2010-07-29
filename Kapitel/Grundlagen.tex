@@ -1,8 +1,14 @@
 
 \chapter{Grundlagen}
 \label{chap:Grundlagen}
+Dieses Kapitel führt im wesentlichen in die Notation ein. Außerdem werden Sätze und Formeln zusammengestellt, die wir im weiteren benutzen werden.
 \section{Stochastische Grundlagen}
-\begin{mySatz} \label{StochDgl}
+An stochastischen Grundlagen erwarten wir vom Leser eine gewisse Vertrautheit mit den Begriffen der stochastischen Analysis. Dabei reicht fast immer
+die Kenntnis des It\^{o}-Kalküls, bei dem die Integratoren It\^{o}-Prozesse sind. Eine wichtige Rolle werden stochastische Differentialgleichungen spielen, \cite{Oksendal2003} ist
+eine gute Referenz dafür.
+
+Zunächst geben wir die explizite Lösung der Differentialgleichung, die exponentielles Wachstum (mit stochastischen Rauschen) beschreibt.
+\begin{mySatz} \label{th:StochDgl}
 Die stochastische Differentialgleichung
 \begin{align*}
  dX(t) &= X(t)(A(t) dt + S(t)dW(t)) \\
@@ -17,26 +23,25 @@ besitzt die eindeutige Lösung
 \end{equation*}
 \end{mySatz}
 
+Weiterhin erinnern wir an die It\^{o}-Formel und geben sie in der folgenden Form an.
 \begin{mySatz} \label{th:Ito-Formel}
 Sei $X$ ein It\^{o}-Prozess der Form
 \begin{equation*}
  dX(t) = K(t)dt + H(t)dW(t)
 \end{equation*}
- Sei $f:[0,\infty) \times R \rightarrow R$ eine $C^{1,2}$-Funktion. Dann gilt:
+ Sei $f:[0,\infty) \times \reelleZahlen \rightarrow \reelleZahlen$ eine $C^{1,2}$-Funktion. Dann gilt:
 \begin{equation*}
 \begin{split}
 &df(t,X(t)) \\
-= &\left( f_t(t,X(t)) K(t) + f_x(t,X(t)) K(t) + \einhalb f_{xx}(t,X(t)) H(t)^2 \right) dt \\
+= &\left( f_t(t,X(t)) + f_x(t,X(t)) K(t) + \einhalb f_{xx}(t,X(t)) H^2(t) \right) dt \\
   &+ f_x(t,X(t))H(t) dW(t) 
 \end{split}
 \end{equation*}
-
 \end{mySatz}
 
-
-
 \section{Finanzmarktmodell}
-Im folgenden geben wir die Definition unseres Finanzmarktmodells.
+Wir sagen nun was wir unter einem Finanzmarkt verstehen. Wir setzen hier eine Vertrautheit des Lesers mit dem Black-Scholes-Modell voraus. Begriffe wie
+Aktienprozesse, Handelstrategien und Vermögensgleichung werden nicht motiviert.
 \begin{myDefinition} \label{Standardfinanzmarktmodell}
 Sei $(\Omega,F,P) $ ein Wahrscheinlichkeitsraum. Sei $W$ eine auf diesen Raum definierte Brownsche
 Bewegung. Seien $r$, $\mu$, $\sigma$ reelle Zahlen und sei $r < \mu$ und $\sigma>0$. Der Bond $B$ und die
@@ -49,43 +54,44 @@ Aktie $S$ seien die eindeutigen Lösungen der stochastischen Differentialgleichun
 \end{align*}
 Dabei nennen wir $r$ den Zinssatz, $\mu$ die Aktienrendite und $\sigma$ die Volatilität.
 Außerdem sei eine Zahl $k$ mit $0<k<1$ gegeben, die wir als maximale Crashhöhe bezeichnen.
-Weiterhin sei eine Konstante $c>0$ gegeben mit $c>\max(1/k,\pistern)$, die wir Handelsschranke nennen. 
-Desweiteren nennen wir $x_0>0$ unser Startvermögen und $T>0$ unseren Zeithorizont.
+Weiterhin sei eine Konstante $c>0$ gegeben mit $c>\max(\frac{1}{k},\pistern)$, die wir Handelsschranke nennen. 
+Des weiteren nennen wir $x_0>0$ unser Startvermögen und $T>0$ unseren Zeithorizont.
 Gelten alle diese Voraussetzungen, so sagen wir dass die Voraussetzungen unseres \textbf{Standardfinanzmarktmodells} gelten.
 \end{myDefinition}
-Die Interpretation unseres Standardfinanzmarktmodells ist allein durch die Namensgebung schon ziemlich klar. Mit der Handelsschranke drücken wir aus, dass es verboten sein soll,
-mehr als das $c$-fache seines Vermögens in Aktien anzulegen, also Aktien auf Kredit zu kaufen (falls $c>1$), als auch mehr als $(-c)$-fache sein Vermögens in Aktien anzulegen, also
-Aktien leer zu verkaufen. Wir brauchen dieses Handelsschranke aus beweistechnischen Gründen, aber man kann auch argumentieren, dass es eine vernünftige Modellannahme ist in einer
-Welt mit Gesetzesbeschränkungen und einer endlichen Geldmenge. Ein Investorin, die nicht diesen Beschränkungen unterliegt und die Resultate dieser Arbeit nutzen möchte, kann sich
-$c$ einfach als riesig groß vorstellen, so da es praktisch keine Einschränkung mehr für sie darstellt.
+Die Interpretation unseres Standardfinanzmarktmodells ist allein durch die Namensgebung schon ziemlich klar. Allein die Handelsschranke ist ein wenig ungewohnt. Mit ihr drücken wir
+aus, dass es verboten sein soll,
+mehr als das $c$-fache seines Vermögens in Aktien anzulegen, also sehr viele Aktien auf Kredit zu kaufen (falls $c>1$), als auch mehr als das $(-c)$-fache sein Vermögens in Aktien
+anzulegen, also sehr viele Aktien leer zu verkaufen. Wir brauchen dieses Handelsschranke aus beweistechnischen Gründen, aber man kann auch argumentieren, dass es eine vernünftige
+Modellannahme ist in einer Welt mit Gesetzesbeschränkungen und einer endlichen Geldmenge. Ein Investorin, die nicht diesen Beschränkungen unterliegt und die Resultate dieser Arbeit
+nutzen möchte, kann sich $c$ einfach als riesig groß vorstellen, so da es praktisch keine Einschränkung mehr für sie darstellt.
 
-Dieses Definition ist ein wenig auf Vorrat gemacht, sie dient dazu, dass wir mit dem rituellen Satz ``\standardsatz'' alle benötigten Vorausetzungen zusammen haben. Der Parameter
-$k$ zum Beispiel wird erst in späteren Kapiteln benötigt.
+Dieses Definition ist ein wenig auf Vorrat gemacht, sie dient dazu, dass wir mit dem rituellen Satz ``Es gelten die Voraussetzungen unseres Standardfinanzmarktmodells.'' alle
+benötigten Voraussetzungen zusammen haben. Der Parameter $k$ zum Beispiel wird erst in späteren Kapiteln benötigt.
 
 Um die folgenden Sätze formulieren und beweisen zu können, hätten wir im Prinzip nicht den Bond $B$ und die Aktie $S$ definieren müssen. Wir werden im folgenden eine
-Vermögensgleichung definieren, die die Modellparameter enthält, aber nicht direkt den Aktienkurs und den Bond. Dieses Arbeit beschäftigt sich mit den Eigenschaften dieser
-Vermögensgleichung.
+Vermögensgleichung definieren, die die Modellparameter enthält, aber nicht direkt den Aktienkurs und den Bond. Dieses Arbeit beschäftigt sich im Prinzip mit den Eigenschaften
+dieser Vermögensgleichung.
 
 Während die Parameter $\mu,r,\sigma$ und $k$ den Markt beschreiben, beschreiben $x_0$ und $T$ unsere persönliche Vorgaben.
 
-Im folgende werden wir noch einige Trivialitäten über eine bestimmte Parabel angeben. Wir geben ihr sogar einen Namen, denn sie wird in dieser Arbeit immer wieder als Abkürzung
-auftauchen und viele Argumente basieren auf der genauen Kenntnis ihres Verlaufes.
+Im folgenden werden wir noch einige Trivialitäten über eine bestimmte Parabel angeben, die von den Parametern des Finanzmarktmodells abhängt. Wir geben ihr sogar einen Namen, denn
+sie wird in dieser Arbeit immer wieder auftreten und viele Argumente basieren auf der genauen Kenntnis ihres Verlaufes.
 
 
 \begin{myDefinition} \label{def:f}
 Es gelten die Voraussetzungen unseres Standardfinanzmarktmodells. Sei $f$ durch 
-\begin{equation} \label{eq:fvonpi}
+\begin{equation*} \label{eq:fvonpi}
  f(\pi) =  \pi (\mu-r)-\einhalb \pi^2 \sigma^2
-\end{equation}
+\end{equation*}
 definiert.
 \end{myDefinition}
 
 % Satz und definition
 \begin{mySatz} \label{th:Eigenschaften_f}
 Sei $\pistar:=\pistern$. Mit dieser Bezeichnung besitzt $f$ die beiden Nullstellen $0$ und $2\pistar$, nimmt sein Maximum an der Stelle $\pistar$ an und hat dort den Wert
-\begin{equation} 
+\begin{equation*} 
  f(\pistar) =  \einhalb \bruch^2
-\end{equation}
+\end{equation*}
 \end{mySatz}
 In Abbildung \ref{fig:graph_von_f} sind die Aussagen über $f$ nochmal veranschauchlicht.
 \begin{figure}
@@ -96,28 +102,33 @@ In Abbildung \ref{fig:graph_von_f} sind die Aussagen über $f$ nochmal veranschau
 \label{fig:graph_von_f}
 \end{figure}
 
-
+Ein weiterer wichtiger Begriff der Finanzmathematik ist der der Handelsstrategie. Sie gibt an, wie groß zu jedem Zeitpunkt der Anteil des Vermögens ist, der in die Aktie
+investiert ist. Wir gehen dann implizit davon aus, dass der andere Teil in den Bond investiert wird. 
 \begin{myDefinition} \label{def:Handelsstrategie}
 \standardsatz
-Die Menge $\mathcal{A}$ aller progressiv messbaren Prozesse $\pi$, für die die stochastische Differentialgleichung
+Die Menge $\mathcal{A}$ aller progressiv messbaren Prozesse $\pi$ mit Werten in $[-c,c]$, für die mit der eindeutigen Lösung $X$ der stochastische Differentialgleichung
 \begin{align*}
  dX(t) &= X(t) \left[ \left( r + \pi(t)(\mu -r) \right) dt + \pi(t) \sigma dW(t) \right] \\
   X(0) &= x_0
 \end{align*}
-eine eindeutige Lösung besitzt, für die $P$- fast sicher
-\begin{equation}
+$P$- fast sicher
+\begin{equation*}
  \int_0^T  \left( X(t) \pi(t) \right)^2 dt < \infty
-\end{equation}
-und
-\begin{equation}
- X(t) \geq 0
-\end{equation}
-für alle $t \in [0,T]$ gilt, heißt die Menge der \textbf{zulässigen Handelsstrategien}.
+\end{equation*}
+gilt, heißt die Menge der \textbf{zulässigen Handelsstrategien}.
 \end{myDefinition}
+Mit unserer Forderung der Beschränkheit an die Handelsstrategie, ist die eindeutige Lösung der stochastischen Differentialgleichung garantiert. In der Literatur wird die
+eindeutige Lösbarkeit oft in die Definition einer zulässigen Handelsstrategie aufgenommen. Aus der expliziten Lösung der Differentialgleichung kann man auch ablesen, dass
+\begin{equation*}
+ X(t) \geq 0
+\end{equation*}
+für alle $t \in [0,T]$ gelten muss. Auch das wird häufig in die Definition einer zulässigen Handelsstrategie mit aufgenommen.
 
-\begin{myDefinition} \label{Handelsstrategie}
+Eine zulässige Handelsstrategie kann zu einem bestimmten Zeitpunkt alle Information nutzen, die die Brownsche Bewegung bis dahin generiert hat. Möchte man die
+Vergangenheit ignorieren, und die Handelsstrategie nur noch vom Zeitpunkt und der aktuellen Höhe der Vermögens abhängig machen, so gelangt man zum Begriff der Markov"=Strategie. 
+\begin{myDefinition} \label{def:Markovstrategie}
 \standardsatz
-Die Menge $\mathcal{M}$ aller Funktionen $p$ von $\txbereich$ nach $\reelleZahlen$ heißt die Menge der \textbf{zulässigen Markov-Handelstrategien}, wenn die stochastische
+Die Menge $\mathcal{M}$ aller Funktionen $p$ von $\txbereich$ nach $[-c,c]$ heißt die Menge der \textbf{zulässigen Markov"=Handelsstrategien}, wenn die stochastische
 Differentialgleichung
 \begin{align*}
  dX(t) &= X(t) \left[ \left( r + p(t,X(t))(\mu -r) \right) dt + p(t,X(t)) \sigma dW(t) \right] \\
@@ -125,29 +136,19 @@ Differentialgleichung
 \end{align*}
 eine eindeutige Lösung besitzt und mit dieser Lösung  $p(\cdot,X(\cdot)) \in \mathcal{A}$ gilt.
 \end{myDefinition}
-In dem gerade gegebenen Sinne können wir also eine Markovstrategie auch immer als eine normale Handelstrategie auffassen und wir werden in dem Fall nicht mehr zwischen diesen
+In dem gerade gegebenen Sinne können wir also eine Markovstrategie auch immer als eine normale Handelsstrategie auffassen und wir werden in dem Fall nicht mehr zwischen diesen
 beiden Begriffen unterscheiden.
 
-Nun geben wir die wichtige Definition der Vermögensgleichung. Letztendlich handelt dieses Arbeit von den Eigenschaften einer solchen Vermögensgleichung.
+Nun geben wir die wichtige Definition der Vermögensgleichung. Sie gibt die Höhe des Vermögens an, wenn gemäß der Handelsstrategie $\pi$ mit der Aktien und dem Bond gehandelt wird.
 \begin{myDefinition} \label{Vermögensgleichung}
 \standardsatz
-Sei $\pi$ eine Handelsstrategie.
- Die Lösung von
-\begin{align*} \label{eq:Vermögensgleichung}
- dX(t) &= X(t) \left[ \left( r + \pi(t)(\mu -r) \right) dt + \pi(t) \sigma dW(t) \right] \\
-  X(0) &= x_0
-\end{align*}
-bezeichnen wir als \textbf{Vermögensprozess} $X_{\pi}$. Als eine Abkürzung vereinbaren wir weiter
+Sei $\pi$ eine zulässige Handelsstrategie oder eine zulässige Markov"=Handelstrategie. Die Lösung der entsprechenden stochastischen Differentialgleichung aus Definition
+\ref{def:Handelsstrategie} oder Definition \ref{def:Markovstrategie} bezeichnen wir als \textbf{Vermögensprozess} $X_{\pi}$. Als eine Abkürzung vereinbaren wir weiter
 \begin{equation*}
  X_{\pi,t,x}(s) = E \left[ X_{\pi}(s) | X_{\pi}(t)=x \right]
 \end{equation*}
 \end{myDefinition}
-Wie in der vorhergehenden Bemerkung schon bemerkt, lassen wir es auch zu, dass statt $\pi$ eine Markovstrategie $p$ eingesetzt wird. Streng genommen ist $X$ dann eine Lösung der
-Differentialgleichung in der Definition der Markovstrategie.
-
-
-Die Lösung der Vermögensgleichung lässt sich auch ganz explizit als stochastisches Integral hinschreiben. Davon handelt der nächste Satz.
-
+Durch eine Anwendung des Satzes \ref{th:StochDgl} lässt sich die Vermögensgleichung auch ganz explizit angeben. Das ist die Aussage des nächsten Satzes.
 \begin{mySatz} \label{th:expliziteLösungVermögensgleichung}
 Es gilt:
 \begin{align*} \label{eq:LösVermögensgleichung}
@@ -160,33 +161,26 @@ Es gilt:
                                    \int_{t_0}^{t} r + f(\pi(u)) du 
                                   +\int_{t_0}^{t}\pi(u)\sigma dW(u)) 
                             \right)  \\
-                 &= x \exp \left(
-                                   \int_{t_0}^{t} r + \pi(u)(\mu -r) du
-                           \right) 
-                     \exp \left(      
-                                \int_{t_0}^{t}\pi(u)\sigma dW(u)) - \frac{1}{2}  \int_{t_0}^{t} \pi(u)^2 \sigma^2 du
-                            \right) \\
 \end{align*}
-In der letzten Gleichung ist dabei der letzte Faktor ein Martingal.
 
 \end{mySatz}
 
 
 
 
-Ein spezieller Augenmerk wird in dieser Arbeit auf dem sogennannten logaritmischen Endnutzen liegen. Dafür stellen wir schon einmal ein Ergebnis bereit. Das folgt aus der
-expliziten Darstellung des Vermögenprozesse aus dem vorangegangen Satz und der Tatsache dass unter unserem Bedingungen an die Handelsstrategie das stochastische Integral einen
-Erwartungswert von 0 besitzt.
+Ein spezieller Augenmerk wird in dieser Arbeit auf dem sogenannten logarithmischen Endnutzen liegen. Dafür stellen wir schon einmal ein Ergebnis bereit. Das folgt aus der
+expliziten Darstellung des Vermögenprozesse aus dem vorangegangen Satz und der Tatsache dass unter unseren Bedingungen an die Handelsstrategie der Erwartungswert des
+stochastischen Integrals verschwindet.
 
 
 \begin{mySatz} \label{th:ExpLogUtility}
 Es gilt
- \begin{equation} \label{eq:ExpLogUtility}
+ \begin{equation*} \label{eq:ExpLogUtility}
 \begin{split}
  & E \left[ \log(X_{\pi,t,x}(T)) \right] \\
  = &\log x  + E \left[ \int_{t}^{T} (r + \pi(u)(\mu -r)-\frac{1}{2}\pi(u)^2\sigma^2)du  \right]  \\
  = & \log x  + E \left[ \int_{t}^{T} f(\pi(u)) du  \right] + r(T-t) \\
 \end{split}
-\end{equation}
+\end{equation*}
 \end{mySatz}
 
