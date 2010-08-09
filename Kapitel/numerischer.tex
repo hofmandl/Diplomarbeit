@@ -1,5 +1,7 @@
 \chapter{Zahlenbeispiele und Simulation}
 \label{chap:Zahlenbeispiele}
+Für dieses Kapitel haben wir einige Beispielrechnungen mit der Matlab-Alternative Octave durchgeführt. In den ersten Abschnitten stellen wir nur die Ergebnisse vor, ohne auf die
+Implementierung im Code einzugehen. Der Code ist im letzten Abschnitt gegeben, man kann ihn parallel zu den Ergebnissen lesen, muss es aber nicht.
 \section{Worst-Case-Schranke der optimalen Strategie}
 In diesem Kapitel wollen wir konkret ein paar Zahlenbeispiele rechnen. Dazu spezifizieren wir unsere Marktkoeffizienten.
 \begin{align*}
@@ -16,7 +18,7 @@ Der erwartete Nutzen durch Verfolgen der reinen Bondstrategie ist dann
 \begin{equation*}
  rT=0.5
 \end{equation*}
-Die optimale Strategie im crasfreien Scenario führt zu einem erwarteten Endvermögen von
+Die optimale Strategie im crasfreien Szenario führt zu einem erwarteten Endvermögen von
 \begin{equation*}
  V^0(0,1,\log)=1.203
 \end{equation*}
@@ -26,25 +28,26 @@ der Differentialgleichung aus Satz \ref{th:DGL}.  Wir haben diese numerisch mit 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[type=eps,ext=.eps,read=.eps,width=1\linewidth]{Bilder/foo}
+\includegraphics[type=eps,ext=.eps,read=.eps,width=1\linewidth]{Octaveprogramme/foo}
 \label{fig:optimaleStrategie}
 \caption{Optimale Handelstrategie $\pidach$}%
 \end{figure}
 
 
-Wir haben nun verschieden Möglichkeiten den erwarteten Nutzen bei Verfolgen dieser Strategie. Im Beweis von Satz \ref{th:hauptsatz_willmott} haben wir gelernt, dass es reicht wenn
+Wir haben nun verschiedene Möglichkeiten den erwarteten Nutzen bei Verfolgen dieser Strategie zu berechnen. Im Beweis von Satz \ref{th:hauptsatz_willmott} haben wir gelernt, dass
+es reicht wenn
 wir den Wert von der numerisch ermittelten Lösung von $\pidach$ an der Stelle $0$ nehmen und wie folgt in die Wertfunktion einsetzen
 \begin{equation*}
  V^0(0,1-\pidach(0)k,\log)=1.0472
 \end{equation*}
-Genauso ist es aber auch möglich den erwarten Nutzen im crashfreien Scenario zu berechnen. Satz \ref{th:ExpLogUtility} liefert dafür die Formel und wir erhalten 
+Genauso ist es aber auch möglich den erwarten Nutzen im crashfreien Szenario zu berechnen. Satz \ref{th:ExpLogUtility} liefert dafür die Formel und wir erhalten 
 \begin{equation*}
  \int_0^T f(\pidach(t)) dt + rT = 1.0471.
 \end{equation*}
 \section{Berechnung von Worst-Case-Schranken durch Monte"=Carlo"=Simulation}
 
 Bei den bisherigen Berechnungen haben wir die Ergebnisse aus den Sätzen des theoretischen Teils dieser Arbeit benutzt, insbesondere aus Satz \ref{th:hauptsatz_willmott}, der nur
-eine Aussage für den logarithmischen Nutzen macht. Im folgenden berechnen wir \wcs ohne diesen theoretischen Unterbau, die Berechnungen beschränken sich dabei nicht
+eine Aussage für den logarithmischen Nutzen macht. Im folgenden berechnen wir die \wcs ohne diesen theoretischen Unterbau, die Berechnungen beschränken sich dabei nicht
 auf den logarithmischen Nutzen.
 
 Wir stellen zunächst unsere in  \texttt{octave} programmierte Funktion \texttt{worstcase} vor.
@@ -56,8 +59,8 @@ Diese Funktion berechnet die \wcs nach dem Vorbild von Definition \ref{def:WCPor
                    E \left[ U(X_{\pi}(T)) \right] 
                   \right)
 \end{equation*}
-Die Erwartungswerte werden wir mit einer Monte"=Carlo"-Simulation ermitteln. Mit einem Computer können wir natürlich nicht das Infimum über unendlich viele Werte nehmen. Da eine
-Monte"=Carlo"-Simulation eine sehr teure Operation ist, können wir das Infimum auch nur über eine relativ kleine Menge von Zeitpunkten berechnen. Deshalb übergeben wir der Funktion
+Die Erwartungswerte werden wir mit einer Monte"=Carlo"=Simulation ermitteln. Mit einem Computer können wir natürlich nicht das Infimum über unendlich viele Werte nehmen. Da eine
+Monte"=Carlo"=Simulation eine sehr teure Operation ist, können wir das Infimum auch nur über eine relativ kleine Menge von Zeitpunkten berechnen. Deshalb übergeben wir der Funktion
 eine Liste von Werten, für die dann die jeweilige Erwartung für ein Crash zu diesem Zeitpunkt berechnet wird. Die folgende Tabelle beschreibt die Schnittstelle zu dieser Funktion.
 
 \begin{table}[htbp]
@@ -68,7 +71,7 @@ eine Liste von Werten, für die dann die jeweilige Erwartung für ein Crash zu die
 \hline
 \multicolumn{2}{|l|}{Eingaben} \\
 \hline
- v &  Wertfunktion im crashfreien Scenario \\
+ v &  Wertfunktion im crashfreien Szenario \\
  p &  Handelstrategie  \\
  t &  Liste von Crashzeitpunkten  \\
 \hline
@@ -86,9 +89,9 @@ Wir illustrieren die Benutzung dieser Funktion, in dem wir die Beispiele besprec
 Crashzeitpunkten, die Wertfunktion für den logaritmischen Nutzen und jeweils verschiedene Handelsstrategien als Eingaben an die Funktion übergeben und haben in Tabelle
 \ref{tab:Ausgaben_von_worstcase} die Ergebnisse zusammengefasst.
 Als Erstes betrachten wir die Ausgaben für die reine Bondstrategie $\pi_0$ deren Worst-Case-Schranke wir in Satz \ref{th:worst-case-schranke-reine-bondstrategie} berechnet haben.
-Dort hatten wir schon erwähnt dass das Ausbleiben eines Crashes das Worst-Case-Scenario ist. Dass wird auch an der Programmausgabe deutlich. Je später der Markt crasht, umso
+Dort hatten wir schon erwähnt dass das Ausbleiben eines Crashes das Worst-Case-Szenario ist. Dass wird auch an der Programmausgabe deutlich. Je später der Markt crasht, umso
 weniger Zeit hat der Investor die optimale Strategie im crashfreien Markt zu verfolgen.
-Als nächstes betrachten wir die optimale Strategie $\pistar$ im crashfreien Scenario. Hier hatten wir in Satz \ref{th:worst-case-schranke-optimal-ohne-crash} behauptet, dass ein
+Als nächstes betrachten wir die optimale Strategie $\pistar$ im crashfreien Szenario. Hier hatten wir in Satz \ref{th:worst-case-schranke-optimal-ohne-crash} behauptet, dass ein
 Crash mehr schadet als kein Crash, aber der Zeitpunkt egal ist. Auch dieses Verhalten lässt sich aus der Ausgabe herauslesen.
 Schließlich betrachten wir noch die Ausgabe für die Handelsstrategie $\pidach$. Hier erwarten wir, dass wir die Gleichgewichtsbedingung wiederfinden. Wir sollten für jeden
 Crashzeitpunkt als auch für den chrashfreien Fall den gleichen erwarteten Nutzen haben. Auch dieses Verhalten finden wir in der Ausgabe bestätigt.
@@ -166,7 +169,7 @@ haben wir die optimale lineare Strategie und die optimale Strategie nochmal im V
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[type=eps,ext=.eps,read=.eps]{Bilder/bar}
+\includegraphics[type=eps,ext=.eps,read=.eps]{Octaveprogramme/bar}
 \caption{Optimale und optimale lineare Strategie im Vergleich}%
 \label{fig:optimale_lineare_Strategie}
 \end{figure}

@@ -273,7 +273,7 @@ Eine optimale Worst-Case Strategie $\pi_{\text{opt}}$ erfüllt
 
 \begin{proof}
 Dazu  berechnen wir wie Worst-Case-Schranke am Ende des Zeithorizonts.
-\begin{equation}
+\begin{equation*}
 \begin{split}
  &WC(\pi,T,x)  \\
 =  & \min \left( 
@@ -292,7 +292,7 @@ Dazu  berechnen wir wie Worst-Case-Schranke am Ende des Zeithorizonts.
                    \log x 
                   \right) \\
 \end{split}
-\end{equation}
+\end{equation*}
 Handelsstrategien mit $\pi(T) > 0$ nehmen offenbar nicht die optimale Worst-Case-Schranke $\log x$ an. Also gilt die Behauptung.
 \end{proof}
 
@@ -342,7 +342,7 @@ und
 \begin{equation*} 
 \beta =\frac{1}{1-k \pistar }
 \end{equation*}
-können wir die erahltene Gleichung als
+können wir die erhaltene Gleichung als
 \begin{equation} \label{eq:nichtlineareGleichung}
 \alpha \log \left( \frac{\pistar-\pi}{1-k\pi}\right) + \frac{\beta}{(\pi-\pistar)} =\frac{-\sigma^2}{2k} t + C
 \end{equation}
@@ -703,7 +703,7 @@ Die Strategie
 \right)^+
 \end{equation}
 ist der beste konstante Portfolioprozess für das Worst-Case-Portfoliooptimierungsproblem ist.
-Weiter gilt: $\pi \rightarrow \min(\pistar,\frac{1}{k})$ für $T  \rightarrow \infty$.
+Weiter gilt: $\pi \rightarrow \min \left( \pistar,\frac{1}{k} \right)$ für $T  \rightarrow \infty$.
 \end{mySatz}
 
 \begin{proof}
@@ -713,7 +713,7 @@ Zunächst zeigen wir die Grenzwertaussage. Setzen wir $T$ formal $\infty$, so nim
  \left(
   \einhalb  \left( \pistar + \frac{1}{k} \right) - 
    \einhalb  \left| \pistar - \frac{1}{k} \right|
-\right)^+ = \min(\pistar,\frac{1}{k})
+\right)^+ = \min \left( \pistar,\frac{1}{k} \right)
 \end{equation*}
 an. Wenn wir $T$ also hinreichend groß wählen, kommen wir diesem Wert beliebig nahe. Damit ist die Grenwertaussage gezeigt.
 
@@ -748,7 +748,7 @@ Ein Blick auf den Graphen von $f$ und $\log (1 - (\cdot) k)$ (Figur \ref{fig:gra
 
 \begin{figure}
  \begin{center}
-  \input{Bilder/plotflog.tex}
+  \input{GNUPlotprogramme/plotflog.tex}
  \end{center}
 \caption{Graphen von f und log}
 \label{fig:graph_von_f_und_log}
@@ -832,7 +832,7 @@ Dazu verwenden wir jeweils die Parameter $\mu=0.2, r=0.05, \sigma = 0.4$ und $k=
 
 \begin{figure}
  \begin{center}
-  \input{Bilder/plotconstantwcb.tex}
+  \input{GNUPlotprogramme/plotconstantwcb.tex}
  \end{center}
 \caption{Worst-Case-Schranken konstanter Strategien}
 \label{fig:vergleich_konstanter_strategien}

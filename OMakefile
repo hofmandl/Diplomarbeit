@@ -1,0 +1,28 @@
+GPATH=GNUPlotprogramme
+OPATH=Octaveprogramme
+
+.SUBDIRS: $(OPATH) $(GPATH)
+
+.DEFAULT: Diplomarbeit.pdf
+
+show: Diplomarbeit.pdf
+	evince Diplomarbeit.pdf
+
+section
+	TEXFILES = $(glob Kapitel/*.tex)
+	TEXDEPS = $(GPATH)/plotflog.tex $(GPATH)/plotf.tex $(GPATH)/plotconstantwcb.tex $(OPATH)/bar.eps $(OPATH)/foo.eps
+	LATEXFLAGS = $(LATEXFLAGS) -quiet -interaction=errorstopmode -file-line-error -halt-on-error
+	#USEPDFLATEX=true
+	
+	LaTeXDocument(Diplomarbeit, $(removesuffix $(TEXFILES)))
+
+#Diplomarbeit.pdf:	
+#	pdflatex
+
+
+
+# Latex compile
+
+clean:
+	rm -f plot*.tex
+	rm -f *~ *.backup

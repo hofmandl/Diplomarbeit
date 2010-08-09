@@ -1,0 +1,5 @@
+bar.eps:	diplomarbeit.m
+	 octave diplomarbeit.m
+	 
+foo.eps:	diplomarbeit.m
+	 octave diplomarbeit.m

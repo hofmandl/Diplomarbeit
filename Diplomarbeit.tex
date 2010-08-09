@@ -15,7 +15,11 @@
 \usepackage{xspace}
 
 \usepackage{verbatim}
+
+
 \usepackage[framed,numbered]{mcode}
+
+\usepackage{makeidx}
 
 % Mathematikumgebungen
 \newtheorem{mySatz}{Satz}[section]
@@ -25,6 +29,7 @@
 \author{Martin Böschen}
 
 % \hyphenation{Hallo"=ss} % Worst"=Case"=Port"-folio"-op"-ti"-mie"-rungs"-pro"-blem}
+\makeindex
 
 \begin{document}
 
@@ -61,6 +66,7 @@
 \include{Kapitel/hjb}
 \include{Kapitel/numerischer}
 % \chapter{Symbolverzeichnis}
+\printindex
 
 % Literaturverzeichnis
 \bibliographystyle{geralpha}

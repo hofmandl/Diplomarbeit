@@ -42,9 +42,9 @@ Sei $X$ ein It\^{o}-Prozess der Form
 \section{Finanzmarktmodell}
 Wir sagen nun was wir unter einem Finanzmarkt verstehen. Wir setzen hier eine Vertrautheit des Lesers mit dem Black-Scholes-Modell voraus. Begriffe wie
 Aktienprozesse, Handelstrategien und Vermögensgleichung werden nicht motiviert.
-\begin{myDefinition} \label{Standardfinanzmarktmodell}
+\begin{myDefinition} \label{def:Standardfinanzmarktmodell}
 Sei $(\Omega,F,P) $ ein Wahrscheinlichkeitsraum. Sei $W$ eine auf diesen Raum definierte Brownsche
-Bewegung. Seien $r$, $\mu$, $\sigma$ reelle Zahlen und sei $r < \mu$ und $\sigma>0$. Der Bond $B$ und die
+Bewegung. Seien $r$\index{$r$}, $\mu$\index{$\mu$}, $\sigma$\index{$\sigma$} reelle Zahlen und sei $r < \mu$ und $\sigma>0$. Der Bond $B$ und die
 Aktie $S$ seien die eindeutigen Lösungen der stochastischen Differentialgleichungen
 \begin{align*}
  dB(t) &= r B(t) dt \\
@@ -53,9 +53,9 @@ Aktie $S$ seien die eindeutigen Lösungen der stochastischen Differentialgleichun
   S(0) &= s_0
 \end{align*}
 Dabei nennen wir $r$ den Zinssatz, $\mu$ die Aktienrendite und $\sigma$ die Volatilität.
-Außerdem sei eine Zahl $k$ mit $0<k<1$ gegeben, die wir als maximale Crashhöhe bezeichnen.
-Weiterhin sei eine Konstante $c>0$ gegeben mit $c>\max(\frac{1}{k},\pistern)$, die wir Handelsschranke nennen. 
-Des weiteren nennen wir $x_0>0$ unser Startvermögen und $T>0$ unseren Zeithorizont.
+Außerdem sei eine Zahl $k$\index{$k$} mit $0<k<1$ gegeben, die wir als maximale Crashhöhe bezeichnen.
+Weiterhin sei eine Konstante $c>0$\index{$c$} gegeben mit $c>\max(\frac{1}{k},\pistern)$, die wir Handelsschranke nennen. 
+Des weiteren nennen wir $x_0>0$\index{$x_0$} unser Startvermögen und $T>0$\index{$T$} unseren Zeithorizont.
 Gelten alle diese Voraussetzungen, so sagen wir dass die Voraussetzungen unseres \textbf{Standardfinanzmarktmodells} gelten.
 \end{myDefinition}
 Die Interpretation unseres Standardfinanzmarktmodells ist allein durch die Namensgebung schon ziemlich klar. Allein die Handelsschranke ist ein wenig ungewohnt. Mit ihr drücken wir
@@ -79,7 +79,7 @@ sie wird in dieser Arbeit immer wieder auftreten und viele Argumente basieren au
 
 
 \begin{myDefinition} \label{def:f}
-Es gelten die Voraussetzungen unseres Standardfinanzmarktmodells. Sei $f$ durch 
+Es gelten die Voraussetzungen unseres Standardfinanzmarktmodells. Sei $f$\index{$f$} durch 
 \begin{equation*} \label{eq:fvonpi}
  f(\pi) =  \pi (\mu-r)-\einhalb \pi^2 \sigma^2
 \end{equation*}
@@ -88,17 +88,16 @@ definiert.
 
 % Satz und definition
 \begin{mySatz} \label{th:Eigenschaften_f}
-Sei $\pistar:=\pistern$. Mit dieser Bezeichnung besitzt $f$ die beiden Nullstellen $0$ und $2\pistar$, nimmt sein Maximum an der Stelle $\pistar$ an und hat dort den Wert
+Sei $\pistar:=\pistern$\index{$\pistar$}. Mit dieser Bezeichnung besitzt $f$ die beiden Nullstellen $0$ und $2\pistar$, nimmt sein Maximum an der Stelle $\pistar$ an und hat dort
+den Wert
 \begin{equation*} 
  f(\pistar) =  \einhalb \bruch^2
 \end{equation*}
 \end{mySatz}
 In Abbildung \ref{fig:graph_von_f} sind die Aussagen über $f$ nochmal veranschauchlicht.
 \begin{figure}
- \begin{center}
-  \input{Bilder/plotf.tex}
- \end{center}
-\caption{Grapf von f}
+  \input{GNUPlotprogramme/plotf.tex}
+\caption{Graph von f}
 \label{fig:graph_von_f}
 \end{figure}
 

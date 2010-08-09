@@ -2,14 +2,14 @@
 \chapter{Portfoliooptimierung im Black-Scholes-Modell: Der Ansatz über stochastische Steuerung}
 \label{chap:Portfoliooptimierung}
 \section{Das Portfoliooptimierungsproblem}
-Wir stellen uns nun die Frage, wie wir zu unserem gegebenes Anfangskapital $x_0$ uns im Black-Scholes-Modell optimal verhalten, also welche Handelstrategie wir
-verwenden. Dazu müssen wir erstmal präzise machen, was wir mit optimal meinen. Als Ziel setzen wir uns hier das Errreichen eines optimalen Endvermögens. Um das quantifizieren zu
+Wir stellen uns nun die Frage, wie wir zu unserem gegebenes Anfangskapital $x_0$ uns im Black-Scholes-Modell optimal verhalten, also welche Handelsstrategie wir
+verwenden. Dazu müssen wir erstmal präzise machen, was wir mit optimal meinen. Als Ziel setzen wir uns hier das Erreichen eines optimalen Endvermögens. Um das quantifizieren zu
 können, führen wir zunächst den Begriff einer Nutzenfunktion ein.
 \begin{myDefinition}
  Sei $U:(0,\infty) \rightarrow \reelleZahlen$ strikt konkav, stetig differenzierbar und es gelte
-\begin{equation}
- \lim_{x \rightarrow \infty} U'(x)=\infty, \qquad \lim_{x \rightarrow 0} U'(x)=0.
-\end{equation}
+\begin{equation*}
+ \lim_{x \rightarrow 0} U'(x)=\infty, \qquad \lim_{x \rightarrow \infty} U'(x)=0.
+\end{equation*}
 Dann nennen wir $U$ eine \textbf{Nutzenfunktion}.
 \end{myDefinition}
 
@@ -17,34 +17,40 @@ Im folgenden geben wir nun ein Funktional an, dass jeder Strategie einen erwarte
 Funktional maximiert wird.
 \begin{myDefinition} \label{def:Standardportfoliooptimierungsproblem}
 \standardsatz
-Sei $U$ eine Nutzenfunktion, sei $\pi$ eine zulässige Handelstrategie und sei $X_{\pi}$ der Vermögensprozess.
+Sei $U$ eine Nutzenfunktion, sei $\pi$ eine zulässige Handelsstrategie und sei $X_{\pi}$ der Vermögensprozess.
 Wir bezeichnen mit
-\begin{equation}
+\begin{equation*}
  J^0(x,t,\pi,U) = E \left[ U(X_{\pi}(T)) | X_{\pi}(t)=x \right] 
                := E_{t,x} \left[ U(X_{\pi}(T)) \right] 
-\end{equation}
+\end{equation*}\index{$J^0$}
 den \textbf{erwarteten Endnutzen} durch Verfolgung von  $\pi$ bezüglich $U$.
 Die Aufgabe
-\begin{equation}
+\begin{equation*}
  \text{maximiere} \qquad J^0(x_0,0,\pi,U)
-\end{equation}
+\end{equation*}
 heißt \textbf{(Standard-)Portfoliooptimierungsproblem}.
 Die Funktion
-\begin{equation}
+\begin{equation*}
  V^0(t,x,U) = \sup_{\pi \in \mathcal{A}} J^0(x,t,\pi,U)
-\end{equation}
+\end{equation*}
 heißt Wertfunktion des Portfoliooptimierungsproblem und eine Strategie für die das Surpremum angenommen wird heißt \textbf{optimale Strategie} für $(t,x)$.
 \end{myDefinition}
 Die Bedeutung der $0$ in der Notation wird in späteren Kapiteln klar werden. Sie wurde hier nur schon in die Notation aufgenommen um die Notation in der ganzen Arbeit konsistent
 zu halten. 
 \section{Die Lösung des Portfoliooptimierungsproblem}
-Mit Methoden der stochastischen Steuerung kann nun gezeigt werden:
+Wir geben nun einen sogenannten Verifikationssatz an. Er reduziert das dynamische Problem einen optimalen Portfolioprozess zu finden auf das Problem eine partielle
+Differentialgleichung zu lösen, die in jedem Zustand aus Vermögenshöhe und Zeitpunkt einen Zusammenhang von Wertfunktion und Handelsstrategie herstellt. Die Lösung dieser
+partiellen Differentialgleichung gibt uns dann die optimale Handelsstrategie.
+
+Dieser Satz ist eine Anwendung der Methoden der stochastischen Steuerung auf die Vermögensgleichung. Einen Beweis findet man in \cite{KornKorn2001}, Kapitel V oder in
+\cite{Oksendal2003}, Kapitel 11. Dabei benötigt man die in Definition \ref{def:Standardfinanzmarktmodell} eingeführte Handelsschranke.
+
+
 \begin{mySatz} \label{th:Verifikationsatz}
 \standardsatz 
 Sei $v \in C^{1,2}$ und für alle $(t,x)$ gelte 
 \begin{equation} \label{eq:HJBPortfolio} 
- \underset{\pi \in (-c,c)}{\text{max}}  \einhalb \pi^2 \sigma^2 x^2 v_{xx}(t,x) + (r+\pi (\mu-r) x)
-v_{x}(t,x) + v_t(t,x)=0  
+ \max_{\pi \in (-c,c)} \einhalb \pi^2 \sigma^2 x^2 v_{xx}(t,x) + (r+\pi (\mu-r)) x v_{x}(t,x) + v_t(t,x)=0  
 \end{equation}
 mit
 \begin{equation} \label{eq:HJBEndbedingung}
@@ -68,7 +74,7 @@ Als Anwendung des vorangegangen Satzes berechnen wir das optimale Portfolio und 
 \begin{mySatz} \label{th:LogWertfunktion}
 Die Wertfunktion für das Portfoliooptimierungsproblem für logarithmischen Nutzen ist gegeben durch
 \begin{equation} \label{eq:LogWertfunktion}
- V^0(t,x,\log)= \log(x)+ f^0(t) 
+ V^0(t,x,\log)= \log x + f^0(t) 
 \end{equation}
 mit
 \begin{equation*}
@@ -82,10 +88,10 @@ ist dabei die optimale Strategie.
 \end{mySatz}
 
 \begin{proof}
-Wir müssen lediglich alle Vorausetzungen von Satz \ref{th:Verifikationsatz} überprüfen.
+Wir müssen lediglich alle Voraussetzungen von Satz \ref{th:Verifikationsatz} überprüfen.
 Sei dazu
 \begin{equation} \label{eq:kanditatfürlognutzen}
-  v(t,x)= \log(x)+ f^0(t) 
+  v(t,x)= \log x + f^0(t) 
 \end{equation}
 und wir berechnen zunächst die benötigten Ableitungen.
 \begin{align*}
@@ -102,29 +108,35 @@ Einsetzen in \eqref{eq:HJBPortfolio} ergibt:
   = & f(\pi) -\einhalb \bruch^2
 \end{split}
 \end{equation*}
-Dabei haben wir in der letzten Gleichung das f aus Definition \ref{def:f} eingesetzt. Das Maximum von $f$ ist, wir im Satz \ref{th:Eigenschaften_f} angegeben,
+Dabei haben wir in der letzten Gleichung das $f$ aus Definition \ref{def:f} eingesetzt. Das Maximum von $f$ ist, wir im Satz \ref{th:Eigenschaften_f} angegeben,
 $\einhalb \bruch^2$. Maximieren der vorhergehenden Gleichung ergibt also tatsächlich $0$. Weiter wissen wir aus Satz \ref{th:Eigenschaften_f}, dass dass Maximum von $f$ in
 $\pistar$ angenommen wird, also ist auch die Gleichung \eqref{eq:optimaleHandelsstrategie}, die die optimale Strategie charakterisiert erfüllt. 
-Außerdem erfüllt \ref{eq:kanditatfürlognutzen} auch die Endbedingung: 
-\begin{equation}
+Außerdem erfüllt \eqref{eq:kanditatfürlognutzen} auch die Endbedingung: 
+\begin{equation*}
  v(T,x)= \log x + \left( r+\frac{1}{2} \bruch^2  \right) (T-T)= \log x +0 = \log x
-\end{equation}
+\end{equation*}
 Damit sind alle Bedingungen von Satz \ref{th:Verifikationsatz} erfüllt und die Behauptung ist bewiesen.
 \end{proof}
 
-Die Wertfunktion und die optimale Strategie fallen natürlich nicht vom Himmel. Normalerweise geht man umgekehrt vor und versucht die Differentialgleichung zu lösen. Bei solch
-einem Vorgehen besteht immer die Gefahr, dass man notwendige und hinreichende Bedingungen durcheinander wirft. Wir haben uns hier darauf beschränkt nur die Lösung anzugeben und zu
-verifizieren, dass sie tatsächliche die Voraussetzungen erfüllt.
-
-
 Zur Probe berechnen wir auch noch den besten konstanten Portfoliprozess, dabei erwarten wir natürlich das
-gleiche Ergebnis. Wir müssen dazu nur das konstante $\pi$ finden, welches die Gleichung \ref{eq:ExpLogUtility} aus Satz \ref{th:ExpLogUtility} maximiert. Für ein konstantes $\pi$
+gleiche Ergebnis. Wir müssen dazu nur das konstante $\pi$ finden, welches die Gleichung \eqref{eq:ExpLogUtility} aus Satz \ref{th:ExpLogUtility} maximiert. Für ein konstantes $\pi$
 vereinfacht sich diese zu
 \begin{equation*}
-E \left[ \log(X_{\pi}(t)) \right] = \log x  +  (r+f(\pi))T 
+E \left[ \log(X_{\pi}(t)) \right] = \log x  +  (r+f(\pi))T, 
 \end{equation*}
 und man erkennt wieder, dass wir das $\pi$ wählen müssen das $f$ maximiert. Das ist wieder
 \begin{equation*}
  \pi=\pistern
 \end{equation*}
 und wir sind in unserer Probe bestätigt worden.
+
+Die Wertfunktion und die optimale Strategie fallen natürlich nicht vom Himmel. Normalerweise geht man umgekehrt vor und versucht erstmal die Differentialgleichung zu lösen. Bei
+solch einem Vorgehen besteht immer die Gefahr, dass man notwendige und hinreichende Bedingungen durcheinander wirft. Wir haben uns hier darauf beschränkt nur die Lösung anzugeben
+und zu verifizieren, dass sie tatsächliche die Voraussetzungen erfüllt.
+
+Wir werden in Kapitel \ref{chap:Steffensen} auch einen Verifikationssatz für das noch zu definierende und etwas kompliziertere Worst-Case-Portfoliooptimierungsproblem
+kennenlernen. Als Ergebnis ergibt sich dann auch ein Verifikationsatz mit komplizierteren Voraussetzungen. Auch dort werden wir die Wertfunktion und den Portfolioprozess angeben
+und zeigen, dass sie tatsächlich optimal sind. Insofern sind die Ergebnisse dort parallel zu den Ergebnissen aus diesen Kapitel. Das ist auch der Hauptgrund, all dieses hier dar
+zu stellen.
+
+
