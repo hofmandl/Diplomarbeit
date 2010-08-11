@@ -1,9 +1,14 @@
+.PHONY: clean
+
 # erzeuge Bilder mit Gnuplot
 plotflog.tex: plotflog.gp
 	gnuplot plotflog.gp
-	
+
 plotf.tex:	plotf.gp
 	gnuplot plotf.gp
 
 plotconstantwcb.tex:	plotconstantwcb.gp
 	gnuplot plotconstantwcb.gp
+
+clean:
+	rm -f plotflog.tex plotf.tex plotconstantwcb.tex

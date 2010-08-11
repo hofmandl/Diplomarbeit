@@ -1,5 +1,10 @@
+.PHONY: clean
+
 bar.eps:	diplomarbeit.m
 	 octave diplomarbeit.m
-	 
+
 foo.eps:	diplomarbeit.m
 	 octave diplomarbeit.m
+
+clean:
+	rm -f bar.eps foo.eps

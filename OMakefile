@@ -1,28 +1,43 @@
-GPATH=GNUPlotprogramme
-OPATH=Octaveprogramme
+AddPDFDocument(name) =
+        .DEFAULT: $(name).pdf
+
+        .PHONY: $(name).show
+
+        clean:
+                rm -f $(name).pdf
+
+        $(name).show: $(name).pdf
+                sh -c "nohup xdg-open '$(name).pdf' < /dev/null > /dev/null 2>&1 &"
+
+AddLaTeXDocumentWithSources(name, sources) =
+        AddPDFDocument($(name))
+        LaTeXDocument($(name), $(sources))
+
+        clean:
+                rm -f $(name).ps $(name).dvi $(name).aux $(name).fls \
+                        $(name).toc $(name).log $(name).out $(name).snm \
+                        $(name).nav $(name).bbl $(name).blg $(name).svn \
+                        *.aux $(name).idx $(name).ilg $(name).ind
+
+GPATH=$(dir GNUPlotprogramme)
+OPATH=$(dir Octaveprogramme)
 
 .SUBDIRS: $(OPATH) $(GPATH)
 
 .DEFAULT: Diplomarbeit.pdf
 
-show: Diplomarbeit.pdf
-	evince Diplomarbeit.pdf
+.PHONY: clean
 
 section
 	TEXFILES = $(glob Kapitel/*.tex)
-	TEXDEPS = $(GPATH)/plotflog.tex $(GPATH)/plotf.tex $(GPATH)/plotconstantwcb.tex $(OPATH)/bar.eps $(OPATH)/foo.eps
+	TEXDEPS = \
+		$(GPATH)/plotflog.tex \
+		$(GPATH)/plotf.tex \
+		$(GPATH)/plotconstantwcb.tex \
+		$(OPATH)/bar.eps \
+		$(OPATH)/foo.eps
 	LATEXFLAGS = $(LATEXFLAGS) -quiet -interaction=errorstopmode -file-line-error -halt-on-error
-	#USEPDFLATEX=true
-	
-	LaTeXDocument(Diplomarbeit, $(removesuffix $(TEXFILES)))
-
-#Diplomarbeit.pdf:	
-#	pdflatex
-
-
-
-# Latex compile
+	AddLaTeXDocumentWithSources(Diplomarbeit, $(removesuffix $(TEXFILES)))
 
 clean:
-	rm -f plot*.tex
-	rm -f *~ *.backup
+	rm -f *~ .*~
