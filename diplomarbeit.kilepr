@@ -4,7 +4,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0.85
-lastDocument=Literatur.bib
+lastDocument=Kapitel/Grundlagen.tex
 masterDocument=Diplomarbeit.tex
 name=Diplomarbeit
 pkg_extIsRegExp=false
@@ -102,10 +102,10 @@ order=2
 
 [item:Kapitel/Grundlagen.tex]
 archive=true
-column=14
+column=36
 encoding=ISO-8859-1
 highlight=LaTeX
-line=101
+line=98
 mode=LaTeX
 open=true
 order=7
@@ -122,10 +122,10 @@ order=4
 
 [item:Kapitel/Wilmott.tex]
 archive=true
-column=14
+column=25
 encoding=ISO-8859-1
 highlight=LaTeX
-line=294
+line=834
 mode=LaTeX
 open=true
 order=3
@@ -142,10 +142,10 @@ order=6
 
 [item:Kapitel/numerischer.tex]
 archive=true
-column=7
+column=61
 encoding=ISO-8859-1
 highlight=LaTeX
-line=3
+line=171
 mode=LaTeX
 open=true
 order=5
@@ -179,24 +179,24 @@ CursorColumn=62
 CursorLine=57
 
 [view-settings,view=0,item:Kapitel/Grundlagen.tex]
-CursorColumn=14
-CursorLine=101
+CursorColumn=36
+CursorLine=98
 
 [view-settings,view=0,item:Kapitel/Portfoliooptimierung.tex]
 CursorColumn=17
 CursorLine=93
 
 [view-settings,view=0,item:Kapitel/Wilmott.tex]
-CursorColumn=14
-CursorLine=294
+CursorColumn=25
+CursorLine=834
 
 [view-settings,view=0,item:Kapitel/hjb.tex]
 CursorColumn=79
 CursorLine=8
 
 [view-settings,view=0,item:Kapitel/numerischer.tex]
-CursorColumn=7
-CursorLine=3
+CursorColumn=61
+CursorLine=171
 
 [view-settings,view=0,item:Literatur.bib]
 CursorColumn=18

@@ -1,13 +1,19 @@
-Es fehlt noch ein Makefile.
-Zur Zeit sind folgende Schritte nötigt um das Enddokument zu erzeugen:
+
+
+Es gibt zwei Möglichkeiten das Dokument zu erstellen:
+Zum einen kann man mit
 
 cd GNUPlotprogramme
 gnuplot *.gp
-alle Bilder nach Bilder verschieben
+
+und
 
 cd OctaveProgramme
 octave diplomneu.m
-alle Bilder nach Bilder verschieben
 
-latex. bibtex, und noch irgenwie nach pdf umwandeln
+alle benötigten Bilder erstellen und das Projekt dann in Kile kompilieren.
+
+Zum anderen sollte auch alles durch den Befehl 
+omake
+erstellt werden.
 
