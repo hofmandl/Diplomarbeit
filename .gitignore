@@ -1,0 +1,17 @@
+.omakedb
+.omakedb.lock
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.flx
+*.fls
+*.idx
+*.ilg
+*.ind
+*.log
+*.pdf
+*.toc
+*.omc
+*.eps
+*~
